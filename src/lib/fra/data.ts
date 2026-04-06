@@ -113,6 +113,20 @@ export const FRA_DATA: FraDataPoint[] = [
 
   // --- ONLINE HATE ---
   { country: "EU", group: "african_descent", sector: "online", indicator: "hateful_posts_passing_moderation", value: 50, unit: "percent", year: 2023, source: "fra_online_hate", note: "FRA study: >50% of assessed posts still considered hateful after platform moderation" },
+
+  // --- EU AVERAGES (from FRA survey aggregate reports) ---
+  // Being Black in the EU 2023: 45% EU-wide racial discrimination in past 5 years
+  { country: "EU", group: "african_descent", sector: "employment", indicator: "experienced_discrimination_employment", value: 45, unit: "percent", year: 2023, source: "fra_being_black" },
+  // Being Black in the EU 2023: 30% EU-wide racist harassment
+  { country: "EU", group: "african_descent", sector: "online", indicator: "experienced_racial_harassment", value: 30, unit: "percent", year: 2023, source: "fra_being_black" },
+  // Being Muslim in the EU 2023: ~36% EU-wide employment discrimination
+  { country: "EU", group: "muslims", sector: "employment", indicator: "experienced_discrimination_employment", value: 36, unit: "percent", year: 2023, source: "fra_muslims" },
+  // Being Muslim in the EU 2023: ~28% EU-wide housing discrimination
+  { country: "EU", group: "muslims", sector: "housing", indicator: "discrimination_housing", value: 28, unit: "percent", year: 2023, source: "fra_muslims" },
+  // Roma Survey II 2021: ~45% EU-wide employment discrimination
+  { country: "EU", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 45, unit: "percent", year: 2021, source: "fra_roma2" },
+  // LGBTIQ Survey III 2024: ~21% EU-wide employment discrimination
+  { country: "EU", group: "lgbtiq", sector: "employment", indicator: "experienced_discrimination_employment", value: 21, unit: "percent", year: 2024, source: "fra_lgbtiq3" },
 ];
 
 /**

@@ -48,10 +48,15 @@ for (const point of FRA_DATA) {
 }
 
 function deriveSeverity(value: number, euAvg: number | undefined): "critical" | "elevated" | "watch" {
-  if (!euAvg) return value >= 50 ? "critical" : value >= 30 ? "elevated" : "watch";
-  const delta = value - euAvg;
-  if (delta >= 15) return "critical";
-  if (delta >= 5)  return "elevated";
+  if (euAvg !== undefined && euAvg > 0) {
+    const delta = value - euAvg;
+    const ratio = delta / euAvg;
+    if (delta >= 20 || (ratio >= 0.5 && delta >= 10)) return "critical";
+    if (delta >= 10 || (ratio >= 0.25 && delta >= 5)) return "elevated";
+    return "watch";
+  }
+  if (value >= 65) return "critical";
+  if (value >= 50) return "elevated";
   return "watch";
 }
 
