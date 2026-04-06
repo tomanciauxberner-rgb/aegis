@@ -48,23 +48,31 @@ function buildPrompt(input: RecommendationInput): string {
     return parts.join(" | ");
   }).join("\n");
 
+  const severityExplain = {
+    critical: "Critical — multiple severe signals converge with documented harm",
+    elevated: "Elevated — concerning pattern detected across signal types",
+    watch: "Watch — signals present but below alarm threshold",
+  }[input.severity] ?? input.severity;
+
   return `You are a senior analyst at a fundamental rights intelligence platform. Generate a formal intelligence brief based strictly on the data provided. Do not add any information not present below.
 
 COUNTRY: ${input.country}
 POPULATION GROUP: ${groupLabel}
 SECTOR: ${sectorLabel}
-CONVERGENCE SCORE: ${input.convergenceScore}/3 (${input.severity.toUpperCase()})
+SEVERITY LEVEL: ${input.severity.toUpperCase()} — ${severityExplain}
+SIGNAL TYPES PRESENT: ${input.convergenceScore}/3 (statistical, legislative, incident)
 
 EVIDENCE:
 ${evidenceLines}
 
 Generate EXACTLY this JSON structure, nothing else, no markdown, no preamble:
 {
-  "situation": "2-3 sentences. Factual summary of the convergence situation. Cite the score, group, sector, and country. Reference specific data points from the evidence.",
-  "eu_context": "1-2 sentences. How this situation compares to EU-wide patterns or norms based on the evidence provided. If no EU comparison data is available in the evidence, state: No EU comparative data available in current dataset."
+  "situation": "2-3 sentences. Factual summary referencing the severity level (${input.severity}), group, sector, and country. Reference specific data points and delta values from the evidence. Do NOT describe the situation as critical or maximum unless severity is CRITICAL.",
+  "eu_context": "1-2 sentences. How this situation compares to EU-wide patterns based on delta_pp values in the evidence. If no EU comparison data is available, state: No EU comparative data available in current dataset."
 }
 
 RULES:
+- Match tone to severity: watch=measured, elevated=concerned, critical=urgent
 - Every claim must be traceable to the evidence above
 - No hedging language (no "may", "might", "could")
 - No recommendations — those fields are for the analyst to complete
