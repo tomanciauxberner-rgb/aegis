@@ -24,9 +24,12 @@ export type DataSourceId =
   | "fra_being_black"
   | "fra_lgbtiq3"
   | "fra_roma2"
+  | "fra_roma3"
   | "fra_muslims"
   | "fra_hate_crime"
   | "fra_online_hate"
+  | "fra_antisemitism"
+  | "fra_frr2025"
   | "algorithmwatch"
   | "eurostat";
 

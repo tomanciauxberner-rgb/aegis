@@ -38,6 +38,8 @@ const INDICATOR_LABELS: Record<string, string> = {
   poverty_risk:                          "At-risk-of-poverty rate",
   housing_overcrowding:                  "Housing overcrowding rate",
   avoid_public_spaces:                   "Avoidance of public spaces",
+  school_segregation:                    "School segregation rate",
+  experienced_antisemitic_incident:      "Antisemitic incident exposure rate",
 };
 
 const EU_AVERAGES: Record<string, number> = {};

@@ -37,12 +37,15 @@ const POPULATIONS = [
 const MAP_INDICATORS = [
   { code: "disc_employment_5y", label: "Employment discrimination (5y) — FRA", population: "african_descent", topic: "discrimination" },
   { code: "black_disc_employment_5y", label: "Employment discrim. — African descent (2023)", population: "african_descent", topic: "discrimination" },
-  { code: "roma_disc_employment", label: "Employment discrim. — Roma", population: "roma", topic: "discrimination" },
+  { code: "roma_disc_employment", label: "Employment discrim. — Roma (2024)", population: "roma", topic: "discrimination" },
+  { code: "roma_disc_housing", label: "Housing discrim. — Roma (2024)", population: "roma", topic: "discrimination" },
+  { code: "roma_poverty_rate", label: "At-risk-of-poverty — Roma (2024)", population: "roma", topic: "discrimination" },
+  { code: "roma_school_segregation", label: "School segregation — Roma (2024)", population: "roma", topic: "discrimination" },
   { code: "disc_lgbtiq_employment", label: "Employment discrim. — LGBTIQ", population: "lgbtiq", topic: "discrimination" },
+  { code: "antisemitic_incidents", label: "Antisemitic incidents — Jews (2024)", population: "jews", topic: "discrimination" },
   { code: "trust_police", label: "Trust in police (general population)", population: "general", topic: "discrimination" },
   { code: "black_racial_profiling", label: "Racial profiling — African descent", population: "african_descent", topic: "discrimination" },
   { code: "lgbtiq_harassment_12m", label: "Harassment — LGBTIQ (12m)", population: "lgbtiq", topic: "discrimination" },
-  { code: "roma_poverty_rate", label: "At-risk-of-poverty — Roma", population: "roma", topic: "discrimination" },
   { code: "employment_rate_non_eu_born", label: "Employment rate — Non-EU born (Eurostat 2024)", population: "non_eu_born", topic: "discrimination" },
   { code: "unemployment_rate_non_eu_born", label: "Unemployment rate — Non-EU born (Eurostat 2024)", population: "non_eu_born", topic: "discrimination" },
 ];
@@ -102,10 +105,12 @@ const SEVERITY_BADGE: Record<string, string> = {
 };
 
 const DATA_SOURCES = [
-  { label: "EU-MIDIS II — Minorities & Discrimination Survey", year: "2017", url: "https://fra.europa.eu/en/publication/2017/second-european-union-minorities-and-discrimination-survey-main-results" },
+  { label: "Roma Survey 2024 — Rights of Roma and Travellers in 13 Countries", year: "2024", url: "https://fra.europa.eu/en/publications-and-resources/data-and-maps/2025/roma-survey-2024" },
   { label: "Being Black in the EU", year: "2023", url: "https://fra.europa.eu/en/publication/2023/being-black-eu" },
   { label: "EU LGBTIQ Survey III", year: "2024", url: "https://fra.europa.eu/en/publications-and-resources/data-and-maps/2024/eu-lgbtiq-survey-iii" },
-  { label: "Roma Survey II", year: "2021", url: "https://fra.europa.eu/en/publication/2022/roma-survey-2021-main-results" },
+  { label: "Jewish Experiences & Perceptions of Antisemitism", year: "2024", url: "https://fra.europa.eu/en/publication/2024/antisemitism-overview-2024" },
+  { label: "Being Muslim in the EU", year: "2023", url: "https://fra.europa.eu/en/publication/2023/being-muslim-eu" },
+  { label: "Fundamental Rights Report 2025", year: "2025", url: "https://fra.europa.eu/en/publication/2025/fundamental-rights-report-2025-fra-opinions" },
   { label: "Eurostat LFS — Employment by country of birth", year: "2024", url: "https://ec.europa.eu/eurostat/web/microdata/european-union-labour-force-survey" },
 ];
 

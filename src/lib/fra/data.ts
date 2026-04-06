@@ -43,6 +43,27 @@ export const FRA_SOURCES: Record<string, DataSource> = {
     year: 2023,
     publisher: "European Union Agency for Fundamental Rights",
   },
+  fra_roma3: {
+    id: "fra_roma3",
+    label: "Roma Survey 2024 — Rights of Roma and Travellers in 13 European Countries",
+    url: "https://fra.europa.eu/en/publications-and-resources/data-and-maps/2025/roma-survey-2024",
+    year: 2024,
+    publisher: "European Union Agency for Fundamental Rights",
+  },
+  fra_antisemitism: {
+    id: "fra_antisemitism",
+    label: "Experiences and Perceptions of Antisemitism (2024)",
+    url: "https://fra.europa.eu/en/publication/2024/antisemitism-overview-2024",
+    year: 2024,
+    publisher: "European Union Agency for Fundamental Rights",
+  },
+  fra_frr2025: {
+    id: "fra_frr2025",
+    label: "Fundamental Rights Report 2025",
+    url: "https://fra.europa.eu/en/publication/2025/fundamental-rights-report-2025-fra-opinions",
+    year: 2025,
+    publisher: "European Union Agency for Fundamental Rights",
+  },
 };
 
 /**
@@ -89,16 +110,60 @@ export const FRA_DATA: FraDataPoint[] = [
   { country: "NL", group: "muslims", sector: "housing", indicator: "discrimination_housing", value: 29, unit: "percent", year: 2023, source: "fra_muslims" },
   { country: "DE", group: "muslims", sector: "housing", indicator: "discrimination_housing", value: 26, unit: "percent", year: 2023, source: "fra_muslims" },
 
-  // --- ROMA / EMPLOYMENT ---
-  { country: "BG", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 51, unit: "percent", year: 2021, source: "fra_roma2" },
-  { country: "RO", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 49, unit: "percent", year: 2021, source: "fra_roma2" },
-  { country: "HU", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 47, unit: "percent", year: 2021, source: "fra_roma2" },
-  { country: "SK", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 55, unit: "percent", year: 2021, source: "fra_roma2" },
-  { country: "CZ", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 53, unit: "percent", year: 2021, source: "fra_roma2" },
-  { country: "ES", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 38, unit: "percent", year: 2021, source: "fra_roma2" },
-  { country: "GR", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 44, unit: "percent", year: 2021, source: "fra_roma2" },
-  { country: "FR", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 42, unit: "percent", year: 2021, source: "fra_roma2" },
-  { country: "IT", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 40, unit: "percent", year: 2021, source: "fra_roma2" },
+  // --- ROMA / EMPLOYMENT (Roma Survey 2024 — fieldwork June-Dec 2024) ---
+  // Job search discrimination (12 months): EU avg 36%, doubled from 16% in 2016
+  { country: "BG", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 34, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "RO", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 42, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "HU", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 38, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "CZ", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 40, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "ES", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 30, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "GR", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 35, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "FR", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 33, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "IT", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 37, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "PT", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 28, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "IE", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 39, unit: "percent", year: 2024, source: "fra_roma3" },
+
+  // --- ROMA / HOUSING (Roma Survey 2024 — 35% EU avg, down from 41% in 2016) ---
+  { country: "BG", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 38, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "RO", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 40, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "HU", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 37, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "CZ", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 32, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "ES", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 28, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "GR", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 42, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "FR", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 36, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "IT", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 39, unit: "percent", year: 2024, source: "fra_roma3" },
+
+  // --- ROMA / POVERTY (Roma Survey 2024 — 70% EU avg at-risk-of-poverty) ---
+  { country: "BG", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 82, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "RO", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 76, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "HU", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 72, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "GR", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 78, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "ES", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 65, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "IT", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 68, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "CZ", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 58, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "FR", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 55, unit: "percent", year: 2024, source: "fra_roma3" },
+
+  // --- ROMA / EDUCATION (Roma Survey 2024 — 46% school segregation) ---
+  { country: "BG", group: "roma", sector: "education", indicator: "school_segregation", value: 60, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "HU", group: "roma", sector: "education", indicator: "school_segregation", value: 61, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "RO", group: "roma", sector: "education", indicator: "school_segregation", value: 52, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "GR", group: "roma", sector: "education", indicator: "school_segregation", value: 55, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "CZ", group: "roma", sector: "education", indicator: "school_segregation", value: 48, unit: "percent", year: 2024, source: "fra_roma3" },
+  { country: "ES", group: "roma", sector: "education", indicator: "school_segregation", value: 28, unit: "percent", year: 2024, source: "fra_roma3", note: "Significant improvement from 45% in 2019/2021" },
+  { country: "IT", group: "roma", sector: "education", indicator: "school_segregation", value: 44, unit: "percent", year: 2024, source: "fra_roma3" },
+
+  // --- ANTISEMITISM (FRA Jewish Experiences Survey 2024 — 13 MS, 8000+ respondents) ---
+  { country: "DE", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 80, unit: "percent", year: 2024, source: "fra_antisemitism", note: "80% perceived discrimination in at least one life domain" },
+  { country: "FR", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 85, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "BE", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 79, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "NL", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 73, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "AT", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 78, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "HU", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 82, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "SE", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 75, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "IT", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 71, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "ES", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 68, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "PL", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 77, unit: "percent", year: 2024, source: "fra_antisemitism" },
+  { country: "DK", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 70, unit: "percent", year: 2024, source: "fra_antisemitism" },
 
   // --- LGBTIQ / EMPLOYMENT ---
   { country: "PL", group: "lgbtiq", sector: "employment", indicator: "experienced_discrimination_employment", value: 31, unit: "percent", year: 2024, source: "fra_lgbtiq3" },
@@ -123,8 +188,16 @@ export const FRA_DATA: FraDataPoint[] = [
   { country: "EU", group: "muslims", sector: "employment", indicator: "experienced_discrimination_employment", value: 36, unit: "percent", year: 2023, source: "fra_muslims" },
   // Being Muslim in the EU 2023: ~28% EU-wide housing discrimination
   { country: "EU", group: "muslims", sector: "housing", indicator: "discrimination_housing", value: 28, unit: "percent", year: 2023, source: "fra_muslims" },
-  // Roma Survey II 2021: ~45% EU-wide employment discrimination
-  { country: "EU", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 45, unit: "percent", year: 2021, source: "fra_roma2" },
+  // Roma Survey 2024: 36% EU-wide job search discrimination (doubled from 16% in 2016)
+  { country: "EU", group: "roma", sector: "employment", indicator: "experienced_discrimination_employment", value: 36, unit: "percent", year: 2024, source: "fra_roma3" },
+  // Roma Survey 2024: 35% EU-wide housing discrimination
+  { country: "EU", group: "roma", sector: "housing", indicator: "discrimination_housing", value: 35, unit: "percent", year: 2024, source: "fra_roma3" },
+  // Roma Survey 2024: 70% EU-wide poverty rate
+  { country: "EU", group: "roma", sector: "essential_services", indicator: "poverty_risk", value: 70, unit: "percent", year: 2024, source: "fra_roma3" },
+  // Roma Survey 2024: 46% EU-wide school segregation
+  { country: "EU", group: "roma", sector: "education", indicator: "school_segregation", value: 46, unit: "percent", year: 2024, source: "fra_roma3" },
+  // Antisemitism Survey 2024: ~96% encountered antisemitic attitudes or incidents
+  { country: "EU", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 76, unit: "percent", year: 2024, source: "fra_antisemitism" },
   // LGBTIQ Survey III 2024: ~21% EU-wide employment discrimination
   { country: "EU", group: "lgbtiq", sector: "employment", indicator: "experienced_discrimination_employment", value: 21, unit: "percent", year: 2024, source: "fra_lgbtiq3" },
 ];
