@@ -5,15 +5,15 @@ import type { CountryRiskProfile, RiskLevel } from "@/types";
 
 function computeRiskSignal(value: number, indicator: string): RiskLevel {
   if (indicator.includes("discrimination") || indicator.includes("hate")) {
-    if (value >= 60) return "critical";
-    if (value >= 40) return "high";
-    if (value >= 20) return "medium";
-    if (value >= 10) return "low";
+    if (value >= 70) return "critical";
+    if (value >= 55) return "high";
+    if (value >= 35) return "medium";
+    if (value >= 15) return "low";
     return "minimal";
   }
-  if (value >= 50) return "high";
-  if (value >= 25) return "medium";
-  if (value >= 10) return "low";
+  if (value >= 65) return "high";
+  if (value >= 40) return "medium";
+  if (value >= 15) return "low";
   return "minimal";
 }
 
@@ -65,8 +65,10 @@ export async function getCountryRiskProfile(
   );
 
   let overallRiskSignal: RiskLevel = "minimal";
-  if (riskCounts.critical) overallRiskSignal = "critical";
+  if (riskCounts.critical && riskCounts.critical >= 3) overallRiskSignal = "critical";
+  else if (riskCounts.critical) overallRiskSignal = "high";
   else if (riskCounts.high && riskCounts.high >= 3) overallRiskSignal = "high";
+  else if (riskCounts.high) overallRiskSignal = "medium";
   else if (riskCounts.medium && riskCounts.medium >= 3)
     overallRiskSignal = "medium";
   else if (riskCounts.low) overallRiskSignal = "low";

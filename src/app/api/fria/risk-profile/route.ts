@@ -106,15 +106,15 @@ export async function GET(request: NextRequest) {
       let riskSignal: string;
 
       if (topic === "discrimination" || topic === "hate_crime") {
-        if (val >= 50) riskSignal = "critical";
-        else if (val >= 35) riskSignal = "high";
-        else if (val >= 20) riskSignal = "medium";
-        else if (val >= 10) riskSignal = "low";
+        if (val >= 70) riskSignal = "critical";
+        else if (val >= 55) riskSignal = "high";
+        else if (val >= 35) riskSignal = "medium";
+        else if (val >= 15) riskSignal = "low";
         else riskSignal = "minimal";
       } else if (topic === "trust") {
-        if (val <= 30) riskSignal = "critical";
-        else if (val <= 45) riskSignal = "high";
-        else if (val <= 60) riskSignal = "medium";
+        if (val <= 20) riskSignal = "critical";
+        else if (val <= 35) riskSignal = "high";
+        else if (val <= 50) riskSignal = "medium";
         else riskSignal = "low";
       } else if (topic === "poverty") {
         if (val >= 80) riskSignal = "critical";
@@ -122,8 +122,8 @@ export async function GET(request: NextRequest) {
         else if (val >= 40) riskSignal = "medium";
         else riskSignal = "low";
       } else {
-        if (val >= 40) riskSignal = "high";
-        else if (val >= 20) riskSignal = "medium";
+        if (val >= 55) riskSignal = "high";
+        else if (val >= 30) riskSignal = "medium";
         else riskSignal = "low";
       }
 
@@ -158,7 +158,8 @@ export async function GET(request: NextRequest) {
     );
 
     let overallRisk = "minimal";
-    if (riskCounts.critical) overallRisk = "critical";
+    if ((riskCounts.critical || 0) >= 3) overallRisk = "critical";
+    else if (riskCounts.critical) overallRisk = "high";
     else if ((riskCounts.high || 0) >= 2) overallRisk = "high";
     else if (riskCounts.high) overallRisk = "medium";
     else if (riskCounts.medium) overallRisk = "medium";
