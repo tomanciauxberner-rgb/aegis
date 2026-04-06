@@ -13,8 +13,7 @@ export default function HomePage() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          padding: 80px 24px;
+          padding: 80px 24px 60px;
           position: relative;
           overflow: hidden;
         }
@@ -44,7 +43,7 @@ export default function HomePage() {
           align-items: center;
           text-align: center;
           width: 100%;
-          max-width: 780px;
+          max-width: 860px;
         }
         .tagline {
           font-family: var(--font-mono), monospace;
@@ -67,12 +66,13 @@ export default function HomePage() {
           font-size: 17px;
           color: #7aaac8;
           line-height: 1.8;
-          max-width: 600px;
+          max-width: 620px;
           margin-bottom: 56px;
         }
+
         .pillars {
           display: grid;
-          grid-template-columns: 1fr 1px 1fr;
+          grid-template-columns: 1fr 1px 1fr 1px 1fr;
           gap: 0;
           width: 100%;
           background: rgba(30,58,95,0.3);
@@ -82,12 +82,10 @@ export default function HomePage() {
           margin-bottom: 40px;
         }
         .pillar {
-          padding: 36px 40px;
+          padding: 32px 32px;
           text-align: left;
         }
-        .pillar-divider {
-          background: #1e3a5f;
-        }
+        .pillar-divider { background: #1e3a5f; }
         .pillar-tag {
           font-family: var(--font-mono), monospace;
           font-size: 10px;
@@ -100,7 +98,7 @@ export default function HomePage() {
           border-radius: 6px;
         }
         .pillar-title {
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 700;
           color: #e8eaf0;
           margin-bottom: 12px;
@@ -116,7 +114,7 @@ export default function HomePage() {
           display: flex;
           align-items: flex-start;
           gap: 10px;
-          font-size: 14px;
+          font-size: 13px;
           color: #7aaac8;
           line-height: 1.5;
         }
@@ -126,6 +124,109 @@ export default function HomePage() {
           flex-shrink: 0;
           margin-top: 1px;
         }
+
+        .crossref-section {
+          width: 100%;
+          margin-bottom: 40px;
+        }
+        .crossref-label {
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #4a7fa5;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .crossref-label::before {
+          content: "";
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #ff5c5c;
+          animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+        .crossref-card {
+          background: rgba(20, 40, 70, 0.6);
+          border: 1px solid #1e3a5f;
+          border-radius: 14px;
+          padding: 28px 32px;
+          text-align: left;
+        }
+        .crossref-headline {
+          font-size: 15px;
+          font-weight: 600;
+          color: #e8eaf0;
+          margin-bottom: 20px;
+          font-family: var(--font-mono), monospace;
+          letter-spacing: 0.03em;
+        }
+        .crossref-rows {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+        .crossref-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 16px;
+          background: rgba(10, 25, 50, 0.5);
+          border: 1px solid #1a3255;
+          border-radius: 10px;
+          flex-wrap: wrap;
+        }
+        .country-badge {
+          font-family: var(--font-mono), monospace;
+          font-size: 11px;
+          font-weight: 700;
+          color: #7aaac8;
+          background: rgba(79,124,255,0.1);
+          border: 1px solid rgba(79,124,255,0.2);
+          padding: 3px 9px;
+          border-radius: 5px;
+          min-width: 34px;
+          text-align: center;
+        }
+        .signal-tag {
+          font-size: 12px;
+          color: #a0bdd4;
+          flex: 1;
+        }
+        .severity-badge {
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          padding: 3px 9px;
+          border-radius: 5px;
+        }
+        .sev-high { background: rgba(255,92,92,0.12); color: #ff7070; border: 1px solid rgba(255,92,92,0.25); }
+        .sev-med  { background: rgba(255,183,0,0.1);  color: #f0b429; border: 1px solid rgba(255,183,0,0.2);  }
+        .article-ref {
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          color: #2a5080;
+          letter-spacing: 0.06em;
+        }
+        .crossref-cta-line {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 13px;
+          color: #4f7cff;
+          font-family: var(--font-mono), monospace;
+          letter-spacing: 0.05em;
+        }
+
         .stats-row {
           display: flex;
           align-items: center;
@@ -134,9 +235,8 @@ export default function HomePage() {
           margin-bottom: 48px;
           flex-wrap: wrap;
         }
-        .stat-item {
-          text-align: center;
-        }
+        .stat-item { text-align: center; }
+
         .cta {
           display: inline-flex;
           align-items: center;
@@ -151,16 +251,38 @@ export default function HomePage() {
           letter-spacing: 0.1em;
           text-decoration: none;
           transition: background 0.2s, transform 0.15s;
+          margin-bottom: 20px;
         }
         .cta:hover { background: #3a6aee; transform: translateY(-2px); }
+
+        .data-sources {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          color: #2a5080;
+          letter-spacing: 0.1em;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin-bottom: 48px;
+        }
+        .ds-sep { color: #1e3a5f; }
+
         .footer-text {
-          position: absolute;
-          bottom: 28px;
           font-family: var(--font-mono), monospace;
           font-size: 10px;
           color: #1e3a5f;
           letter-spacing: 0.1em;
           text-align: center;
+          margin-top: auto;
+        }
+
+        @media (max-width: 700px) {
+          .pillars { grid-template-columns: 1fr; }
+          .pillar-divider { display: none; }
+          .headline { font-size: 28px; }
+          .stats-row { gap: 24px; }
         }
       `}</style>
 
@@ -169,24 +291,17 @@ export default function HomePage() {
         <div className="glow" />
 
         <div className="content">
-          <Image
-            src="/logo.png"
-            alt="Aegis"
-            width={220}
-            height={257}
-            priority
-          />
+          <Image src="/logo.png" alt="Aegis" width={220} height={257} priority />
 
           <p className="tagline">Fundamental Rights · AI Compliance · EU27</p>
 
           <h1 className="headline">
-            The intelligence layer<br />for responsible AI in Europe
+            Deploy AI with discrimination<br />awareness built in
           </h1>
 
           <p className="sub">
-            Aegis combines real-time signal intelligence with EU AI Act compliance tooling —
-            giving organizations a single platform to monitor fundamental rights risks
-            and demonstrate Article 27 compliance before the 2026 deadline.
+            AEGIS is the only platform that automatically cross-references your AI deployments
+            with real discrimination data by country — so you know your risk before regulators do.
           </p>
 
           <div className="pillars">
@@ -196,10 +311,10 @@ export default function HomePage() {
               </span>
               <h2 className="pillar-title">Early Warning<br />Signal System</h2>
               <ul className="pillar-items">
-                <li className="pillar-item">14 critical convergence alerts across EU27</li>
-                <li className="pillar-item">Live pipeline: FRA · Eurostat · AlgorithmWatch · EU AI Act</li>
+                <li className="pillar-item">Live discrimination signals across EU27</li>
+                <li className="pillar-item">FRA 2024 · Eurostat · UN Treaty Body data</li>
                 <li className="pillar-item">Country briefings generated in seconds</li>
-                <li className="pillar-item">Exportable intelligence briefs & recommendations</li>
+                <li className="pillar-item">Exportable intelligence reports</li>
               </ul>
             </div>
 
@@ -212,10 +327,63 @@ export default function HomePage() {
               <h2 className="pillar-title">EU AI Act<br />FRIA Platform</h2>
               <ul className="pillar-items">
                 <li className="pillar-item">AI systems registry & Annex III classification</li>
-                <li className="pillar-item">Fundamental Rights Impact Assessment wizard</li>
+                <li className="pillar-item">Contextual FRIA based on real deployment profile</li>
                 <li className="pillar-item">FRA data pre-loaded by country & sector</li>
-                <li className="pillar-item">Audit-ready export — deadline August 2, 2026</li>
+                <li className="pillar-item">Audit-ready export — deadline Aug 2, 2026</li>
               </ul>
+            </div>
+
+            <div className="pillar-divider" />
+
+            <div className="pillar">
+              <span className="pillar-tag" style={{ background: "rgba(0,200,130,0.1)", color: "#00c882", border: "1px solid rgba(0,200,130,0.2)" }}>
+                Ingestion
+              </span>
+              <h2 className="pillar-title">AI-Powered<br />Data Pipeline</h2>
+              <ul className="pillar-items">
+                <li className="pillar-item">Paste any FRA or UN report as text</li>
+                <li className="pillar-item">Claude extracts discrimination signals automatically</li>
+                <li className="pillar-item">Structured data inserted into live DB instantly</li>
+                <li className="pillar-item">Historical trend analysis across years</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="crossref-section">
+            <p className="crossref-label">Live cross-reference — example output</p>
+            <div className="crossref-card">
+              <p className="crossref-headline">
+                Recruitment Screening Tool · deployed in HU · BG · FR · Employment sector
+              </p>
+              <div className="crossref-rows">
+                <div className="crossref-row">
+                  <span className="country-badge">HU</span>
+                  <span className="signal-tag">Roma employment discrimination — 38% reported rate (FRA 2024)</span>
+                  <span className="severity-badge sev-high">HIGH RISK</span>
+                  <span className="article-ref">Art. 9 EU AI Act</span>
+                </div>
+                <div className="crossref-row">
+                  <span className="country-badge">HU</span>
+                  <span className="signal-tag">LGBTIQ workplace exclusion — convergent signals (FRA 2024)</span>
+                  <span className="severity-badge sev-med">MODERATE</span>
+                  <span className="article-ref">Art. 9 EU AI Act</span>
+                </div>
+                <div className="crossref-row">
+                  <span className="country-badge">BG</span>
+                  <span className="signal-tag">Roma labour market barriers — 42% discrimination rate (FRA 2024)</span>
+                  <span className="severity-badge sev-high">HIGH RISK</span>
+                  <span className="article-ref">Art. 9 EU AI Act</span>
+                </div>
+                <div className="crossref-row">
+                  <span className="country-badge">FR</span>
+                  <span className="signal-tag">4 affected groups flagged — African descent, Roma, LGBTIQ, disability</span>
+                  <span className="severity-badge sev-med">MODERATE</span>
+                  <span className="article-ref">Art. 9 EU AI Act</span>
+                </div>
+              </div>
+              <p className="crossref-cta-line">
+                → Initiate FRIA for all flagged deployments
+              </p>
             </div>
           </div>
 
@@ -223,8 +391,8 @@ export default function HomePage() {
             {[
               { value: "27", label: "EU Member States" },
               { value: "75+", label: "Active alerts" },
-              { value: "4", label: "Live data sources" },
-              { value: "€15M", label: "Non-compliance fine" },
+              { value: "FRA 2024", label: "Latest dataset" },
+              { value: "Aug 2026", label: "AI Act deadline" },
             ].map((s) => (
               <div key={s.label} className="stat-item">
                 <p style={{ fontFamily: "var(--font-mono), monospace", fontSize: 26, fontWeight: 700, color: "#e8eaf0" }}>{s.value}</p>
@@ -236,11 +404,21 @@ export default function HomePage() {
           <Link href="/login" className="cta">
             ACCESS PLATFORM <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
+
+          <div className="data-sources">
+            <span>POWERED BY</span>
+            <span className="ds-sep">·</span>
+            <span>FRA FUNDAMENTAL RIGHTS AGENCY</span>
+            <span className="ds-sep">·</span>
+            <span>EUROSTAT</span>
+            <span className="ds-sep">·</span>
+            <span>UN TREATY BODY DATA</span>
+            <span className="ds-sep">·</span>
+            <span>EU AI ACT 2024</span>
+          </div>
         </div>
 
-        <p className="footer-text">
-          © 2026 AEGIS · THINKLANCE AI
-        </p>
+        <p className="footer-text">© 2026 AEGIS · THINKLANCE AI</p>
       </main>
     </>
   );
