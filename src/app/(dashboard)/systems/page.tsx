@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Cpu, Trash2, AlertTriangle, FileCheck, X, Loader2, ChevronRight } from "lucide-react";
+import { Plus, Cpu, Trash2, AlertTriangle, FileCheck, X, Loader2, ChevronRight, Shield, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 
 const RISK_CATEGORIES = [
@@ -50,6 +50,184 @@ const labelStyle = {
   letterSpacing: "0.12em", color: "#4a7fa5", marginBottom: 8,
   textTransform: "uppercase" as const, fontFamily: "var(--font-mono)",
 };
+
+const SEVERITY_STYLES: Record<string, { bg: string; border: string; text: string; label: string }> = {
+  critical: { bg: "rgba(255,92,92,0.08)", border: "rgba(255,92,92,0.3)", text: "#ff5c5c", label: "CRITICAL" },
+  elevated: { bg: "rgba(232,184,75,0.08)", border: "rgba(232,184,75,0.3)", text: "#e8b84b", label: "ELEVATED" },
+  watch: { bg: "rgba(79,124,255,0.08)", border: "rgba(79,124,255,0.3)", text: "#4f7cff", label: "WATCH" },
+};
+
+const GROUP_LABELS_SHORT: Record<string, string> = {
+  african_descent: "African descent", roma: "Roma", muslims: "Muslims",
+  lgbtiq: "LGBTIQ", women: "Women", disabilities: "Disabilities",
+  migrants: "Migrants", jews: "Jewish people", general: "General",
+};
+
+interface CrossRef {
+  systemId: string;
+  systemName: string;
+  country: string;
+  sector: string;
+  signals: { group_id: string; title: string; severity: string; value_observed: number | null; value_eu_avg: number | null; year_observed: number | null; source_label: string | null }[];
+  convergenceScore: number;
+  maxSeverity: string;
+  recommendation: string;
+}
+
+function CrossRefPanel({ systems }: { systems: AiSystem[] }) {
+  const [crossRefs, setCrossRefs] = useState<CrossRef[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+
+  async function loadCrossRefs() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/systems/cross-ref");
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      setCrossRefs(data.crossRefs ?? []);
+    } catch { setCrossRefs([]); }
+    finally { setLoading(false); setLoaded(true); }
+  }
+
+  useEffect(() => { if (systems.length > 0) loadCrossRefs(); }, [systems.length]);
+
+  if (!loaded && !loading) return null;
+
+  const criticalCount = crossRefs.filter((r) => r.maxSeverity === "critical").length;
+  const elevatedCount = crossRefs.filter((r) => r.maxSeverity === "elevated").length;
+
+  return (
+    <div style={{ marginTop: 32 }}>
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(232,184,75,0.12)", border: "1px solid rgba(232,184,75,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Shield style={{ width: 18, height: 18, color: "#e8b84b" }} />
+          </div>
+          <div>
+            <h2 style={{ fontSize: 16, fontWeight: 600, color: "#e8eaf0", margin: 0 }}>
+              Discrimination Context — AI × Rights Cross-Reference
+            </h2>
+            <p style={{ fontSize: 12, color: "#4a7fa5", margin: 0, fontFamily: "var(--font-mono)" }}>
+              Your AI systems matched against FRA discrimination data in deployment countries
+            </p>
+          </div>
+        </div>
+        {crossRefs.length > 0 && (
+          <div className="flex items-center gap-2">
+            {criticalCount > 0 && (
+              <span style={{ padding: "4px 12px", background: SEVERITY_STYLES.critical.bg, border: `1px solid ${SEVERITY_STYLES.critical.border}`, borderRadius: 6, fontSize: 12, fontWeight: 700, color: SEVERITY_STYLES.critical.text, letterSpacing: "0.06em" }}>
+                {criticalCount} critical
+              </span>
+            )}
+            {elevatedCount > 0 && (
+              <span style={{ padding: "4px 12px", background: SEVERITY_STYLES.elevated.bg, border: `1px solid ${SEVERITY_STYLES.elevated.border}`, borderRadius: 6, fontSize: 12, fontWeight: 700, color: SEVERITY_STYLES.elevated.text, letterSpacing: "0.06em" }}>
+                {elevatedCount} elevated
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+
+      {loading && (
+        <div style={{ background: "#0f2040", border: "1px solid #1e3a5f", borderRadius: 12, padding: 32, textAlign: "center" }}>
+          <Loader2 style={{ width: 20, height: 20, color: "#4f7cff" }} className="animate-spin mx-auto mb-2" />
+          <p style={{ fontSize: 13, color: "#4a7fa5", fontFamily: "var(--font-mono)" }}>Cross-referencing AI systems with discrimination signals…</p>
+        </div>
+      )}
+
+      {loaded && crossRefs.length === 0 && !loading && (
+        <div style={{ background: "#0f2040", border: "1px solid #1e3a5f", borderRadius: 12, padding: 32, textAlign: "center" }}>
+          <p style={{ fontSize: 14, color: "#8ba8c8" }}>No discrimination signals found for your deployment countries and sectors.</p>
+        </div>
+      )}
+
+      {loaded && crossRefs.length > 0 && (
+        <div className="space-y-2">
+          {crossRefs.map((ref, idx) => {
+            const key = `${ref.systemId}-${ref.country}`;
+            const sev = SEVERITY_STYLES[ref.maxSeverity] ?? SEVERITY_STYLES.watch;
+            const isExpanded = expanded[key];
+            const groups = [...new Set(ref.signals.map((s) => s.group_id))];
+
+            return (
+              <div key={key} style={{ background: "#0f2040", border: `1px solid ${sev.border}`, borderRadius: 12, overflow: "hidden", cursor: "pointer" }} onClick={() => setExpanded((e) => ({ ...e, [key]: !e[key] }))}>
+                <div style={{ height: 2, background: sev.text }} />
+                <div style={{ padding: "16px 20px" }}>
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 flex-wrap min-w-0">
+                      <span style={{ fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 700, color: "#e8eaf0" }}>{ref.country}</span>
+                      <span style={{ padding: "2px 10px", background: sev.bg, border: `1px solid ${sev.border}`, borderRadius: 6, fontSize: 11, fontWeight: 700, color: sev.text, letterSpacing: "0.08em" }}>
+                        {sev.label}
+                      </span>
+                      <span style={{ fontSize: 12, color: "#4a7fa5", fontFamily: "var(--font-mono)" }}>{ref.systemName}</span>
+                      <span style={{ fontSize: 12, color: "#4a7fa5" }}>·</span>
+                      {groups.map((g) => (
+                        <span key={g} style={{ fontSize: 12, padding: "2px 8px", background: "#071525", border: "1px solid #1e3a5f", borderRadius: 4, color: "#8ba8c8", fontFamily: "var(--font-mono)" }}>
+                          {GROUP_LABELS_SHORT[g] ?? g}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <span style={{ fontSize: 12, color: "#4a7fa5", fontFamily: "var(--font-mono)" }}>{ref.signals.length} signals</span>
+                      {isExpanded ? <ChevronUp style={{ width: 16, height: 16, color: "#4a7fa5" }} /> : <ChevronDown style={{ width: 16, height: 16, color: "#4a7fa5" }} />}
+                    </div>
+                  </div>
+
+                  {!isExpanded && (
+                    <p style={{ fontSize: 13, color: "#8ba8c8", marginTop: 8, lineHeight: 1.5 }}>
+                      {ref.recommendation}
+                    </p>
+                  )}
+                </div>
+
+                {isExpanded && (
+                  <div style={{ borderTop: "1px solid #1e3a5f", padding: "16px 20px" }}>
+                    <div style={{ padding: "12px 16px", background: sev.bg, border: `1px solid ${sev.border}`, borderRadius: 8, marginBottom: 16 }}>
+                      <p style={{ fontSize: 13, color: sev.text, lineHeight: 1.6, fontWeight: 500 }}>
+                        {ref.recommendation}
+                      </p>
+                    </div>
+
+                    <div className="space-y-3">
+                      {ref.signals.map((sig, i) => {
+                        const sigSev = SEVERITY_STYLES[sig.severity] ?? SEVERITY_STYLES.watch;
+                        const delta = sig.value_observed != null && sig.value_eu_avg != null
+                          ? Math.round((sig.value_observed - sig.value_eu_avg) * 10) / 10 : null;
+                        return (
+                          <div key={i} className="flex items-start gap-3">
+                            <span style={{ width: 8, height: 8, borderRadius: "50%", background: sigSev.text, marginTop: 6, flexShrink: 0 }} />
+                            <div style={{ minWidth: 0 }}>
+                              <p style={{ fontSize: 13, color: "#e8eaf0", lineHeight: 1.5 }}>{sig.title}</p>
+                              <div className="flex items-center gap-3 mt-1 flex-wrap">
+                                {delta !== null && (
+                                  <span style={{ fontSize: 12, fontFamily: "var(--font-mono)", fontWeight: 700, color: delta > 0 ? "#ff5c5c" : "#4ade80" }}>
+                                    {delta > 0 ? "+" : ""}{delta}pp vs EU
+                                  </span>
+                                )}
+                                {sig.source_label && (
+                                  <span style={{ fontSize: 11, color: "#4a7fa5", fontFamily: "var(--font-mono)" }}>{sig.source_label}</span>
+                                )}
+                                {sig.year_observed && (
+                                  <span style={{ fontSize: 11, color: "#4a7fa5", fontFamily: "var(--font-mono)" }}>{sig.year_observed}</span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function SystemsPage() {
   const [systems, setSystems] = useState<AiSystem[]>([]);
@@ -189,6 +367,9 @@ export default function SystemsPage() {
           ))}
         </div>
       )}
+
+      {/* ── CROSS-REFERENCE PANEL ── */}
+      {systems.length > 0 && <CrossRefPanel systems={systems} />}
 
       {showModal && (
         <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
