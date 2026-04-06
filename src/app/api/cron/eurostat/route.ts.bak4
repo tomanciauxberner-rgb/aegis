@@ -1,0 +1,162 @@
+import { NextRequest, NextResponse } from "next/server";
+import { insertSignals, buildExternalId } from "@/lib/signal-inserter";
+
+const EU27 = new Set([
+  "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR",
+  "DE","GR","HU","IE","IT","LV","LT","LU","MT","NL",
+  "PL","PT","RO","SK","SI","ES","SE",
+]);
+
+interface EurostatObs {
+  country: string;
+  value: number;
+  year: number;
+}
+
+async function fetchEurostatSeries(datasetCode: string, params: Record<string, string>): Promise<EurostatObs[]> {
+  const query = new URLSearchParams({
+    format: "JSON",
+    lang: "EN",
+    ...params,
+  });
+  const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/${datasetCode}?${query}`;
+  const res = await fetch(url, { signal: AbortSignal.timeout(15000) });
+  if (!res.ok) throw new Error(`Eurostat fetch failed: ${res.status} — ${datasetCode}`);
+  const json = await res.json();
+
+  const geoIndex: Record<string, number> = {};
+  const timeIndex: Record<string, number> = {};
+
+  for (const [pos, label] of Object.entries(json.dimension?.geo?.category?.index ?? {})) {
+    geoIndex[label as string] = Number(pos);
+  }
+  for (const [pos, label] of Object.entries(json.dimension?.time?.category?.index ?? {})) {
+    timeIndex[label as string] = Number(pos);
+  }
+
+  const geoSize = Object.keys(geoIndex).length;
+  const values: Record<number, number> = json.value ?? {};
+  const results: EurostatObs[] = [];
+
+  for (const [geoLabel, geoPos] of Object.entries(geoIndex)) {
+    const country = geoLabel.toUpperCase();
+    if (!EU27.has(country)) continue;
+
+    const years = Object.entries(timeIndex).sort((a, b) => Number(b[0]) - Number(a[0]));
+    for (const [yearLabel, timePos] of years) {
+      const idx = Number(timePos) * geoSize + Number(geoPos);
+      const val = values[idx];
+      if (val !== undefined && val !== null) {
+        results.push({ country, value: Math.round(val * 10) / 10, year: parseInt(yearLabel) });
+        break;
+      }
+    }
+  }
+
+  return results;
+}
+
+async function fetchEuAverage(datasetCode: string, params: Record<string, string>): Promise<number | null> {
+  try {
+    const query = new URLSearchParams({ format: "JSON", lang: "EN", geo: "EU27_2020", ...params });
+    const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/${datasetCode}?${query}`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) return null;
+    const json = await res.json();
+    const values: Record<number, number> = json.value ?? {};
+    const nums = Object.values(values).filter((v) => typeof v === "number");
+    if (!nums.length) return null;
+    return Math.round((nums[nums.length - 1]) * 10) / 10;
+  } catch {
+    return null;
+  }
+}
+
+export async function GET(request: NextRequest) {
+  const authHeader = request.headers.get("authorization");
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const errors: string[] = [];
+  const allSignals: Parameters<typeof insertSignals>[0] = [];
+
+  const sharedParams = { sex: "T", age: "Y20-64", unit: "PC_ACT", c_birth: "NEU27_2020_FOR" };
+
+  try {
+    const [empObs, empEuAvg] = await Promise.all([
+      fetchEurostatSeries("lfsa_ergacob", { ...sharedParams, c_birth: "NEU27_2020_FOR" }),
+      fetchEuAverage("lfsa_ergacob", { ...sharedParams, c_birth: "NEU27_2020_FOR" }),
+    ]);
+
+    for (const obs of empObs) {
+      const delta = empEuAvg ? obs.value - empEuAvg : null;
+      const severity = delta !== null
+        ? delta <= -15 ? "critical" : delta <= -8 ? "elevated" : "watch"
+        : obs.value < 55 ? "critical" : obs.value < 63 ? "elevated" : "watch";
+
+      allSignals.push({
+        country: obs.country,
+        group_id: "migrants",
+        sector: "employment",
+        signal_type: "statistical",
+        severity,
+        title: `Employment rate non-EU born — ${obs.value}%${empEuAvg ? ` (EU avg ${empEuAvg}%)` : ""} (${obs.year})`,
+        summary: `Employment rate for non-EU born population aged 20-64: ${obs.value}%.${empEuAvg ? ` EU27 average: ${empEuAvg}%. Delta: ${Math.round((obs.value - empEuAvg) * 10) / 10}pp.` : ""}`,
+        value_observed: obs.value,
+        value_eu_avg: empEuAvg ?? undefined,
+        source_label: "Eurostat LFS — lfsa_ergan",
+        source_url: "https://ec.europa.eu/eurostat/databrowser/view/lfsa_ergacob/default/table",
+        year_observed: obs.year,
+        external_id: buildExternalId("eurostat", "lfsa-ergacob", obs.country, String(obs.year)),
+      });
+    }
+  } catch (e: unknown) {
+    errors.push(`lfsa_ergacob: ${e instanceof Error ? e.message : String(e)}`);
+  }
+
+  try {
+    const [uempObs, uempEuAvg] = await Promise.all([
+      fetchEurostatSeries("lfsa_urgacob", { ...sharedParams, c_birth: "NEU27_2020_FOR" }),
+      fetchEuAverage("lfsa_urgacob", { ...sharedParams, c_birth: "NEU27_2020_FOR" }),
+    ]);
+
+    for (const obs of uempObs) {
+      const delta = uempEuAvg ? obs.value - uempEuAvg : null;
+      const severity = delta !== null
+        ? delta >= 10 ? "critical" : delta >= 5 ? "elevated" : "watch"
+        : obs.value >= 20 ? "critical" : obs.value >= 12 ? "elevated" : "watch";
+
+      allSignals.push({
+        country: obs.country,
+        group_id: "migrants",
+        sector: "employment",
+        signal_type: "statistical",
+        severity,
+        title: `Unemployment rate non-EU born — ${obs.value}%${uempEuAvg ? ` (EU avg ${uempEuAvg}%)` : ""} (${obs.year})`,
+        summary: `Unemployment rate for non-EU born population aged 20-64: ${obs.value}%.${uempEuAvg ? ` EU27 average: ${uempEuAvg}%. Delta: +${Math.round((obs.value - uempEuAvg) * 10) / 10}pp.` : ""}`,
+        value_observed: obs.value,
+        value_eu_avg: uempEuAvg ?? undefined,
+        source_label: "Eurostat LFS — lfsa_urgan",
+        source_url: "https://ec.europa.eu/eurostat/databrowser/view/lfsa_urgacob/default/table",
+        year_observed: obs.year,
+        external_id: buildExternalId("eurostat", "lfsa-urgacob", obs.country, String(obs.year)),
+      });
+    }
+  } catch (e: unknown) {
+    errors.push(`lfsa_urgacob: ${e instanceof Error ? e.message : String(e)}`);
+  }
+
+  if (allSignals.length === 0) {
+    return NextResponse.json({ processed: 0, inserted: 0, skipped: 0, errors, timestamp: new Date().toISOString() });
+  }
+
+  const result = await insertSignals(allSignals);
+
+  return NextResponse.json({
+    processed: allSignals.length,
+    ...result,
+    errors: [...result.errors, ...errors],
+    timestamp: new Date().toISOString(),
+  });
+}
