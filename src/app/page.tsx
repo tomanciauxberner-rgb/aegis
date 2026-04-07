@@ -338,6 +338,7 @@ export default function HomePage() {
           .domains-grid { grid-template-columns: repeat(2, 1fr); }
           .stats-row { gap: 24px; }
           .stat-value { font-size: 24px; }
+          .demo-block .demo-example { min-width: 0; }
         }
       `}</style>
 
@@ -424,7 +425,91 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* ── LIVE DEMO EXAMPLE ── */}
+          {/* ── SIGNAL MONITOR DEMO ── */}
+          <div className="demo-block">
+            <div className="demo-header">
+              <div>
+                <p className="demo-title">Early Warning System — live convergence detection</p>
+                <p className="demo-sub">Three signal types converge on the same country × group × sector = alert triggered</p>
+              </div>
+              <span className="pillar-tag" style={{ background: "rgba(255,92,92,0.1)", color: "#ff5c5c", border: "1px solid rgba(255,92,92,0.25)" }}>
+                Signal Monitor
+              </span>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+              <div className="demo-example">
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                  <p className="demo-country" style={{ margin: 0 }}>
+                    <span style={{ fontSize: 16 }}>🇭🇺</span> HU
+                  </p>
+                  <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)", margin: 0, fontSize: 9 }}>ELEVATED</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>📊</span> Roma discrimination 38%
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>⚖️</span> 2 AI systems declared
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>🚨</span> Algorithm excludes Roma
+                  </div>
+                </div>
+                <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", borderRadius: 6, fontSize: 10, color: "#e8b84b", fontFamily: "var(--font-mono), monospace" }}>
+                  3/3 signal types · Roma · Employment
+                </div>
+              </div>
+
+              <div className="demo-example">
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                  <p className="demo-country" style={{ margin: 0 }}>
+                    <span style={{ fontSize: 16 }}>🇫🇷</span> FR
+                  </p>
+                  <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)", margin: 0, fontSize: 9 }}>ELEVATED</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>📊</span> Muslim discrim. 45% (+9pp)
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>⚖️</span> 7 Annex III systems declared
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>🚨</span> Pôle Emploi bias documented
+                  </div>
+                </div>
+                <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", borderRadius: 6, fontSize: 10, color: "#e8b84b", fontFamily: "var(--font-mono), monospace" }}>
+                  3/3 signal types · Muslims · Employment
+                </div>
+              </div>
+
+              <div className="demo-example">
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                  <p className="demo-country" style={{ margin: 0 }}>
+                    <span style={{ fontSize: 16 }}>🇧🇬</span> BG
+                  </p>
+                  <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)", margin: 0, fontSize: 9 }}>ELEVATED</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>📊</span> Roma poverty 82%
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>⚖️</span> AI systems in employment
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                    <span style={{ fontSize: 13 }}>🚨</span> District code filtering
+                  </div>
+                </div>
+                <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", borderRadius: 6, fontSize: 10, color: "#e8b84b", fontFamily: "var(--font-mono), monospace" }}>
+                  3/3 signal types · Roma · Employment
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── CROSS-REFERENCE DEMO ── */}
           <div className="demo-block">
             <div className="demo-header">
               <div>
