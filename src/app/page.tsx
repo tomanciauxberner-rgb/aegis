@@ -441,69 +441,69 @@ export default function HomePage() {
               <div className="demo-example">
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
                   <p className="demo-country" style={{ margin: 0 }}>
-                    <span style={{ fontSize: 16 }}>🇭🇺</span> HU
+                    <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#1e3a5f", display: "inline-block" }} /> Country A
                   </p>
                   <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)", margin: 0, fontSize: 9 }}>ELEVATED</span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>📊</span> Roma discrimination 38%
+                    <span style={{ fontSize: 13 }}>📊</span> Discrimination rate 38% (+5pp)
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
                     <span style={{ fontSize: 13 }}>⚖️</span> 2 AI systems declared
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>🚨</span> Algorithm excludes Roma
+                    <span style={{ fontSize: 13 }}>🚨</span> Algorithmic bias documented
                   </div>
                 </div>
                 <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", borderRadius: 6, fontSize: 10, color: "#e8b84b", fontFamily: "var(--font-mono), monospace" }}>
-                  3/3 signal types · Roma · Employment
+                  3/3 signal types · Employment
                 </div>
               </div>
 
               <div className="demo-example">
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
                   <p className="demo-country" style={{ margin: 0 }}>
-                    <span style={{ fontSize: 16 }}>🇫🇷</span> FR
+                    <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#1e3a5f", display: "inline-block" }} /> Country B
                   </p>
                   <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)", margin: 0, fontSize: 9 }}>ELEVATED</span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>📊</span> Muslim discrim. 45% (+9pp)
+                    <span style={{ fontSize: 13 }}>📊</span> Discrimination rate 45% (+9pp)
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
                     <span style={{ fontSize: 13 }}>⚖️</span> 7 Annex III systems declared
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>🚨</span> Pôle Emploi bias documented
+                    <span style={{ fontSize: 13 }}>🚨</span> Recruitment bias case
                   </div>
                 </div>
                 <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", borderRadius: 6, fontSize: 10, color: "#e8b84b", fontFamily: "var(--font-mono), monospace" }}>
-                  3/3 signal types · Muslims · Employment
+                  3/3 signal types · Employment
                 </div>
               </div>
 
               <div className="demo-example">
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
                   <p className="demo-country" style={{ margin: 0 }}>
-                    <span style={{ fontSize: 16 }}>🇧🇬</span> BG
+                    <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#1e3a5f", display: "inline-block" }} /> Country C
                   </p>
-                  <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)", margin: 0, fontSize: 9 }}>ELEVATED</span>
+                  <span className="pillar-tag" style={{ background: "rgba(79,124,255,0.1)", color: "#4f7cff", border: "1px solid rgba(79,124,255,0.25)", margin: 0, fontSize: 9 }}>WATCH</span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>📊</span> Roma poverty 82%
+                    <span style={{ fontSize: 13 }}>📊</span> Poverty rate 82%
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>⚖️</span> AI systems in employment
+                    <span style={{ fontSize: 13 }}>⚖️</span> AI systems in deployment
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>🚨</span> District code filtering
+                    <span style={{ fontSize: 13 }}>🚨</span> Proxy discrimination flagged
                   </div>
                 </div>
-                <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", borderRadius: 6, fontSize: 10, color: "#e8b84b", fontFamily: "var(--font-mono), monospace" }}>
-                  3/3 signal types · Roma · Employment
+                <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(79,124,255,0.06)", border: "1px solid rgba(79,124,255,0.15)", borderRadius: 6, fontSize: 10, color: "#4f7cff", fontFamily: "var(--font-mono), monospace" }}>
+                  3/3 signal types · Essential services
                 </div>
               </div>
             </div>
@@ -513,41 +513,41 @@ export default function HomePage() {
           <div className="demo-block">
             <div className="demo-header">
               <div>
-                <p className="demo-title">What happens when you deploy AI in Hungary for employment?</p>
-                <p className="demo-sub">AEGIS cross-references your system against real discrimination signals</p>
+                <p className="demo-title">What happens when you register an AI system?</p>
+                <p className="demo-sub">AEGIS cross-references your deployment against real discrimination signals</p>
               </div>
               <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)" }}>
-                Live example
+                Cross-Reference
               </span>
             </div>
             <div className="demo-example">
               <p className="demo-country">
-                <span style={{ fontSize: 18 }}>🇭🇺</span> Hungary — Employment sector
+                <span style={{ fontSize: 18 }}>🤖</span> Your AI Recruitment Tool → deployed in EU Member State
               </p>
               <div className="demo-signal">
                 <span className="demo-dot" style={{ background: "#e8b84b" }} />
-                <span>Roma — Employment discrimination rate (2024)</span>
-                <span className="demo-delta" style={{ color: "#ff5c5c" }}>+2pp vs EU</span>
-              </div>
-              <div className="demo-signal">
-                <span className="demo-dot" style={{ background: "#e8b84b" }} />
-                <span>LGBTIQ — Employment discrimination rate (2024)</span>
+                <span>Population A — Employment discrimination rate above EU average</span>
                 <span className="demo-delta" style={{ color: "#ff5c5c" }}>+7pp vs EU</span>
               </div>
               <div className="demo-signal">
+                <span className="demo-dot" style={{ background: "#e8b84b" }} />
+                <span>Population B — Employment discrimination rate above EU average</span>
+                <span className="demo-delta" style={{ color: "#ff5c5c" }}>+2pp vs EU</span>
+              </div>
+              <div className="demo-signal">
                 <span className="demo-dot" style={{ background: "#ff5c5c" }} />
-                <span>Documented incident — Public works algorithm excludes Roma applicants</span>
+                <span>Documented incident — Algorithmic screening bias against minority applicants</span>
                 <span className="demo-delta" style={{ color: "#4a7fa5" }}>2023</span>
               </div>
               <div className="demo-signal">
                 <span className="demo-dot" style={{ background: "#4f7cff" }} />
-                <span>Legislative — 2 AI systems declared in employment sector</span>
+                <span>Legislative — High-risk AI systems declared in employment sector</span>
                 <span className="demo-delta" style={{ color: "#4a7fa5" }}>2024</span>
               </div>
               <div className="demo-rec">
-                ⚠ WARNING: Your AI system operates in a context where Roma and LGBTIQ people
-                face elevated discrimination. EU AI Act Art. 9 requires documented risk mitigation.
-                Consider enhanced bias testing for affected populations.
+                ⚠ WARNING: Your AI system operates in a context where two population groups
+                face elevated discrimination in employment. EU AI Act Art. 9 requires documented
+                risk mitigation. Consider enhanced bias testing for affected populations.
               </div>
             </div>
           </div>
