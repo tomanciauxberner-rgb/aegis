@@ -67,7 +67,7 @@ function buildRecommendation(
   return `MONITOR: "${systemName}" operates in ${country} where discrimination signals are present for ${groups.join(", ")}.${deltaNote} Include in periodic compliance review.`;
 }
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const identifier = request.headers.get("x-forwarded-for") ?? "anon";
   const { success } = rateLimit(identifier, 20);
   if (!success) {
