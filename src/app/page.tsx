@@ -140,19 +140,6 @@ export default function HomePage() {
           margin-bottom: 32px;
         }
         .cta:hover { background: #3a6aee; transform: translateY(-2px); }
-        .data-sources {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-family: var(--font-mono), monospace;
-          font-size: 10px;
-          color: #2a5080;
-          letter-spacing: 0.1em;
-          flex-wrap: wrap;
-          justify-content: center;
-          margin-bottom: 48px;
-        }
-        .ds-sep { color: #1a3255; }
         .footer-text {
           font-family: var(--font-mono), monospace;
           font-size: 10px;
@@ -194,7 +181,7 @@ export default function HomePage() {
               <h2 className="pillar-title">Discrimination<br />Signal Monitor</h2>
               <ul className="pillar-items">
                 <li className="pillar-item">Real-time signals across EU27 countries & groups</li>
-                <li className="pillar-item">Powered by FRA, Eurostat & UN Treaty Body data</li>
+                <li className="pillar-item">Cross-country trend analysis by sector & population group</li>
                 <li className="pillar-item">Convergence alerts by country, sector & population</li>
                 <li className="pillar-item">Exportable country briefings & recommendations</li>
               </ul>
@@ -234,18 +221,6 @@ export default function HomePage() {
           <Link href="/login" className="cta">
             ACCESS PLATFORM <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
-
-          <div className="data-sources">
-            <span>DATA SOURCES</span>
-            <span className="ds-sep">·</span>
-            <span>FRA FUNDAMENTAL RIGHTS AGENCY</span>
-            <span className="ds-sep">·</span>
-            <span>EUROSTAT</span>
-            <span className="ds-sep">·</span>
-            <span>UN TREATY BODY</span>
-            <span className="ds-sep">·</span>
-            <span>EU AI ACT</span>
-          </div>
         </div>
 
         <p className="footer-text">© 2026 AEGIS · THINKLANCE AI</p>
