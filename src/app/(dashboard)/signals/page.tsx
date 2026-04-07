@@ -6,6 +6,7 @@ import { RiskDataPanel } from "@/components/fria/risk-data-panel";
 import { EuMap, type CountryData } from "@/components/signals/eu-map";
 import { EarlyWarningPanel } from "@/components/signals/early-warning-panel";
 import { cn } from "@/lib/utils";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 const COUNTRIES = [
   { code: "AT", name: "Austria" }, { code: "BE", name: "Belgium" },
@@ -479,34 +480,57 @@ export default function SignalsPage() {
 
       {/* ── TREND ANALYSIS ── */}
       {countryCode === "" && (
-        <div className="bg-surface border border-border rounded-lg p-5 space-y-4">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="bg-surface border border-border rounded-lg p-5">
+          <div className="flex items-center gap-2 mb-5">
             <TrendingUp className="w-4 h-4 text-gold" />
-            <span className="text-sm font-semibold uppercase tracking-wider text-text-dim font-[family-name:var(--font-mono)]">
-              Roma Discrimination Trend — EU Average
+            <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", fontFamily: "var(--font-mono)" }} className="text-text-dim">
+              Roma discrimination trend — EU average
             </span>
           </div>
-          <div className="grid grid-cols-4 gap-4">
-            {[
-              { title: "Ethnic discrim. (12m)", data: [{y:"2016",v:26,c:"#4f7cff"},{y:"2021",v:27,c:"#e8b84b"},{y:"2024",v:31,c:"#ff5c5c"}], note: "+5pp", noteColor: "text-danger" },
-              { title: "Job search (12m)", data: [{y:"2016",v:16,c:"#4f7cff"},{y:"2021",v:33,c:"#e8b84b"},{y:"2024",v:36,c:"#ff5c5c"}], note: "+20pp ×2", noteColor: "text-danger" },
-              { title: "Housing discrim.", data: [{y:"2016",v:41,c:"#4f7cff"},{y:"2024",v:35,c:"#00c882"}], note: "-6pp", noteColor: "text-success" },
-              { title: "Poverty rate", data: [{y:"2016",v:80,c:"#4f7cff"},{y:"2024",v:70,c:"#e8b84b"}], note: "-10pp (8×EU)", noteColor: "text-gold" },
-            ].map((chart) => (
-              <div key={chart.title}>
-                <p style={{ fontSize: 11, color: "#7aaac8", fontFamily: "var(--font-mono)", marginBottom: 10, lineHeight: 1.3 }}>{chart.title}</p>
-                <div style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 70 }}>
-                  {chart.data.map((d) => (
-                    <div key={d.y} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, flex: 1 }}>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: d.c, fontFamily: "var(--font-mono)" }}>{d.v}%</span>
-                      <div style={{ width: "100%", maxWidth: 32, height: Math.max(8, d.v * 0.8), background: d.c, borderRadius: 3, opacity: 0.85 }} />
-                      <span style={{ fontSize: 9, color: "#4a7fa5", fontFamily: "var(--font-mono)" }}>{d.y}</span>
-                    </div>
-                  ))}
-                </div>
-                <p style={{ fontSize: 10, marginTop: 6, fontFamily: "var(--font-mono)" }} className={chart.noteColor}>{chart.note}</p>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <p style={{ fontSize: 11, color: "#ff5c5c", fontFamily: "var(--font-mono)", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 8 }}>WORSENING</p>
+              <div style={{ width: "100%", height: 200 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={[
+                    { name: "Ethnic discrim.", "2016": 26, "2021": 27, "2024": 31 },
+                    { name: "Job search", "2016": 16, "2021": 33, "2024": 36 },
+                  ]} barGap={2} barCategoryGap="25%">
+                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#4a7fa5", fontFamily: "var(--font-mono)" }} axisLine={false} tickLine={false} />
+                    <YAxis domain={[0, 50]} tick={{ fontSize: 10, fill: "#2a5080", fontFamily: "var(--font-mono)" }} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${v}%`} width={35} />
+                    <Tooltip contentStyle={{ background: "#0a1628", border: "1px solid #1e3a5f", borderRadius: 8, fontSize: 12, fontFamily: "var(--font-mono)" }} labelStyle={{ color: "#e8eaf0", fontWeight: 600 }} itemStyle={{ color: "#8ba8c8" }} formatter={(v: number) => [`${v}%`, ""]} />
+                    <Bar dataKey="2016" fill="#4f7cff" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="2021" fill="#e8b84b" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="2024" fill="#ff5c5c" radius={[3, 3, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
-            ))}
+              <p style={{ fontSize: 10, color: "#ff5c5c", fontFamily: "var(--font-mono)", marginTop: 4 }}>Job search: +20pp since 2016 — more than doubled</p>
+            </div>
+            <div>
+              <p style={{ fontSize: 11, color: "#00c882", fontFamily: "var(--font-mono)", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 8 }}>IMPROVING</p>
+              <div style={{ width: "100%", height: 200 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={[
+                    { name: "Housing discrim.", "2016": 41, "2024": 35 },
+                    { name: "Poverty rate", "2016": 80, "2024": 70 },
+                  ]} barGap={4} barCategoryGap="25%">
+                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#4a7fa5", fontFamily: "var(--font-mono)" }} axisLine={false} tickLine={false} />
+                    <YAxis domain={[0, 100]} tick={{ fontSize: 10, fill: "#2a5080", fontFamily: "var(--font-mono)" }} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${v}%`} width={35} />
+                    <Tooltip contentStyle={{ background: "#0a1628", border: "1px solid #1e3a5f", borderRadius: 8, fontSize: 12, fontFamily: "var(--font-mono)" }} labelStyle={{ color: "#e8eaf0", fontWeight: 600 }} itemStyle={{ color: "#8ba8c8" }} formatter={(v: number) => [`${v}%`, ""]} />
+                    <Bar dataKey="2016" fill="#4f7cff" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="2024" fill="#00c882" radius={[3, 3, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <p style={{ fontSize: 10, color: "#00c882", fontFamily: "var(--font-mono)", marginTop: 4 }}>Poverty: -10pp but still 8× EU average (9%)</p>
+            </div>
+          </div>
+          <div className="flex items-center justify-center gap-5 mt-4" style={{ fontSize: 11, fontFamily: "var(--font-mono)" }}>
+            <span className="flex items-center gap-1.5"><span style={{ width: 10, height: 10, borderRadius: 2, background: "#4f7cff", display: "inline-block" }} /> <span className="text-text-muted">2016</span></span>
+            <span className="flex items-center gap-1.5"><span style={{ width: 10, height: 10, borderRadius: 2, background: "#e8b84b", display: "inline-block" }} /> <span className="text-text-muted">2021</span></span>
+            <span className="flex items-center gap-1.5"><span style={{ width: 10, height: 10, borderRadius: 2, background: "#ff5c5c", display: "inline-block" }} /> <span className="text-text-muted">2024</span></span>
+            <span className="flex items-center gap-1.5"><span style={{ width: 10, height: 10, borderRadius: 2, background: "#00c882", display: "inline-block" }} /> <span className="text-text-muted">2024 (improved)</span></span>
           </div>
         </div>
       )}
