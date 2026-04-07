@@ -48,6 +48,9 @@ const MAP_INDICATORS = [
   { code: "lgbtiq_harassment_12m", label: "Harassment — LGBTIQ (12m)", population: "lgbtiq", topic: "discrimination" },
   { code: "employment_rate_non_eu_born", label: "Employment rate — Non-EU born (Eurostat 2024)", population: "non_eu_born", topic: "discrimination" },
   { code: "unemployment_rate_non_eu_born", label: "Unemployment rate — Non-EU born (Eurostat 2024)", population: "non_eu_born", topic: "discrimination" },
+  { code: "gbv_physical_sexual", label: "Gender-based violence — Physical/sexual (2024)", population: "women", topic: "discrimination" },
+  { code: "gbv_harassment_work", label: "Sexual harassment at work (2024)", population: "women", topic: "discrimination" },
+  { code: "disability_violence_institutions", label: "Violence in institutions — Disabilities (2025)", population: "disabilities", topic: "discrimination" },
 ];
 
 const INCIDENTS = [
@@ -112,6 +115,8 @@ const DATA_SOURCES = [
   { label: "Being Muslim in the EU", year: "2023", url: "https://fra.europa.eu/en/publication/2023/being-muslim-eu" },
   { label: "Fundamental Rights Report 2025", year: "2025", url: "https://fra.europa.eu/en/publication/2025/fundamental-rights-report-2025-fra-opinions" },
   { label: "Eurostat LFS — Employment by country of birth", year: "2024", url: "https://ec.europa.eu/eurostat/web/microdata/european-union-labour-force-survey" },
+  { label: "EU Gender-Based Violence Survey", year: "2024", url: "https://fra.europa.eu/en/content/eu-gender-based-violence-survey" },
+  { label: "Violence Against Persons with Disabilities in Institutions", year: "2025", url: "https://fra.europa.eu/en/publication/2025/fundamental-rights-report-2025-fra-opinions" },
 ];
 
 function BriefingPanel({ countryCode, countryName, onClose }: {

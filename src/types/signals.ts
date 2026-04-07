@@ -15,7 +15,9 @@ export type Sector =
   | "healthcare"
   | "law_enforcement"
   | "essential_services"
-  | "online";
+  | "online"
+  | "justice"
+  | "gender_violence";
 
 export type SignalSeverity = "critical" | "high" | "medium" | "low";
 
@@ -30,6 +32,8 @@ export type DataSourceId =
   | "fra_online_hate"
   | "fra_antisemitism"
   | "fra_frr2025"
+  | "fra_gbv"
+  | "fra_disability"
   | "algorithmwatch"
   | "eurostat";
 

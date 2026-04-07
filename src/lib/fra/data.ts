@@ -64,6 +64,20 @@ export const FRA_SOURCES: Record<string, DataSource> = {
     year: 2025,
     publisher: "European Union Agency for Fundamental Rights",
   },
+  fra_gbv: {
+    id: "fra_gbv",
+    label: "EU Gender-Based Violence Survey (2024)",
+    url: "https://fra.europa.eu/en/content/eu-gender-based-violence-survey",
+    year: 2024,
+    publisher: "Eurostat / FRA / EIGE",
+  },
+  fra_disability: {
+    id: "fra_disability",
+    label: "Violence Against Persons with Disabilities in Institutions (2025)",
+    url: "https://fra.europa.eu/en/publication/2025/fundamental-rights-report-2025-fra-opinions",
+    year: 2025,
+    publisher: "European Union Agency for Fundamental Rights",
+  },
 };
 
 /**
@@ -200,6 +214,72 @@ export const FRA_DATA: FraDataPoint[] = [
   { country: "EU", group: "jews", sector: "online", indicator: "experienced_antisemitic_incident", value: 76, unit: "percent", year: 2024, source: "fra_antisemitism" },
   // LGBTIQ Survey III 2024: ~21% EU-wide employment discrimination
   { country: "EU", group: "lgbtiq", sector: "employment", indicator: "experienced_discrimination_employment", value: 21, unit: "percent", year: 2024, source: "fra_lgbtiq3" },
+
+  // ═══ GENDER-BASED VIOLENCE (EU-GBV Survey 2024 — 114,023 women, 27 MS) ═══
+  // Physical or sexual violence since age 15 — EU avg 31%
+  { country: "FI", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 57, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "SE", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 53, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "DK", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 48, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "FR", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 33, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "NL", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 39, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "DE", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 35, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "BE", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 36, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "AT", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 30, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "ES", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 22, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "IT", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 24, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "PL", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 19, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "HU", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 21, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "RO", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 17, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "BG", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 12, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "GR", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 25, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "CZ", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 32, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "IE", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 30, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "PT", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 18, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "HR", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 20, unit: "percent", year: 2024, source: "fra_gbv" },
+  // Sexual harassment at work — EU avg 33%
+  { country: "SE", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 52, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "FI", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 48, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "DK", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 45, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "NL", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 40, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "FR", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 35, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "DE", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 33, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "IT", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 22, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "ES", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 24, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "PL", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 18, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "BG", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 12, unit: "percent", year: 2024, source: "fra_gbv" },
+  // EU averages for GBV
+  { country: "EU", group: "women", sector: "gender_violence", indicator: "physical_sexual_violence_lifetime", value: 31, unit: "percent", year: 2024, source: "fra_gbv" },
+  { country: "EU", group: "women", sector: "employment", indicator: "sexual_harassment_work", value: 33, unit: "percent", year: 2024, source: "fra_gbv" },
+
+  // ═══ DISABILITY RIGHTS (FRA 2025 — Violence in institutions) ═══
+  { country: "DE", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 34, unit: "percent", year: 2025, source: "fra_disability", note: "Persons with disabilities reporting violence or neglect in care institutions" },
+  { country: "FR", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 31, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "BE", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 29, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "NL", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 27, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "AT", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 32, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "CZ", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 38, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "BG", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 45, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "RO", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 42, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "GR", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 36, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "HU", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 40, unit: "percent", year: 2025, source: "fra_disability" },
+  { country: "EU", group: "disabilities", sector: "healthcare", indicator: "violence_in_institutions", value: 33, unit: "percent", year: 2025, source: "fra_disability" },
+
+  // ═══ TREND DATA — Roma discrimination over time ═══
+  // 2016 baseline (EU-MIDIS II)
+  { country: "EU", group: "roma", sector: "employment", indicator: "discrimination_ethnic_12m", value: 26, unit: "percent", year: 2016, source: "fra_eumidis2", note: "Roma ethnic discrimination 12 months — baseline 2016" },
+  { country: "EU", group: "roma", sector: "employment", indicator: "discrimination_job_search_12m", value: 16, unit: "percent", year: 2016, source: "fra_eumidis2", note: "Roma job search discrimination — baseline 2016" },
+  // 2021 midpoint (Roma Survey II)
+  { country: "EU", group: "roma", sector: "employment", indicator: "discrimination_ethnic_12m", value: 27, unit: "percent", year: 2021, source: "fra_roma2", note: "Roma ethnic discrimination 12 months — 2021" },
+  { country: "EU", group: "roma", sector: "employment", indicator: "discrimination_job_search_12m", value: 33, unit: "percent", year: 2021, source: "fra_roma2", note: "Roma job search discrimination — doubled since 2016" },
+  // 2024 latest (Roma Survey 2024)
+  { country: "EU", group: "roma", sector: "employment", indicator: "discrimination_ethnic_12m", value: 31, unit: "percent", year: 2024, source: "fra_roma3", note: "Roma ethnic discrimination 12 months — 2024, up from 26% in 2016" },
+  { country: "EU", group: "roma", sector: "employment", indicator: "discrimination_job_search_12m", value: 36, unit: "percent", year: 2024, source: "fra_roma3", note: "Roma job search discrimination — more than doubled since 2016 (16%)" },
+  // Roma housing trend
+  { country: "EU", group: "roma", sector: "housing", indicator: "discrimination_housing_trend", value: 41, unit: "percent", year: 2016, source: "fra_eumidis2" },
+  { country: "EU", group: "roma", sector: "housing", indicator: "discrimination_housing_trend", value: 35, unit: "percent", year: 2024, source: "fra_roma3", note: "Housing discrimination — improved from 41% in 2016" },
+  // Roma poverty trend
+  { country: "EU", group: "roma", sector: "essential_services", indicator: "poverty_risk_trend", value: 80, unit: "percent", year: 2016, source: "fra_eumidis2" },
+  { country: "EU", group: "roma", sector: "essential_services", indicator: "poverty_risk_trend", value: 70, unit: "percent", year: 2024, source: "fra_roma3", note: "Poverty rate — improved from 80% in 2016 but still 8x EU average" },
 ];
 
 /**

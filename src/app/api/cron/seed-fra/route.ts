@@ -40,6 +40,13 @@ const INDICATOR_LABELS: Record<string, string> = {
   avoid_public_spaces:                   "Avoidance of public spaces",
   school_segregation:                    "School segregation rate",
   experienced_antisemitic_incident:      "Antisemitic incident exposure rate",
+  physical_sexual_violence_lifetime:     "Physical or sexual violence (lifetime)",
+  sexual_harassment_work:                "Sexual harassment at work (lifetime)",
+  violence_in_institutions:              "Violence in care institutions",
+  discrimination_ethnic_12m:             "Ethnic discrimination (12 months)",
+  discrimination_job_search_12m:         "Job search discrimination (12 months)",
+  discrimination_housing_trend:          "Housing discrimination rate (trend)",
+  poverty_risk_trend:                    "At-risk-of-poverty rate (trend)",
 };
 
 const EU_AVERAGES: Record<string, number> = {};
