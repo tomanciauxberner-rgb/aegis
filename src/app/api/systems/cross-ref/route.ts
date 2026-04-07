@@ -35,12 +35,12 @@ const GROUP_LABELS: Record<string, string> = {
 };
 
 const RISK_TO_SECTOR: Record<string, string[]> = {
-  employment: ["employment"],
+  employment: ["employment", "gender_violence"],
   education: ["education"],
   essential_services: ["essential_services", "healthcare"],
-  law_enforcement: ["law_enforcement", "justice"],
+  law_enforcement: ["law_enforcement", "justice", "gender_violence"],
   migration: ["law_enforcement", "essential_services"],
-  justice: ["justice", "law_enforcement"],
+  justice: ["justice", "law_enforcement", "gender_violence"],
   biometrics: ["law_enforcement", "essential_services"],
   critical_infrastructure: ["essential_services"],
 };

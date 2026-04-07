@@ -315,15 +315,36 @@ export default function SignalsPage() {
       setMapLoading(true);
       try {
         const ind = MAP_INDICATORS.find((i) => i.code === mapIndicator)!;
-        const params = new URLSearchParams({ topic: ind.topic, population: ind.population });
-        const res = await fetch(`/api/indicators?${params}`);
-        if (!res.ok) throw new Error();
-        const json = await res.json();
-
+        const isSignalBased = ["gbv_physical_sexual","gbv_harassment_work","disability_violence_institutions","antisemitic_incidents","roma_disc_housing","roma_school_segregation"].includes(mapIndicator);
         const byCountry: Record<string, number> = {};
-        for (const row of json.data) {
-          if (row.indicator.code === mapIndicator && row.country?.code) {
-            byCountry[row.country.code] = row.value;
+
+        if (isSignalBased) {
+          const sectorMap: Record<string, string> = {
+            gbv_physical_sexual: "gender_violence",
+            gbv_harassment_work: "employment",
+            disability_violence_institutions: "healthcare",
+            antisemitic_incidents: "online",
+            roma_disc_housing: "housing",
+            roma_school_segregation: "education",
+          };
+          const params = new URLSearchParams({ group: ind.population, sector: sectorMap[mapIndicator] || "" });
+          const res = await fetch(`/api/signals/map?${params}`);
+          if (res.ok) {
+            const json = await res.json();
+            for (const [code, info] of Object.entries(json.data as Record<string, { value: number }>)) {
+              byCountry[code] = info.value;
+            }
+          }
+        } else {
+          const params = new URLSearchParams({ topic: ind.topic, population: ind.population });
+          const res = await fetch(`/api/indicators?${params}`);
+          if (res.ok) {
+            const json = await res.json();
+            for (const row of json.data) {
+              if (row.indicator.code === mapIndicator && row.country?.code) {
+                byCountry[row.country.code] = row.value;
+              }
+            }
           }
         }
 
@@ -455,6 +476,88 @@ export default function SignalsPage() {
           </button>
         )}
       </div>
+
+      {/* ── TREND ANALYSIS ── */}
+      {countryCode === "" && (
+        <div className="bg-surface border border-border rounded-lg p-5 space-y-4">
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-gold" />
+            <h2 className="text-base font-semibold uppercase tracking-wider text-text-dim font-[family-name:var(--font-mono)]">
+              Roma Discrimination Trend — EU Average
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <p className="text-base text-text-muted font-[family-name:var(--font-mono)] mb-3">Ethnic discrimination (12 months)</p>
+              <div className="flex items-end gap-3 h-24">
+                {[
+                  { year: "2016", value: 26, color: "#4f7cff" },
+                  { year: "2021", value: 27, color: "#e8b84b" },
+                  { year: "2024", value: 31, color: "#ff5c5c" },
+                ].map((d) => (
+                  <div key={d.year} className="flex flex-col items-center gap-1 flex-1">
+                    <span className="text-base font-bold font-[family-name:var(--font-mono)]" style={{ color: d.color }}>{d.value}%</span>
+                    <div style={{ width: "100%", height: `${d.value * 2.5}px`, background: d.color, borderRadius: 4, minHeight: 8, opacity: 0.8 }} />
+                    <span className="text-xs text-text-dim font-[family-name:var(--font-mono)]">{d.year}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-text-dim mt-2 font-[family-name:var(--font-mono)]">+5pp since 2016</p>
+            </div>
+            <div>
+              <p className="text-base text-text-muted font-[family-name:var(--font-mono)] mb-3">Job search discrimination (12 months)</p>
+              <div className="flex items-end gap-3 h-24">
+                {[
+                  { year: "2016", value: 16, color: "#4f7cff" },
+                  { year: "2021", value: 33, color: "#e8b84b" },
+                  { year: "2024", value: 36, color: "#ff5c5c" },
+                ].map((d) => (
+                  <div key={d.year} className="flex flex-col items-center gap-1 flex-1">
+                    <span className="text-base font-bold font-[family-name:var(--font-mono)]" style={{ color: d.color }}>{d.value}%</span>
+                    <div style={{ width: "100%", height: `${d.value * 2.5}px`, background: d.color, borderRadius: 4, minHeight: 8, opacity: 0.8 }} />
+                    <span className="text-xs text-text-dim font-[family-name:var(--font-mono)]">{d.year}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-danger mt-2 font-[family-name:var(--font-mono)]">+20pp since 2016 — more than doubled</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-6 mt-2">
+            <div>
+              <p className="text-base text-text-muted font-[family-name:var(--font-mono)] mb-3">Housing discrimination</p>
+              <div className="flex items-end gap-3 h-24">
+                {[
+                  { year: "2016", value: 41, color: "#4f7cff" },
+                  { year: "2024", value: 35, color: "#00c882" },
+                ].map((d) => (
+                  <div key={d.year} className="flex flex-col items-center gap-1 flex-1">
+                    <span className="text-base font-bold font-[family-name:var(--font-mono)]" style={{ color: d.color }}>{d.value}%</span>
+                    <div style={{ width: "100%", height: `${d.value * 2}px`, background: d.color, borderRadius: 4, minHeight: 8, opacity: 0.8 }} />
+                    <span className="text-xs text-text-dim font-[family-name:var(--font-mono)]">{d.year}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-success mt-2 font-[family-name:var(--font-mono)]">-6pp — improving</p>
+            </div>
+            <div>
+              <p className="text-base text-text-muted font-[family-name:var(--font-mono)] mb-3">At-risk-of-poverty rate</p>
+              <div className="flex items-end gap-3 h-24">
+                {[
+                  { year: "2016", value: 80, color: "#4f7cff" },
+                  { year: "2024", value: 70, color: "#e8b84b" },
+                ].map((d) => (
+                  <div key={d.year} className="flex flex-col items-center gap-1 flex-1">
+                    <span className="text-base font-bold font-[family-name:var(--font-mono)]" style={{ color: d.color }}>{d.value}%</span>
+                    <div style={{ width: "100%", height: `${d.value}px`, background: d.color, borderRadius: 4, minHeight: 8, opacity: 0.8 }} />
+                    <span className="text-xs text-text-dim font-[family-name:var(--font-mono)]">{d.year}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-gold mt-2 font-[family-name:var(--font-mono)]">-10pp — still 8× EU average (9%)</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         <div className="space-y-4">
