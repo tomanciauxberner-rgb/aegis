@@ -174,15 +174,6 @@ const INDICATOR_META: Record<string, IndicatorMeta> = {
     url: "https://ec.europa.eu/eurostat/web/microdata/european-union-labour-force-survey",
     coveredCountries: ["AT","BE","CY","CZ","DE","DK","EE","ES","FI","FR","HR","IE","IT","LT","LU","LV","MT","NL","PL","PT","SE","SI"],
   },
-};
-
-const COLORS = {
-  none: "#1a1d2e",
-  good: "#22c55e",
-  low: "#eab308",
-  medium: "#f59e0b",
-  high: "#f97316",
-  critical: "#ef4444",
 
   gbv_physical_sexual: {
     direction: "higher_is_worse" as Direction,
@@ -226,6 +217,15 @@ const COLORS = {
     url: "https://fra.europa.eu/en/publications-and-resources/data-and-maps/2025/roma-survey-2024",
     coveredCountries: ["BG","CZ","ES","GR","HU","IT","RO"],
   },
+};
+
+const COLORS = {
+  none: "#1a1d2e",
+  good: "#22c55e",
+  low: "#eab308",
+  medium: "#f59e0b",
+  high: "#f97316",
+  critical: "#ef4444",
 };
 
 function getSeverity(
