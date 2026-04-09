@@ -183,6 +183,49 @@ const COLORS = {
   medium: "#f59e0b",
   high: "#f97316",
   critical: "#ef4444",
+
+  gbv_physical_sexual: {
+    direction: "higher_is_worse" as Direction,
+    thresholds: [20, 35, 50],
+    label: "Physical or sexual violence — lifetime",
+    url: "https://fra.europa.eu/en/content/eu-gender-based-violence-survey",
+    coveredCountries: ["AT","BE","BG","CZ","DE","DK","ES","FI","FR","GR","HR","HU","IE","IT","NL","PL","PT","RO","SE"],
+  },
+  gbv_harassment_work: {
+    direction: "higher_is_worse" as Direction,
+    thresholds: [15, 30, 45],
+    label: "Sexual harassment at work — lifetime",
+    url: "https://fra.europa.eu/en/content/eu-gender-based-violence-survey",
+    coveredCountries: ["BE","BG","DE","DK","ES","FI","FR","IT","NL","PL","SE"],
+  },
+  disability_violence_institutions: {
+    direction: "higher_is_worse" as Direction,
+    thresholds: [20, 33, 42],
+    label: "Violence in care institutions — persons with disabilities",
+    url: "https://fra.europa.eu/en/publication/2025/fundamental-rights-report-2025-fra-opinions",
+    coveredCountries: ["AT","BE","BG","CZ","DE","FR","GR","HU","NL","RO"],
+  },
+  antisemitic_incidents: {
+    direction: "higher_is_worse" as Direction,
+    thresholds: [30, 60, 80],
+    label: "Antisemitic incident exposure",
+    url: "https://fra.europa.eu/en/publication/2024/antisemitism-overview-2024",
+    coveredCountries: ["AT","BE","DE","DK","ES","FR","HU","IT","NL","PL","SE"],
+  },
+  roma_disc_housing: {
+    direction: "higher_is_worse" as Direction,
+    thresholds: [20, 33, 40],
+    label: "Housing discrimination — Roma",
+    url: "https://fra.europa.eu/en/publications-and-resources/data-and-maps/2025/roma-survey-2024",
+    coveredCountries: ["BG","CZ","ES","FR","GR","HU","IT","RO"],
+  },
+  roma_school_segregation: {
+    direction: "higher_is_worse" as Direction,
+    thresholds: [25, 40, 55],
+    label: "School segregation — Roma",
+    url: "https://fra.europa.eu/en/publications-and-resources/data-and-maps/2025/roma-survey-2024",
+    coveredCountries: ["BG","CZ","ES","GR","HU","IT","RO"],
+  },
 };
 
 function getSeverity(
