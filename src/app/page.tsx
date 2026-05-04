@@ -332,13 +332,20 @@ export default function HomePage() {
           text-align: center;
         }
         @media (max-width: 700px) {
+          .landing { padding: 48px 16px 40px; }
           .pillars { grid-template-columns: 1fr; }
           .pillar-divider { display: none; }
-          .headline { font-size: 28px; }
+          .pillar { padding: 24px 18px; }
+          .headline { font-size: 26px; }
+          .sub { font-size: 15px; }
           .domains-grid { grid-template-columns: repeat(2, 1fr); }
-          .stats-row { gap: 24px; }
-          .stat-value { font-size: 24px; }
-          .demo-block .demo-example { min-width: 0; }
+          .stats-row { gap: 20px; }
+          .stat-value { font-size: 22px; }
+          .demo-block { padding: 20px 16px; }
+          .demo-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+          .demo-example { padding: 14px 14px; }
+          .demo-signal { font-size: 11px; gap: 8px; }
+          .cta { padding: 14px 28px; font-size: 12px; width: 100%; justify-content: center; }
         }
       `}</style>
 
@@ -437,7 +444,7 @@ export default function HomePage() {
               </span>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
               <div className="demo-example">
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
                   <p className="demo-country" style={{ margin: 0 }}>
