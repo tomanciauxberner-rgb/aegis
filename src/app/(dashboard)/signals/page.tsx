@@ -6,7 +6,7 @@ import { RiskDataPanel } from "@/components/fria/risk-data-panel";
 import { EuMap, type CountryData } from "@/components/signals/eu-map";
 import { EarlyWarningPanel } from "@/components/signals/early-warning-panel";
 import { cn } from "@/lib/utils";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const COUNTRIES = [
   { code: "AT", name: "Austria" }, { code: "BE", name: "Belgium" },
@@ -221,45 +221,36 @@ ${renderMarkdown(content).replace(/class="[^"]*"/g, "")}
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-end p-4 pointer-events-none">
+    <div className="fixed inset-0 z-50 flex items-end md:items-start md:justify-end p-0 md:p-4 pointer-events-none">
       <div
-        className="pointer-events-auto w-full max-w-xl h-[calc(100vh-2rem)] bg-bg border border-border rounded-xl shadow-2xl flex flex-col overflow-hidden"
+        className="pointer-events-auto w-full md:max-w-xl h-[85vh] md:h-[calc(100vh-2rem)] border border-border shadow-2xl flex flex-col overflow-hidden rounded-t-xl md:rounded-xl"
         style={{ background: "#080a14" }}
       >
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-border flex-shrink-0">
-          <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-accent" />
-            <span className="text-base font-semibold text-text">
+          <div className="flex items-center gap-2 min-w-0">
+            <FileText className="w-4 h-4 text-accent flex-shrink-0" />
+            <span className="text-base font-semibold text-text truncate">
               Intelligence Briefing — {countryName}
             </span>
-            {loading && <Loader2 className="w-3.5 h-3.5 text-text-dim animate-spin" />}
+            {loading && <Loader2 className="w-3.5 h-3.5 text-text-dim animate-spin flex-shrink-0" />}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
             {content && !loading && (
               <>
-                <button
-                  onClick={handleCopy}
-                  className="flex items-center gap-1.5 px-2.5 py-1 text-base text-text-dim hover:text-text border border-border rounded transition-colors"
-                >
+                <button onClick={handleCopy} className="flex items-center gap-1 px-2 py-1 text-base text-text-dim hover:text-text border border-border rounded transition-colors">
                   {copied ? <Check className="w-3 h-3 text-success" /> : <Copy className="w-3 h-3" />}
-                  {copied ? "Copied" : "Copy"}
+                  <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
                 </button>
-                <button
-                  onClick={handleDownloadPdf}
-                  className="flex items-center gap-1.5 px-2.5 py-1 text-base text-text-dim hover:text-text border border-border rounded transition-colors"
-                >
+                <button onClick={handleDownloadPdf} className="flex items-center gap-1 px-2 py-1 text-base text-text-dim hover:text-text border border-border rounded transition-colors">
                   <Download className="w-3 h-3" />
-                  PDF
+                  <span className="hidden sm:inline">PDF</span>
                 </button>
-                <button
-                  onClick={handleDownloadMd}
-                  className="flex items-center gap-1.5 px-2.5 py-1 text-base text-text-dim hover:text-text border border-border rounded transition-colors"
-                >
+                <button onClick={handleDownloadMd} className="hidden sm:flex items-center gap-1 px-2 py-1 text-base text-text-dim hover:text-text border border-border rounded transition-colors">
                   .md
                 </button>
               </>
             )}
-            <button onClick={onClose} className="text-text-dim hover:text-text transition-colors">
+            <button onClick={onClose} className="text-text-dim hover:text-text transition-colors ml-1">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -272,20 +263,14 @@ ${renderMarkdown(content).replace(/class="[^"]*"/g, "")}
               <p className="text-base text-text-muted">Fetching {countryName} indicators + EU averages…</p>
             </div>
           )}
-
           {error && (
             <div className="bg-danger-soft border border-danger/30 rounded-lg p-4">
               <p className="text-base text-danger font-medium">Error: {error}</p>
             </div>
           )}
-
           {content && (
-            <div
-              className="prose-aegis text-text"
-              dangerouslySetInnerHTML={{ __html: renderMarkdown(content) }}
-            />
+            <div className="prose-aegis text-text" dangerouslySetInnerHTML={{ __html: renderMarkdown(content) }} />
           )}
-
           {!content && !loading && !error && (
             <p className="text-base text-text-muted">No content received.</p>
           )}
@@ -384,7 +369,8 @@ export default function SignalsPage() {
         />
       )}
 
-      <div className="flex items-start justify-between">
+      {/* ── PAGE HEADER ── */}
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Radio className="w-5 h-5 text-accent" />
@@ -397,14 +383,14 @@ export default function SignalsPage() {
             <span className="text-text-dim">data: FRA surveys + Eurostat + documented cases</span>
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           {countryCode && (
             <button
               onClick={() => setBriefingOpen(true)}
               className="flex items-center gap-2 px-4 py-2 bg-accent text-bg rounded-lg text-base font-bold hover:bg-accent/90 transition-colors shadow-lg"
             >
               <FileText className="w-3.5 h-3.5" />
-              Generate briefing — {selectedCountryName}
+              <span className="hidden sm:inline">Generate briefing — </span>{selectedCountryName}
             </button>
           )}
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-success-soft border border-success/20 rounded text-base text-success font-medium">
@@ -416,8 +402,9 @@ export default function SignalsPage() {
 
       <EarlyWarningPanel onSelectCountry={(code) => setCountryCode(code)} />
 
+      {/* ── MAP SECTION ── */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div className="flex items-center gap-2">
             <Map className="w-4 h-4 text-accent" />
             <span className="text-base font-semibold uppercase tracking-wider text-text-dim font-[family-name:var(--font-mono)]">
@@ -427,7 +414,7 @@ export default function SignalsPage() {
           <select
             value={mapIndicator}
             onChange={(e) => setMapIndicator(e.target.value)}
-            className="px-3 py-1.5 bg-surface border border-border rounded text-base text-text focus:outline-none focus:border-accent transition-colors"
+            className="w-full sm:w-auto px-3 py-1.5 bg-surface border border-border rounded text-base text-text focus:outline-none focus:border-accent transition-colors"
           >
             {MAP_INDICATORS.map((ind) => (
               <option key={ind.code} value={ind.code}>{ind.label}</option>
@@ -446,8 +433,9 @@ export default function SignalsPage() {
         </div>
       </div>
 
-      <div className="flex items-center gap-3 p-4 bg-surface border border-border rounded-lg">
-        <Filter className="w-4 h-4 text-text-muted flex-shrink-0" />
+      {/* ── FILTERS ── */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-4 bg-surface border border-border rounded-lg">
+        <Filter className="w-4 h-4 text-text-muted flex-shrink-0 hidden sm:block" />
         <select
           value={countryCode}
           onChange={(e) => setCountryCode(e.target.value)}
@@ -487,7 +475,7 @@ export default function SignalsPage() {
               Roma discrimination trend — EU average
             </span>
           </div>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <p style={{ fontSize: 11, color: "#ff5c5c", fontFamily: "var(--font-mono)", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 8 }}>WORSENING</p>
               <div style={{ width: "100%", height: 200 }}>
@@ -526,7 +514,7 @@ export default function SignalsPage() {
               <p style={{ fontSize: 10, color: "#00c882", fontFamily: "var(--font-mono)", marginTop: 4 }}>Poverty: -10pp but still 8× EU average (9%)</p>
             </div>
           </div>
-          <div className="flex items-center justify-center gap-5 mt-4" style={{ fontSize: 11, fontFamily: "var(--font-mono)" }}>
+          <div className="flex items-center justify-center gap-5 mt-4 flex-wrap" style={{ fontSize: 11, fontFamily: "var(--font-mono)" }}>
             <span className="flex items-center gap-1.5"><span style={{ width: 10, height: 10, borderRadius: 2, background: "#4f7cff", display: "inline-block" }} /> <span className="text-text-muted">2016</span></span>
             <span className="flex items-center gap-1.5"><span style={{ width: 10, height: 10, borderRadius: 2, background: "#e8b84b", display: "inline-block" }} /> <span className="text-text-muted">2021</span></span>
             <span className="flex items-center gap-1.5"><span style={{ width: 10, height: 10, borderRadius: 2, background: "#ff5c5c", display: "inline-block" }} /> <span className="text-text-muted">2024</span></span>
@@ -550,9 +538,7 @@ export default function SignalsPage() {
             <div className="bg-surface border border-border rounded-lg p-10 text-center">
               <Globe className="w-8 h-8 text-text-dim mx-auto mb-3" />
               <p className="text-base font-medium text-text mb-1">Select a country</p>
-              <p className="text-base text-text-muted">
-                Click a country on the map or use the filter above
-              </p>
+              <p className="text-base text-text-muted">Click a country on the map or use the filter above</p>
             </div>
           )}
 
@@ -564,7 +550,7 @@ export default function SignalsPage() {
               <a key={src.label} href={src.url} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-between group hover:text-accent transition-colors">
                 <span className="text-base text-text-muted group-hover:text-accent transition-colors">{src.label}</span>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
                   <span className="text-base text-text-dim font-[family-name:var(--font-mono)]">{src.year}</span>
                   <ExternalLink className="w-3 h-3 text-text-dim group-hover:text-accent transition-colors" />
                 </div>
@@ -588,10 +574,10 @@ export default function SignalsPage() {
 
           <div className="space-y-3">
             {filteredIncidents.map((inc) => (
-              <div key={inc.id} className="bg-surface border border-border rounded-lg p-5 hover:border-border-accent transition-colors">
+              <div key={inc.id} className="bg-surface border border-border rounded-lg p-4 hover:border-border-accent transition-colors">
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div className="flex items-start gap-2 min-w-0">
-                    <span className="text-lg leading-none mt-0.5">{inc.flag}</span>
+                    <span className="text-lg leading-none mt-0.5 flex-shrink-0">{inc.flag}</span>
                     <p className="text-base font-semibold text-text leading-snug">{inc.title}</p>
                   </div>
                   <span className={cn("px-2 py-0.5 rounded text-base font-bold uppercase tracking-wider flex-shrink-0", SEVERITY_BADGE[inc.severity])}>
@@ -599,7 +585,7 @@ export default function SignalsPage() {
                   </span>
                 </div>
                 <p className="text-base text-text-muted leading-relaxed mb-3">{inc.summary}</p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-base px-2 py-0.5 bg-surface-2 border border-border rounded text-text-dim font-[family-name:var(--font-mono)]">
                       {inc.sector}

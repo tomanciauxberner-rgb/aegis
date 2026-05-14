@@ -73,7 +73,7 @@ export default async function OverviewPage() {
               <span style={{ fontSize: 15, color: "#8ba8c8", marginBottom: 8 }}>critical alerts</span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <span style={{ padding: "4px 10px", background: "rgba(255,92,92,0.1)", border: "1px solid rgba(255,92,92,0.3)", borderRadius: 6, fontSize: 12, fontWeight: 700, color: "#ff5c5c" }}>
                 {alerts.critical} critical
               </span>
@@ -143,9 +143,13 @@ export default async function OverviewPage() {
         </div>
       </div>
 
-      <div style={{ background: "#0f2040", border: "1px solid #1e3a5f", borderRadius: 14, padding: "32px 36px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
+      {/* ── CTA BLOC — stack on mobile ── */}
+      <div
+        className="flex flex-col md:flex-row md:items-center md:justify-between gap-5"
+        style={{ background: "#0f2040", border: "1px solid #1e3a5f", borderRadius: 14, padding: "32px 28px" }}
+      >
         <div className="flex items-center gap-4">
-          <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(79,124,255,0.12)", border: "1px solid rgba(79,124,255,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(79,124,255,0.12)", border: "1px solid rgba(79,124,255,0.3)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <Cpu className="w-6 h-6 text-accent" />
           </div>
           <div>
@@ -153,8 +157,8 @@ export default async function OverviewPage() {
             <p style={{ fontSize: 14, color: "#4a7fa5" }}>Aegis identifies which systems require a FRIA under EU AI Act Article 27.</p>
           </div>
         </div>
-        <Link href="/systems" style={{ textDecoration: "none", flexShrink: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 20px", background: "#4f7cff", borderRadius: 8, color: "#ffffff", fontSize: 14, fontWeight: 500, whiteSpace: "nowrap" }}>
+        <Link href="/systems" style={{ textDecoration: "none" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 20px", background: "#4f7cff", borderRadius: 8, color: "#ffffff", fontSize: 14, fontWeight: 500 }}>
             Get started <ArrowRight style={{ width: 16, height: 16 }} />
           </div>
         </Link>

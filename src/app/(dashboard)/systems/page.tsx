@@ -396,7 +396,7 @@ export default function SystemsPage() {
                 <textarea style={{ ...inputStyle, height: 80, resize: "none" }} placeholder="What does this system do?" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label style={labelStyle}>Provider</label>
                   <input style={inputStyle} placeholder="e.g. OpenAI, internal" value={form.provider} onChange={e => setForm(f => ({ ...f, provider: e.target.value }))} />
