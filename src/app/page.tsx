@@ -24,11 +24,115 @@ const POPULATIONS = [
   "Migrants & Refugees",
 ];
 
+const ROADMAP = [
+  "FRIA methodology validation",
+  "Dataset coverage expansion",
+  "Civic space indicators",
+  "Children's digital rights",
+  "Publication-ready visualisations",
+];
+
 export default function HomePage() {
   return (
     <>
       <style>{`
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        .open-banner {
+          width: 100%;
+          background: rgba(7, 21, 37, 0.95);
+          border-bottom: 1px solid #1e3a5f;
+          padding: 14px 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          position: relative;
+          z-index: 10;
+        }
+        .open-banner-top {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .open-badge {
+          font-family: var(--font-mono), monospace;
+          font-size: 9px;
+          letter-spacing: 0.2em;
+          font-weight: 700;
+          text-transform: uppercase;
+          padding: 4px 10px;
+          border-radius: 20px;
+          background: rgba(79,124,255,0.08);
+          border: 1px solid rgba(79,124,255,0.25);
+          color: #4f7cff;
+          white-space: nowrap;
+        }
+        .open-mission {
+          font-size: 12px;
+          color: #7aaac8;
+          line-height: 1.5;
+          text-align: center;
+          max-width: 620px;
+        }
+        .open-mission strong {
+          color: #a8c4d8;
+          font-weight: 500;
+        }
+        .open-roadmap {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .roadmap-label {
+          font-family: var(--font-mono), monospace;
+          font-size: 9px;
+          letter-spacing: 0.15em;
+          color: #2a5080;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+        .roadmap-chip {
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          padding: 3px 10px;
+          border-radius: 20px;
+          background: rgba(0,200,130,0.06);
+          border: 1px solid rgba(0,200,130,0.18);
+          color: #00c882;
+          white-space: nowrap;
+        }
+        .open-links {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .open-link {
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          letter-spacing: 0.12em;
+          text-decoration: none;
+          padding: 5px 14px;
+          border-radius: 6px;
+          transition: background 0.2s;
+        }
+        .open-link-gh {
+          background: rgba(255,255,255,0.05);
+          border: 1px solid #1e3a5f;
+          color: #7aaac8;
+        }
+        .open-link-gh:hover { background: rgba(255,255,255,0.09); }
+        .open-link-contribute {
+          background: rgba(0,200,130,0.08);
+          border: 1px solid rgba(0,200,130,0.25);
+          color: #00c882;
+        }
+        .open-link-contribute:hover { background: rgba(0,200,130,0.14); }
+
         .landing {
           min-height: 100vh;
           background: #0d1b35;
@@ -204,17 +308,9 @@ export default function HomePage() {
           text-align: center;
           transition: border-color 0.2s, transform 0.15s;
         }
-        .domain-card:hover {
-          border-color: #4f7cff;
-          transform: translateY(-2px);
-        }
+        .domain-card:hover { border-color: #4f7cff; transform: translateY(-2px); }
         .domain-icon { font-size: 20px; margin-bottom: 8px; }
-        .domain-label {
-          font-size: 12px;
-          font-weight: 600;
-          color: #8ba8c8;
-          line-height: 1.3;
-        }
+        .domain-label { font-size: 12px; font-weight: 600; color: #8ba8c8; line-height: 1.3; }
         .pop-grid {
           display: flex;
           flex-wrap: wrap;
@@ -247,16 +343,8 @@ export default function HomePage() {
           justify-content: space-between;
           margin-bottom: 24px;
         }
-        .demo-title {
-          font-size: 15px;
-          font-weight: 700;
-          color: #e8eaf0;
-        }
-        .demo-sub {
-          font-size: 12px;
-          color: #4a7fa5;
-          font-family: var(--font-mono), monospace;
-        }
+        .demo-title { font-size: 15px; font-weight: 700; color: #e8eaf0; }
+        .demo-sub { font-size: 12px; color: #4a7fa5; font-family: var(--font-mono), monospace; }
         .demo-example {
           background: #0d1b35;
           border: 1px solid #1e3a5f;
@@ -283,12 +371,7 @@ export default function HomePage() {
           color: #7aaac8;
         }
         .demo-signal:last-child { border-bottom: none; }
-        .demo-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          flex-shrink: 0;
-        }
+        .demo-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
         .demo-delta {
           font-family: var(--font-mono), monospace;
           font-weight: 700;
@@ -332,6 +415,8 @@ export default function HomePage() {
           text-align: center;
         }
         @media (max-width: 700px) {
+          .open-banner { padding: 12px 16px; gap: 8px; }
+          .open-mission { font-size: 11px; }
           .landing { padding: 48px 16px 40px; }
           .pillars { grid-template-columns: 1fr; }
           .pillar-divider { display: none; }
@@ -348,6 +433,30 @@ export default function HomePage() {
           .cta { padding: 14px 28px; font-size: 12px; width: 100%; justify-content: center; }
         }
       `}</style>
+
+      {/* ── OPEN SOURCE BANNER ── */}
+      <div className="open-banner">
+        <div className="open-banner-top">
+          <span className="open-badge">Open Source · AGPL v3 · Community Project</span>
+          <p className="open-mission">
+            <strong>Open infrastructure for EU fundamental rights intelligence</strong> — built with researchers, policy experts and civic technologists, not for profit.
+          </p>
+        </div>
+        <div className="open-roadmap">
+          <span className="roadmap-label">Building together →</span>
+          {ROADMAP.map((item) => (
+            <span key={item} className="roadmap-chip">{item}</span>
+          ))}
+        </div>
+        <div className="open-links">
+          <a href="https://github.com/tomanciauxberner-rgb/aegis" target="_blank" rel="noopener noreferrer" className="open-link open-link-gh">
+            ★ Star on GitHub
+          </a>
+          <a href="https://github.com/tomanciauxberner-rgb/aegis/issues" target="_blank" rel="noopener noreferrer" className="open-link open-link-contribute">
+            Contribute
+          </a>
+        </div>
+      </div>
 
       <main className="landing">
         <div className="grid-bg" />
@@ -445,74 +554,30 @@ export default function HomePage() {
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
-              <div className="demo-example">
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                  <p className="demo-country" style={{ margin: 0 }}>
-                    <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#1e3a5f", display: "inline-block" }} /> Country A
-                  </p>
-                  <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)", margin: 0, fontSize: 9 }}>ELEVATED</span>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>📊</span> Discrimination rate 38% (+5pp)
+              {[
+                { country: "Country A", level: "ELEVATED", levelColor: "#e8b84b", levelBg: "rgba(232,184,75,0.1)", levelBorder: "rgba(232,184,75,0.25)", signals: ["📊 Discrimination rate 38% (+5pp)", "⚖️ 2 AI systems declared", "🚨 Algorithmic bias documented"], tag: "3/3 signal types · Employment", tagColor: "#e8b84b", tagBg: "rgba(232,184,75,0.06)", tagBorder: "rgba(232,184,75,0.15)" },
+                { country: "Country B", level: "ELEVATED", levelColor: "#e8b84b", levelBg: "rgba(232,184,75,0.1)", levelBorder: "rgba(232,184,75,0.25)", signals: ["📊 Discrimination rate 45% (+9pp)", "⚖️ 7 Annex III systems declared", "🚨 Recruitment bias case"], tag: "3/3 signal types · Employment", tagColor: "#e8b84b", tagBg: "rgba(232,184,75,0.06)", tagBorder: "rgba(232,184,75,0.15)" },
+                { country: "Country C", level: "WATCH", levelColor: "#4f7cff", levelBg: "rgba(79,124,255,0.1)", levelBorder: "rgba(79,124,255,0.25)", signals: ["📊 Poverty rate 82%", "⚖️ AI systems in deployment", "🚨 Proxy discrimination flagged"], tag: "3/3 signal types · Essential services", tagColor: "#4f7cff", tagBg: "rgba(79,124,255,0.06)", tagBorder: "rgba(79,124,255,0.15)" },
+              ].map((c) => (
+                <div key={c.country} className="demo-example">
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                    <p className="demo-country" style={{ margin: 0 }}>
+                      <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#1e3a5f", display: "inline-block" }} /> {c.country}
+                    </p>
+                    <span className="pillar-tag" style={{ background: c.levelBg, color: c.levelColor, border: `1px solid ${c.levelBorder}`, margin: 0, fontSize: 9 }}>{c.level}</span>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>⚖️</span> 2 AI systems declared
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {c.signals.map((s) => (
+                      <div key={s} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
+                        <span style={{ fontSize: 13 }}>{s.slice(0, 2)}</span> {s.slice(3)}
+                      </div>
+                    ))}
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>🚨</span> Algorithmic bias documented
-                  </div>
-                </div>
-                <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", borderRadius: 6, fontSize: 10, color: "#e8b84b", fontFamily: "var(--font-mono), monospace" }}>
-                  3/3 signal types · Employment
-                </div>
-              </div>
-
-              <div className="demo-example">
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                  <p className="demo-country" style={{ margin: 0 }}>
-                    <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#1e3a5f", display: "inline-block" }} /> Country B
-                  </p>
-                  <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)", margin: 0, fontSize: 9 }}>ELEVATED</span>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>📊</span> Discrimination rate 45% (+9pp)
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>⚖️</span> 7 Annex III systems declared
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>🚨</span> Recruitment bias case
+                  <div style={{ marginTop: 10, padding: "6px 10px", background: c.tagBg, border: `1px solid ${c.tagBorder}`, borderRadius: 6, fontSize: 10, color: c.tagColor, fontFamily: "var(--font-mono), monospace" }}>
+                    {c.tag}
                   </div>
                 </div>
-                <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", borderRadius: 6, fontSize: 10, color: "#e8b84b", fontFamily: "var(--font-mono), monospace" }}>
-                  3/3 signal types · Employment
-                </div>
-              </div>
-
-              <div className="demo-example">
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                  <p className="demo-country" style={{ margin: 0 }}>
-                    <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#1e3a5f", display: "inline-block" }} /> Country C
-                  </p>
-                  <span className="pillar-tag" style={{ background: "rgba(79,124,255,0.1)", color: "#4f7cff", border: "1px solid rgba(79,124,255,0.25)", margin: 0, fontSize: 9 }}>WATCH</span>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>📊</span> Poverty rate 82%
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>⚖️</span> AI systems in deployment
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                    <span style={{ fontSize: 13 }}>🚨</span> Proxy discrimination flagged
-                  </div>
-                </div>
-                <div style={{ marginTop: 10, padding: "6px 10px", background: "rgba(79,124,255,0.06)", border: "1px solid rgba(79,124,255,0.15)", borderRadius: 6, fontSize: 10, color: "#4f7cff", fontFamily: "var(--font-mono), monospace" }}>
-                  3/3 signal types · Essential services
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
