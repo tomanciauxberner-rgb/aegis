@@ -148,4 +148,20 @@ AGPL v3 — Any derivative work that is deployed publicly must remain open sourc
 
 ---
 
+<img width="1423" height="707" alt="image" src="https://github.com/user-attachments/assets/2d7b482a-d512-4299-962d-2b1273370ed4" />
+
+<img width="1153" height="671" alt="image" src="https://github.com/user-attachments/assets/8f8a034a-3286-42c4-9083-8e3d56030e44" />
+<img width="1164" height="741" alt="image" src="https://github.com/user-attachments/assets/abf1274e-6195-42b7-8bdf-5895af2b1995" />
+<img width="1167" height="663" alt="image" src="https://github.com/user-attachments/assets/f6c8119c-d0bf-4378-b2f3-d698cdd07692" />
+<img width="1148" height="728" alt="image" src="https://github.com/user-attachments/assets/6fd7ead6-a4f1-4634-abba-2f8192e36a7a" />
+<img width="1157" height="725" alt="image" src="https://github.com/user-attachments/assets/130dbff9-509a-4749-8421-eb1b9b4323e7" />
+
+
+
+
+
+
+
+
+
 *Built by [ThinkLance AI](https://aegis-eu.com) · 2026 · Brussels*
