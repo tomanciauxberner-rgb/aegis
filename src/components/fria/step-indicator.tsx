@@ -10,13 +10,14 @@ interface Step {
 }
 
 const STEPS: Step[] = [
-  { id: 1, label: "Context", description: "System & deployment" },
-  { id: 2, label: "Populations", description: "Affected groups" },
-  { id: 3, label: "Risks", description: "Rights impact" },
-  { id: 4, label: "Mitigation", description: "Measures" },
-  { id: 5, label: "Oversight", description: "Human control" },
-  { id: 6, label: "DPIA Bridge", description: "Overlap check" },
-  { id: 7, label: "Export", description: "Generate report" },
+  { id: 1, label: "Context",      description: "System & deployment" },
+  { id: 2, label: "Populations",  description: "Affected groups" },
+  { id: 3, label: "Risks",        description: "Rights impact" },
+  { id: 4, label: "Mitigation",   description: "Measures" },
+  { id: 5, label: "Case Law",     description: "Jurisprudence" },
+  { id: 6, label: "Oversight",    description: "Human control" },
+  { id: 7, label: "DPIA Bridge",  description: "Overlap check" },
+  { id: 8, label: "Export",       description: "Generate report" },
 ];
 
 export function FriaStepIndicator({ currentStep }: { currentStep: number }) {

@@ -69,6 +69,7 @@ export interface FriaWizardState {
   }[];
   dpiaReference: string;
   dpiaOverlapNotes: string;
+  selectedCases: string[];
 }
 
 export interface ApiResponse<T = unknown> {

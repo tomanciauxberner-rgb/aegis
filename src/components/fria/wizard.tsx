@@ -7,6 +7,7 @@ import { StepContext } from "@/components/fria/step-context";
 import { StepPopulations } from "@/components/fria/step-populations";
 import { StepRisks } from "@/components/fria/step-risks";
 import { StepMitigation } from "@/components/fria/step-mitigation";
+import { StepJurisprudence } from "@/components/fria/step-jurisprudence";
 import { StepOversight } from "@/components/fria/step-oversight";
 import { StepDpiaBridge } from "@/components/fria/step-dpia-bridge";
 import { StepExport } from "@/components/fria/step-export";
@@ -26,6 +27,7 @@ const INITIAL_STATE: FriaWizardState = {
   mitigations: [],
   dpiaReference: "",
   dpiaOverlapNotes: "",
+  selectedCases: [],
 };
 
 export function FriaWizard() {
@@ -36,7 +38,7 @@ export function FriaWizard() {
   }
 
   function nextStep() {
-    setState((prev) => ({ ...prev, step: Math.min(prev.step + 1, 7) }));
+    setState((prev) => ({ ...prev, step: Math.min(prev.step + 1, 8) }));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -54,9 +56,10 @@ export function FriaWizard() {
         {state.step === 2 && <StepPopulations state={state} onUpdate={updateState} />}
         {state.step === 3 && <StepRisks state={state} onUpdate={updateState} />}
         {state.step === 4 && <StepMitigation state={state} onUpdate={updateState} />}
-        {state.step === 5 && <StepOversight state={state} onUpdate={updateState} />}
-        {state.step === 6 && <StepDpiaBridge state={state} onUpdate={updateState} />}
-        {state.step === 7 && <StepExport state={state} onUpdate={updateState} />}
+        {state.step === 5 && <StepJurisprudence state={state} onUpdate={updateState} />}
+        {state.step === 6 && <StepOversight state={state} onUpdate={updateState} />}
+        {state.step === 7 && <StepDpiaBridge state={state} onUpdate={updateState} />}
+        {state.step === 8 && <StepExport state={state} onUpdate={updateState} />}
       </div>
 
       <div className="flex items-center justify-between mt-6">
@@ -74,7 +77,7 @@ export function FriaWizard() {
           Save draft
         </button>
 
-        {state.step < 7 ? (
+        {state.step < 8 ? (
           <button
             onClick={nextStep}
             className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white text-sm font-medium rounded hover:bg-accent/90 transition-colors"
