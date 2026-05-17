@@ -1,265 +1,28 @@
-import type { JurisprudenceCase } from '@/types/jurisprudence'
+export { ALL_CASES as JURISPRUDENCE_CASES } from "./cases";
 
-export const JURISPRUDENCE_CASES: JurisprudenceCase[] = [
-  {
-    id: 'cjeu-digital-rights-ireland-2014',
-    court: 'CJEU',
-    name: 'Digital Rights Ireland',
-    citation: 'C-293/12 & C-594/12',
-    year: 2014,
-    country: null,
-    summary: 'The Court invalidated the Data Retention Directive, holding that blanket retention of communications metadata by public authorities constitutes a serious interference with fundamental rights to privacy and data protection.',
-    holding: 'Mass retention of personal data without targeting criteria, limitation by objective, or effective judicial review is incompatible with Arts. 7 and 8 of the Charter.',
-    relevance: 'binding',
-    rights_categories: ['data_protection', 'private_life'],
-    ai_act_articles: ['Art. 10', 'Art. 13', 'Art. 26'],
-    sectors: ['law_enforcement', 'essential_services'],
-    keywords: ['mass surveillance', 'data retention', 'proportionality', 'bulk collection'],
-    url: 'https://curia.europa.eu/juris/liste.jsf?num=C-293/12',
-  },
-  {
-    id: 'cjeu-schrems-i-2015',
-    court: 'CJEU',
-    name: 'Schrems I (Maximillian Schrems v Data Protection Commissioner)',
-    citation: 'C-362/14',
-    year: 2015,
-    country: null,
-    summary: 'The Court invalidated the Safe Harbour decision, finding that the Commission cannot disregard the fundamental rights guaranteed by the Charter when assessing the adequacy of third-country protection.',
-    holding: 'Adequacy decisions must guarantee protection essentially equivalent to that in the EU. National supervisory authorities retain the power to investigate transfers irrespective of Commission adequacy decisions.',
-    relevance: 'binding',
-    rights_categories: ['data_protection', 'private_life', 'effective_remedy'],
-    ai_act_articles: ['Art. 13', 'Art. 85'],
-    sectors: ['essential_services', 'online'],
-    keywords: ['data transfer', 'adequacy', 'third country', 'supervisory authority'],
-    url: 'https://curia.europa.eu/juris/liste.jsf?num=C-362/14',
-  },
-  {
-    id: 'cjeu-ligue-droits-humains-2022',
-    court: 'CJEU',
-    name: 'Ligue des droits humains v Conseil des ministres',
-    citation: 'C-817/19',
-    year: 2022,
-    country: null,
-    summary: 'The Court assessed the PNR Directive in light of fundamental rights, establishing strict necessity requirements for automated processing of travel data for law enforcement purposes.',
-    holding: 'Automated processing of PNR data is only permissible if pre-screening is based on specific, reliable, non-discriminatory criteria and subject to independent oversight. General profiling incompatible with the Charter.',
-    relevance: 'binding',
-    rights_categories: ['data_protection', 'non_discrimination', 'private_life'],
-    ai_act_articles: ['Art. 6', 'Art. 9', 'Art. 10', 'Art. 26 (Annex III)'],
-    sectors: ['law_enforcement', 'migration'],
-    keywords: ['PNR', 'automated profiling', 'non-discrimination', 'necessity', 'proportionality'],
-    url: 'https://curia.europa.eu/juris/liste.jsf?num=C-817/19',
-  },
-  {
-    id: 'cjeu-rigas-satikme-2020',
-    court: 'CJEU',
-    name: 'Rigas satiksme',
-    citation: 'C-429/19',
-    year: 2020,
-    country: null,
-    summary: 'The Court clarified that personal data collected for automated surveillance must not be processed for incompatible secondary purposes, reinforcing purpose limitation under GDPR.',
-    holding: 'Purpose limitation under Art. 5(1)(b) GDPR applies strictly to automated systems; secondary use for law enforcement requires a separate legal basis.',
-    relevance: 'binding',
-    rights_categories: ['data_protection', 'private_life'],
-    ai_act_articles: ['Art. 10', 'Art. 13'],
-    sectors: ['law_enforcement', 'essential_services'],
-    keywords: ['purpose limitation', 'secondary use', 'GDPR', 'automated processing'],
-    url: 'https://curia.europa.eu/juris/liste.jsf?num=C-429/19',
-  },
-  {
-    id: 'cjeu-vyriausioji-2023',
-    court: 'CJEU',
-    name: 'Vyriausioji tarnybinės etikos komisija',
-    citation: 'C-184/20',
-    year: 2022,
-    country: null,
-    summary: 'The Court examined automated disclosure of officials\' personal data online and proportionality requirements, applying Charter Arts. 7 and 8 to algorithmic transparency obligations.',
-    holding: 'Mandatory online publication of personal data via automated systems must be strictly proportionate; broad publication rules incompatible with the right to private life.',
-    relevance: 'binding',
-    rights_categories: ['data_protection', 'private_life', 'effective_remedy'],
-    ai_act_articles: ['Art. 13', 'Art. 14', 'Art. 26'],
-    sectors: ['justice', 'essential_services'],
-    keywords: ['transparency', 'proportionality', 'automated disclosure', 'public data'],
-    url: 'https://curia.europa.eu/juris/liste.jsf?num=C-184/20',
-  },
-  {
-    id: 'echr-s-marper-2008',
-    court: 'ECHR',
-    name: 'S. and Marper v. United Kingdom',
-    citation: 'Applications nos. 30562/04 and 30566/04',
-    year: 2008,
-    country: 'GB',
-    summary: 'Grand Chamber ruling establishing that indefinite retention of DNA profiles, cellular samples, and fingerprints of individuals not convicted of any offence violates Art. 8 ECHR. Landmark case on biometric data retention.',
-    holding: 'Blanket and indiscriminate retention of biometric data of innocent persons is disproportionate and violates the right to respect for private life.',
-    relevance: 'binding',
-    rights_categories: ['private_life', 'data_protection', 'non_discrimination'],
-    ai_act_articles: ['Art. 5(1)(a)', 'Art. 9', 'Art. 10', 'Annex III §1'],
-    sectors: ['law_enforcement'],
-    keywords: ['biometrics', 'DNA', 'fingerprints', 'retention', 'innocent persons', 'Art. 8 ECHR'],
-    url: 'https://hudoc.echr.coe.int/eng?i=001-90051',
-  },
-  {
-    id: 'echr-barbulescu-2017',
-    court: 'ECHR',
-    name: 'Bărbulescu v. Romania',
-    citation: 'Application no. 61496/08',
-    year: 2017,
-    country: 'RO',
-    summary: 'Grand Chamber ruling on employer monitoring of employee communications. Established that States must ensure employers do not destroy the very essence of the right to private life when monitoring workplace communications.',
-    holding: 'Any monitoring of employee digital communications must be proportionate, based on legitimate aims, and employees must be informed in advance of the monitoring and its scope.',
-    relevance: 'binding',
-    rights_categories: ['private_life', 'work'],
-    ai_act_articles: ['Art. 5(1)(b)', 'Art. 9', 'Art. 13', 'Annex III §4'],
-    sectors: ['employment'],
-    keywords: ['workplace monitoring', 'employee surveillance', 'proportionality', 'prior notification'],
-    url: 'https://hudoc.echr.coe.int/eng?i=001-177082',
-  },
-  {
-    id: 'echr-big-brother-watch-2021',
-    court: 'ECHR',
-    name: 'Big Brother Watch and Others v. United Kingdom',
-    citation: 'Applications nos. 58170/13, 62322/14 and 24960/15',
-    year: 2021,
-    country: 'GB',
-    summary: 'Grand Chamber ruling on bulk interception regimes and intelligence sharing. Found violation of Art. 8 ECHR in absence of end-to-end safeguards for bulk surveillance programmes.',
-    holding: 'Bulk surveillance must be subject to independent end-to-end review, category-based searching criteria, and adequate oversight — absence of these safeguards violates Art. 8.',
-    relevance: 'persuasive',
-    rights_categories: ['private_life', 'data_protection', 'expression'],
-    ai_act_articles: ['Art. 5(1)(a)', 'Art. 9', 'Art. 10'],
-    sectors: ['law_enforcement'],
-    keywords: ['bulk surveillance', 'mass interception', 'intelligence', 'end-to-end safeguards'],
-    url: 'https://hudoc.echr.coe.int/eng?i=001-210077',
-  },
-  {
-    id: 'echr-m-l-w-w-2018',
-    court: 'ECHR',
-    name: 'M.L. and W.W. v. Germany',
-    citation: 'Applications nos. 60798/10 and 65599/10',
-    year: 2018,
-    country: 'DE',
-    summary: 'The Court addressed the right to be forgotten in online archives, balancing the right to private life against freedom of expression and historical memory.',
-    holding: 'The continued online availability of criminal records must be balanced against rehabilitation interests; automated search results linking individuals to past crimes require periodic proportionality assessment.',
-    relevance: 'persuasive',
-    rights_categories: ['private_life', 'data_protection', 'effective_remedy'],
-    ai_act_articles: ['Art. 13', 'Art. 14'],
-    sectors: ['online', 'justice'],
-    keywords: ['right to be forgotten', 'online archives', 'rehabilitation', 'automated search'],
-    url: 'https://hudoc.echr.coe.int/eng?i=001-182862',
-  },
-  {
-    id: 'nl-syri-2020',
-    court: 'national',
-    name: 'SyRI (Stichting Privacy First and Others v State Secretary)',
-    citation: 'ECLI:NL:RBDHA:2020:1878',
-    year: 2020,
-    country: 'NL',
-    summary: 'The Hague District Court struck down the Dutch SyRI welfare fraud detection system, finding it violated Art. 8 ECHR due to lack of transparency about the algorithm and disproportionate targeting of low-income neighbourhoods.',
-    holding: 'A risk-profiling algorithm targeting welfare beneficiaries must be transparent, proportionate, and non-discriminatory. Opaque algorithmic scoring of social vulnerability data violates the right to private life.',
-    relevance: 'persuasive',
-    rights_categories: ['non_discrimination', 'private_life', 'data_protection', 'effective_remedy'],
-    ai_act_articles: ['Art. 6', 'Art. 9', 'Art. 13', 'Art. 14', 'Annex III §5'],
-    sectors: ['essential_services', 'law_enforcement'],
-    keywords: ['welfare profiling', 'social scoring', 'algorithmic transparency', 'discrimination', 'SyRI'],
-    url: 'https://uitspraken.rechtspraak.nl/#!/details?id=ECLI:NL:RBDHA:2020:1878',
-  },
-  {
-    id: 'fr-caf-cnil-2023',
-    court: 'DPA',
-    name: 'CNIL investigation — CAF scoring algorithm',
-    citation: 'CNIL délibération 2023',
-    year: 2023,
-    country: 'FR',
-    summary: 'The CNIL investigation into the Caisse d\'Allocations Familiales (CAF) risk scoring system found that the algorithm disproportionately targeted low-income families, people with disabilities, and single-parent households for fraud investigations.',
-    holding: 'Automated risk scoring for benefit fraud must not perpetuate or amplify existing social inequalities. Proxy discrimination through algorithmic variables constitutes indirect discrimination under GDPR Art. 22.',
-    relevance: 'illustrative',
-    rights_categories: ['non_discrimination', 'data_protection', 'disability', 'effective_remedy'],
-    ai_act_articles: ['Art. 9', 'Art. 10', 'Art. 13', 'Annex III §5'],
-    sectors: ['essential_services', 'employment'],
-    keywords: ['benefit fraud', 'proxy discrimination', 'algorithmic scoring', 'disability', 'single parents'],
-    url: 'https://algorithmwatch.org/en/caf-algorithm-social-scoring/',
-  },
-  {
-    id: 'echr-centrum-rights-2010',
-    court: 'ECHR',
-    name: 'Centrum för rättvisa v. Sweden',
-    citation: 'Application no. 35252/08',
-    year: 2021,
-    country: 'SE',
-    summary: 'Grand Chamber ruling on Swedish bulk signals intelligence. Found violation of Art. 8, requiring end-to-end oversight for systems that intercept and process communications data in bulk.',
-    holding: 'Bulk interception regimes must have adequate and effective guarantees against arbitrary access and abuse, including at the stage of automatic processing and filtering.',
-    relevance: 'binding',
-    rights_categories: ['private_life', 'data_protection'],
-    ai_act_articles: ['Art. 5(1)(a)', 'Art. 9', 'Art. 10'],
-    sectors: ['law_enforcement'],
-    keywords: ['bulk interception', 'signals intelligence', 'automated filtering', 'oversight'],
-    url: 'https://hudoc.echr.coe.int/eng?i=001-210715',
-  },
-  {
-    id: 'echr-communautes-geneve-2013',
-    court: 'ECHR',
-    name: 'Nada v. Switzerland',
-    citation: 'Application no. 10593/08',
-    year: 2012,
-    country: 'CH',
-    summary: 'The Grand Chamber found that automated application of UN sanctions listing without adequate review mechanisms violated the right to an effective remedy and private life.',
-    holding: 'Automated implementation of listing decisions without individualised review and an effective challenge mechanism violates Arts. 8 and 13 ECHR.',
-    relevance: 'persuasive',
-    rights_categories: ['effective_remedy', 'private_life', 'equality'],
-    ai_act_articles: ['Art. 14', 'Art. 26', 'Art. 85'],
-    sectors: ['justice', 'essential_services'],
-    keywords: ['automated listing', 'sanctions', 'effective remedy', 'individualised review'],
-    url: 'https://hudoc.echr.coe.int/eng?i=001-113300',
-  },
-  {
-    id: 'cjeu-WK-2023',
-    court: 'CJEU',
-    name: 'OT v Vyriausioji tarnybinės etikos komisija',
-    citation: 'C-439/19',
-    year: 2021,
-    country: null,
-    summary: 'The Court examined the compatibility of mandatory publication of elected officials\' asset declarations with GDPR and the Charter, establishing proportionality limits on automated online disclosure.',
-    holding: 'Automated online publication of personal data must be strictly necessary and proportionate to the transparency objective; it cannot extend beyond what is necessary to achieve the legitimate aim.',
-    relevance: 'binding',
-    rights_categories: ['data_protection', 'private_life'],
-    ai_act_articles: ['Art. 10', 'Art. 13'],
-    sectors: ['essential_services', 'justice'],
-    keywords: ['automated publication', 'proportionality', 'personal data', 'public officials'],
-    url: 'https://curia.europa.eu/juris/liste.jsf?num=C-439/19',
-  },
-  {
-    id: 'echr-antovic-mirkovic-2017',
-    court: 'ECHR',
-    name: 'Antović and Mirković v. Montenegro',
-    citation: 'Application no. 70838/13',
-    year: 2017,
-    country: 'ME',
-    summary: 'Video surveillance of university lecture halls found to engage Art. 8 ECHR, even in professional settings. Proportionality of CCTV and automated monitoring systems in educational contexts assessed.',
-    holding: 'Continuous video surveillance of individuals in educational workplaces constitutes an interference with private life and must satisfy necessity and proportionality requirements.',
-    relevance: 'persuasive',
-    rights_categories: ['private_life', 'education', 'work'],
-    ai_act_articles: ['Art. 5(1)(b)', 'Art. 9', 'Annex III §4'],
-    sectors: ['education', 'employment'],
-    keywords: ['video surveillance', 'education', 'workplace', 'CCTV', 'proportionality'],
-    url: 'https://hudoc.echr.coe.int/eng?i=001-178904',
-  },
-]
+import type { JurisprudenceCase } from "@/types/jurisprudence";
+import { ALL_CASES } from "./cases";
 
 export function getCasesForContext(opts: {
-  rights_categories: string[]
-  sectors: string[]
-  limit?: number
+  rights_categories: string[];
+  sectors: string[];
+  limit?: number;
 }): JurisprudenceCase[] {
-  const { rights_categories, sectors, limit = 8 } = opts
+  const { rights_categories, sectors, limit = 8 } = opts;
 
-  const scored = JURISPRUDENCE_CASES.map(c => {
-    const catMatch = c.rights_categories.filter(r => rights_categories.includes(r)).length
-    const secMatch = c.sectors.filter(s => sectors.includes(s)).length
-    const relevanceBonus = c.relevance === 'binding' ? 2 : c.relevance === 'persuasive' ? 1 : 0
-    return { case: c, score: catMatch * 3 + secMatch * 2 + relevanceBonus }
-  })
+  const scored = ALL_CASES.map((c) => {
+    const catMatch = c.rights_categories.filter((r) =>
+      rights_categories.includes(r)
+    ).length;
+    const secMatch = c.sectors.filter((s) => sectors.includes(s)).length;
+    const relevanceBonus =
+      c.relevance === "binding" ? 2 : c.relevance === "persuasive" ? 1 : 0;
+    return { case: c, score: catMatch * 3 + secMatch * 2 + relevanceBonus };
+  });
 
   return scored
-    .filter(s => s.score > 0)
+    .filter((s) => s.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
-    .map(s => s.case)
+    .map((s) => s.case);
 }
