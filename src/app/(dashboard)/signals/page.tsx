@@ -5,6 +5,7 @@ import { Radio, Filter, ExternalLink, AlertTriangle, TrendingUp, Globe, Map, Fil
 import { RiskDataPanel } from "@/components/fria/risk-data-panel";
 import { EuMap, type CountryData } from "@/components/signals/eu-map";
 import { EarlyWarningPanel } from "@/components/signals/early-warning-panel";
+import { IntersectionalPanel } from "@/components/signals/intersectional-panel";
 import { cn } from "@/lib/utils";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -401,6 +402,8 @@ export default function SignalsPage() {
       </div>
 
       <EarlyWarningPanel onSelectCountry={(code) => setCountryCode(code)} />
+
+      <IntersectionalPanel countryFilter={countryCode || undefined} />
 
       {/* ── MAP SECTION ── */}
       <div className="space-y-3">
