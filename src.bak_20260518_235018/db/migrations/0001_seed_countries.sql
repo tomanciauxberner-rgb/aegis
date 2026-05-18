@@ -1,0 +1,46 @@
+-- Aegis: EU-27 + Candidate Countries Seed
+-- Auto-generated — do not edit manually
+
+INSERT INTO countries (code, code3, name, name_local, region, is_eu_member, is_candidate, joined_eu, population)
+VALUES
+  ('AT', 'AUT', 'Austria', 'Österreich', 'Western Europe', true, false, 1995, 9104772),
+  ('BE', 'BEL', 'Belgium', 'België', 'Western Europe', true, false, 1958, 11686140),
+  ('BG', 'BGR', 'Bulgaria', 'България', 'Eastern Europe', true, false, 2007, 6447710),
+  ('HR', 'HRV', 'Croatia', 'Hrvatska', 'Southern Europe', true, false, 2013, 3862305),
+  ('CY', 'CYP', 'Cyprus', 'Κύπρος', 'Southern Europe', true, false, 2004, 920987),
+  ('CZ', 'CZE', 'Czechia', 'Česko', 'Eastern Europe', true, false, 2004, 10827529),
+  ('DK', 'DNK', 'Denmark', 'Danmark', 'Northern Europe', true, false, 1973, 5932654),
+  ('EE', 'EST', 'Estonia', 'Eesti', 'Northern Europe', true, false, 2004, 1373101),
+  ('FI', 'FIN', 'Finland', 'Suomi', 'Northern Europe', true, false, 1995, 5563970),
+  ('FR', 'FRA', 'France', 'France', 'Western Europe', true, false, 1958, 67897000),
+  ('DE', 'DEU', 'Germany', 'Deutschland', 'Western Europe', true, false, 1958, 84482267),
+  ('GR', 'GRC', 'Greece', 'Ελλάδα', 'Southern Europe', true, false, 1981, 10394055),
+  ('HU', 'HUN', 'Hungary', 'Magyarország', 'Eastern Europe', true, false, 2004, 9597085),
+  ('IE', 'IRL', 'Ireland', 'Éire', 'Western Europe', true, false, 1973, 5194336),
+  ('IT', 'ITA', 'Italy', 'Italia', 'Southern Europe', true, false, 1958, 58850717),
+  ('LV', 'LVA', 'Latvia', 'Latvija', 'Northern Europe', true, false, 2004, 1830211),
+  ('LT', 'LTU', 'Lithuania', 'Lietuva', 'Northern Europe', true, false, 2004, 2857279),
+  ('LU', 'LUX', 'Luxembourg', 'Lëtzebuerg', 'Western Europe', true, false, 1958, 672050),
+  ('MT', 'MLT', 'Malta', 'Malta', 'Southern Europe', true, false, 2004, 542051),
+  ('NL', 'NLD', 'Netherlands', 'Nederland', 'Western Europe', true, false, 1958, 17811291),
+  ('PL', 'POL', 'Poland', 'Polska', 'Eastern Europe', true, false, 2004, 36753736),
+  ('PT', 'PRT', 'Portugal', 'Portugal', 'Southern Europe', true, false, 1986, 10467366),
+  ('RO', 'ROU', 'Romania', 'România', 'Eastern Europe', true, false, 2007, 19038098),
+  ('SK', 'SVK', 'Slovakia', 'Slovensko', 'Eastern Europe', true, false, 2004, 5428792),
+  ('SI', 'SVN', 'Slovenia', 'Slovenija', 'Southern Europe', true, false, 2004, 2116792),
+  ('ES', 'ESP', 'Spain', 'España', 'Southern Europe', true, false, 1986, 48059777),
+  ('SE', 'SWE', 'Sweden', 'Sverige', 'Northern Europe', true, false, 1995, 10551707),
+  ('AL', 'ALB', 'Albania', 'Shqipëria', 'Southern Europe', false, true, NULL, 2793592),
+  ('ME', 'MNE', 'Montenegro', 'Crna Gora', 'Southern Europe', false, true, NULL, 616177),
+  ('MK', 'MKD', 'North Macedonia', 'Северна Македонија', 'Southern Europe', false, true, NULL, 1836713),
+  ('RS', 'SRB', 'Serbia', 'Србија', 'Southern Europe', false, true, NULL, 6647003),
+  ('TR', 'TUR', 'Turkey', 'Türkiye', 'Western Asia', false, true, NULL, 85279553),
+  ('UA', 'UKR', 'Ukraine', 'Україна', 'Eastern Europe', false, true, NULL, 36744636),
+  ('MD', 'MDA', 'Moldova', 'Moldova', 'Eastern Europe', false, true, NULL, 2512758),
+  ('BA', 'BIH', 'Bosnia and Herzegovina', 'Bosna i Hercegovina', 'Southern Europe', false, true, NULL, 3210847),
+  ('GE', 'GEO', 'Georgia', 'საქართველო', 'Western Asia', false, true, NULL, 3728573)
+ON CONFLICT (code) DO UPDATE SET
+  name = EXCLUDED.name,
+  name_local = EXCLUDED.name_local,
+  population = EXCLUDED.population,
+  is_candidate = EXCLUDED.is_candidate;

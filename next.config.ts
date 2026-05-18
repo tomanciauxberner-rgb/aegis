@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ["@react-pdf/renderer", "@react-pdf/font", "@react-pdf/layout", "@react-pdf/render"],
+  
   reactStrictMode: true,
   poweredByHeader: false,
   headers: async () => [
