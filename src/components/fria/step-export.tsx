@@ -1,6 +1,7 @@
 "use client";
 
-import { FileText, Download, Send, CheckCircle } from "lucide-react";
+import { useState } from "react";
+import { FileText, Download, Send, CheckCircle, Loader2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { riskScore } from "@/lib/utils";
 import type { FriaWizardState } from "@/types";
@@ -12,19 +13,23 @@ interface Props {
 
 const RISK_COLORS: Record<string, string> = {
   critical: "text-danger",
-  high: "text-danger/80",
-  medium: "text-gold",
-  low: "text-success",
-  minimal: "text-text-muted",
+  high:     "text-danger/80",
+  medium:   "text-gold",
+  low:      "text-success",
+  minimal:  "text-text-muted",
 };
 
 export function StepExport({ state }: Props) {
+  const [pdfLoading, setPdfLoading]   = useState(false);
+  const [jsonLoading, setJsonLoading] = useState(false);
+  const [error, setError]             = useState<string | null>(null);
+
   const completionChecks = [
-    { label: "Deployment context described", done: !!state.context.deploymentDescription },
+    { label: "Deployment context described",  done: !!state.context.deploymentDescription },
     { label: "Affected populations identified", done: state.affectedGroups.length > 0 },
-    { label: "Risks assessed", done: state.risks.length > 0 },
-    { label: "Mitigation measures defined", done: state.mitigations.length > 0 },
-    { label: "Human oversight documented", done: !!state.context.humanOversightMeasures },
+    { label: "Risks assessed",                done: state.risks.length > 0 },
+    { label: "Mitigation measures defined",   done: state.mitigations.length > 0 },
+    { label: "Human oversight documented",    done: !!state.context.humanOversightMeasures },
   ];
 
   const completionRate = Math.round(
@@ -32,13 +37,47 @@ export function StepExport({ state }: Props) {
   );
 
   const overallRisks = state.risks.map((r) => riskScore(r.likelihood, r.severity));
-  const highestRisk = overallRisks.includes("critical")
-    ? "critical"
-    : overallRisks.includes("high")
-    ? "high"
-    : overallRisks.includes("medium")
-    ? "medium"
+  const highestRisk = overallRisks.includes("critical") ? "critical"
+    : overallRisks.includes("high")   ? "high"
+    : overallRisks.includes("medium") ? "medium"
     : "low";
+
+  async function doExport(format: "pdf" | "json") {
+    setError(null);
+    format === "pdf" ? setPdfLoading(true) : setJsonLoading(true);
+
+    try {
+      const res = await fetch("/api/fria/export", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          state,
+          systemName: "AI System",
+          orgName:    "Organisation",
+          format,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? `Export failed (${res.status})`);
+      }
+
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href     = url;
+      a.download = `fria-export-${Date.now()}.${format}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Export failed");
+    } finally {
+      format === "pdf" ? setPdfLoading(false) : setJsonLoading(false);
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -52,7 +91,13 @@ export function StepExport({ state }: Props) {
         </p>
       </div>
 
-      {/* Completion status */}
+      {error && (
+        <div className="flex items-center gap-2 px-4 py-3 bg-danger/10 border border-danger/30 rounded-lg text-sm text-danger">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+          {error}
+        </div>
+      )}
+
       <div className="bg-surface border border-border rounded-lg p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-semibold">Completion Status</h3>
@@ -84,7 +129,6 @@ export function StepExport({ state }: Props) {
         </div>
       </div>
 
-      {/* Summary stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-surface border border-border rounded-lg p-4 text-center">
           <div className="text-2xl font-bold font-[family-name:var(--font-display)]">
@@ -112,20 +156,37 @@ export function StepExport({ state }: Props) {
         </div>
       </div>
 
-      {/* Export actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <button className="flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors">
-          <FileText className="w-5 h-5" />
+        <button
+          onClick={() => doExport("pdf")}
+          disabled={pdfLoading}
+          className="flex items-center justify-center gap-3 px-6 py-4 bg-accent text-white rounded-lg hover:bg-accent/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+        >
+          {pdfLoading
+            ? <Loader2 className="w-5 h-5 animate-spin" />
+            : <FileText className="w-5 h-5" />
+          }
           <div className="text-left">
-            <div className="text-sm font-semibold">Export PDF Report</div>
+            <div className="text-sm font-semibold">
+              {pdfLoading ? "Generating PDF…" : "Export PDF Report"}
+            </div>
             <div className="text-xs text-white/70">Structured FRIA document — Art. 27 compliant</div>
           </div>
         </button>
 
-        <button className="flex items-center justify-center gap-3 px-6 py-4 bg-surface border border-border text-text rounded-lg hover:border-accent transition-colors">
-          <Download className="w-5 h-5 text-text-muted" />
+        <button
+          onClick={() => doExport("json")}
+          disabled={jsonLoading}
+          className="flex items-center justify-center gap-3 px-6 py-4 bg-surface border border-border text-text rounded-lg hover:border-accent disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+        >
+          {jsonLoading
+            ? <Loader2 className="w-5 h-5 animate-spin text-text-muted" />
+            : <Download className="w-5 h-5 text-text-muted" />
+          }
           <div className="text-left">
-            <div className="text-sm font-semibold">Export JSON</div>
+            <div className="text-sm font-semibold">
+              {jsonLoading ? "Exporting…" : "Export JSON"}
+            </div>
             <div className="text-xs text-text-muted">Machine-readable format for integrations</div>
           </div>
         </button>
