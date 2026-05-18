@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { insertSignals, buildExternalId } from "@/lib/signal-inserter";
+import { verifyCronSecret } from "@/lib/cron-auth";
 
 const WP_API = "https://artificialintelligenceact.eu/wp-json/wp/v2/posts?per_page=20&_fields=id,title,link,excerpt,date";
 
@@ -81,10 +82,8 @@ ${posts.map((p, i) => `[${i}] TITLE: ${p.title}\nURL: ${p.link}\nDATE: ${p.date}
 }
 
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authError = verifyCronSecret(request);
+  if (authError) return authError;
 
   try {
     const posts = await fetchPosts();

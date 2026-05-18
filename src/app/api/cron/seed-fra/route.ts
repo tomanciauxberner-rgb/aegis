@@ -1,52 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import { insertSignals, buildExternalId } from "@/lib/signal-inserter";
 import { FRA_DATA, FRA_SOURCES } from "@/lib/fra/data";
+import { verifyCronSecret } from "@/lib/cron-auth";
 
 const SECTOR_MAP: Record<string, string> = {
-  employment:         "employment",
-  education:          "education",
-  housing:            "housing",
-  healthcare:         "healthcare",
-  law_enforcement:    "law_enforcement",
-  essential_services: "essential_services",
-  online:             "online",
-  justice:            "justice",
+  employment: "employment", education: "education", housing: "housing",
+  healthcare: "healthcare", law_enforcement: "law_enforcement",
+  essential_services: "essential_services", online: "online", justice: "justice",
 };
 
-
 const GROUP_LABELS: Record<string, string> = {
-  african_descent: "People of African descent",
-  roma:            "Roma",
-  muslims:         "Muslims",
-  lgbtiq:          "LGBTIQ people",
-  women:           "Women",
-  disabilities:    "Persons with disabilities",
-  migrants:        "Migrants",
-  jews:            "Jews",
-  general:         "General population",
+  african_descent: "People of African descent", roma: "Roma", muslims: "Muslims",
+  lgbtiq: "LGBTIQ people", women: "Women", disabilities: "Persons with disabilities",
+  migrants: "Migrants", jews: "Jews", general: "General population",
 };
 
 const INDICATOR_LABELS: Record<string, string> = {
   experienced_discrimination_employment: "Employment discrimination rate",
-  experienced_racial_harassment:         "Racial harassment rate",
-  discrimination_housing:                "Housing discrimination rate",
-  hateful_posts_passing_moderation:      "Hate content passing moderation",
-  trust_courts:                          "Trust in courts",
-  trust_police:                          "Trust in police",
-  hate_crime_reporting_rate:             "Hate crime reporting rate",
-  online_hate_exposure:                  "Online hate exposure rate",
-  poverty_risk:                          "At-risk-of-poverty rate",
-  housing_overcrowding:                  "Housing overcrowding rate",
-  avoid_public_spaces:                   "Avoidance of public spaces",
-  school_segregation:                    "School segregation rate",
-  experienced_antisemitic_incident:      "Antisemitic incident exposure rate",
-  physical_sexual_violence_lifetime:     "Physical or sexual violence (lifetime)",
-  sexual_harassment_work:                "Sexual harassment at work (lifetime)",
-  violence_in_institutions:              "Violence in care institutions",
-  discrimination_ethnic_12m:             "Ethnic discrimination (12 months)",
-  discrimination_job_search_12m:         "Job search discrimination (12 months)",
-  discrimination_housing_trend:          "Housing discrimination rate (trend)",
-  poverty_risk_trend:                    "At-risk-of-poverty rate (trend)",
+  experienced_racial_harassment: "Racial harassment rate",
+  discrimination_housing: "Housing discrimination rate",
+  hateful_posts_passing_moderation: "Hate content passing moderation",
+  trust_courts: "Trust in courts", trust_police: "Trust in police",
+  hate_crime_reporting_rate: "Hate crime reporting rate",
+  online_hate_exposure: "Online hate exposure rate",
+  poverty_risk: "At-risk-of-poverty rate",
+  housing_overcrowding: "Housing overcrowding rate",
+  avoid_public_spaces: "Avoidance of public spaces",
+  school_segregation: "School segregation rate",
+  experienced_antisemitic_incident: "Antisemitic incident exposure rate",
+  physical_sexual_violence_lifetime: "Physical or sexual violence (lifetime)",
+  sexual_harassment_work: "Sexual harassment at work (lifetime)",
+  violence_in_institutions: "Violence in care institutions",
+  discrimination_ethnic_12m: "Ethnic discrimination (12 months)",
+  discrimination_job_search_12m: "Job search discrimination (12 months)",
+  discrimination_housing_trend: "Housing discrimination rate (trend)",
+  poverty_risk_trend: "At-risk-of-poverty rate (trend)",
 };
 
 const EU_AVERAGES: Record<string, number> = {};
@@ -70,10 +58,8 @@ function deriveSeverity(value: number, euAvg: number | undefined): "critical" | 
 }
 
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authError = verifyCronSecret(request);
+  if (authError) return authError;
 
   const countryPoints = FRA_DATA.filter((d) => d.country !== "EU");
 
@@ -83,7 +69,6 @@ export async function GET(request: NextRequest) {
     const euAvg = EU_AVERAGES[euKey];
     const severity = deriveSeverity(point.value, euAvg);
     const sector = SECTOR_MAP[point.sector] ?? point.sector;
-
     const groupLabel = GROUP_LABELS[point.group] ?? point.group.replace(/_/g, " ");
     const indicatorLabel = INDICATOR_LABELS[point.indicator] ?? point.indicator.replace(/_/g, " ");
     const euNote = euAvg ? ` (EU avg: ${euAvg}%)` : "";

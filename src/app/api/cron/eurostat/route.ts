@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { insertSignals, buildExternalId } from "@/lib/signal-inserter";
+import { verifyCronSecret } from "@/lib/cron-auth";
 
 const EU27 = new Set([
   "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR",
@@ -58,7 +59,6 @@ async function fetchEurostatSeries(
 
     for (const year of timeLabels) {
       const timePos = dimIndexMap["time"][year];
-
       let baseIdx = geoPos * stride["geo"] + timePos * stride["time"];
 
       const otherDims = dims.filter((d) => d !== "geo" && d !== "time");
@@ -96,10 +96,8 @@ async function fetchEuAverage(
 }
 
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authError = verifyCronSecret(request);
+  if (authError) return authError;
 
   const errors: string[] = [];
   const allSignals: Parameters<typeof insertSignals>[0] = [];

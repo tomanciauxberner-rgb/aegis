@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { insertSignals, buildExternalId } from "@/lib/signal-inserter";
+import { verifyCronSecret } from "@/lib/cron-auth";
 
 const RSS_URL = "https://algorithmwatch.org/en/feed/";
 
@@ -8,15 +9,6 @@ const EU27 = new Set([
   "DE","GR","HU","IE","IT","LV","LT","LU","MT","NL",
   "PL","PT","RO","SK","SI","ES","SE",
 ]);
-
-const COUNTRY_NAMES: Record<string, string> = {
-  austria:"AT", belgium:"BE", bulgaria:"BG", croatia:"HR", cyprus:"CY",
-  czechia:"CZ", "czech republic":"CZ", denmark:"DK", estonia:"EE",
-  finland:"FI", france:"FR", germany:"DE", greece:"GR", hungary:"HU",
-  ireland:"IE", italy:"IT", latvia:"LV", lithuania:"LT", luxembourg:"LU",
-  malta:"MT", netherlands:"NL", poland:"PL", portugal:"PT", romania:"RO",
-  slovakia:"SK", slovenia:"SI", spain:"ES", sweden:"SE",
-};
 
 async function fetchRssItems(): Promise<{ title: string; link: string; description: string; pubDate: string }[]> {
   const res = await fetch(RSS_URL, {
@@ -97,10 +89,8 @@ ${items.map((i, idx) => `[${idx}] TITLE: ${i.title}\nURL: ${i.link}\nDATE: ${i.p
 }
 
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authError = verifyCronSecret(request);
+  if (authError) return authError;
 
   try {
     const items = await fetchRssItems();
@@ -109,7 +99,6 @@ export async function GET(request: NextRequest) {
     }
 
     const parsed = await parseWithClaude(items);
-
     const valid = parsed.filter((p) => EU27.has(p.country));
 
     const signals = valid.map((p) => ({
