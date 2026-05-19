@@ -131,17 +131,26 @@ const SIGNAL_PATTERNS: SignalPattern[] = [
   },
 ];
 
+const EXPLICIT_AGE_TYPES = new Set<SignalType>([
+  "explicit_age_minor_under13",
+  "explicit_age_minor",
+]);
+
 export function detectSignals(text: string): DetectedSignal[] {
   const detected: DetectedSignal[] = [];
   const seenTypes = new Set<SignalType>();
 
   for (const { type, patterns, confidence } of SIGNAL_PATTERNS) {
+    if (type === "explicit_age_minor" && seenTypes.has("explicit_age_minor_under13")) {
+      continue;
+    }
+    if (type === "implicit_age_minor" && (seenTypes.has("explicit_age_minor_under13") || seenTypes.has("explicit_age_minor"))) {
+      continue;
+    }
+
     for (const pattern of patterns) {
       const match = pattern.exec(text);
       if (match) {
-        if (type === "explicit_age_minor" && seenTypes.has("explicit_age_minor_under13")) {
-          continue;
-        }
         detected.push({
           type,
           match: match[0],
