@@ -30,7 +30,7 @@
     },
     {
       "path": "/api/cron/children-policy",
-      "schedule": "0 */6 * * *"
+      "schedule": "15 2 * * *"
     }
   ]
 }
