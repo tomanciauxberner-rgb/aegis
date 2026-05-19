@@ -1,23 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Gavel, Smartphone, GraduationCap, Scale, Radar } from "lucide-react";
+import { Gavel, Smartphone, GraduationCap, Scale, Radar, ScanSearch } from "lucide-react";
 import { ChildrenKpiStrip } from "@/components/children/kpi-strip";
 import { DecisionsFeed } from "@/components/children/decisions-feed";
 import { AppRadar } from "@/components/children/app-radar";
 import { EdtechMap } from "@/components/children/edtech-map";
 import { GdprAgeMap } from "@/components/children/gdpr-age-map";
 import { PolicyRadar } from "@/components/children/policy-radar";
+import { TriggerScanner } from "@/components/children/trigger-scanner";
 import type { OverviewResponse } from "@/types/children-ui";
 
-type Tab = "policy" | "decisions" | "apps" | "edtech" | "gdpr";
+type Tab = "policy" | "decisions" | "apps" | "edtech" | "gdpr" | "scanner";
 
 const TABS: { key: Tab; label: string; icon: typeof Gavel; desc: string }[] = [
-  { key: "policy",    label: "Policy radar",   icon: Radar,         desc: "FRA · EDPB · upstream signals" },
-  { key: "decisions", label: "DPA decisions",  icon: Gavel,         desc: "27 EU DPAs · live" },
-  { key: "apps",      label: "App radar",      icon: Smartphone,    desc: "iTunes EU charts × VLOP × GDPR Art. 8" },
-  { key: "edtech",    label: "EdTech map",     icon: GraduationCap, desc: "Annex III national systems" },
-  { key: "gdpr",      label: "GDPR Art. 8",    icon: Scale,         desc: "Fragmented age of consent" },
+  { key: "policy",    label: "Policy radar",      icon: Radar,         desc: "FRA · EDPB · upstream signals" },
+  { key: "decisions", label: "DPA decisions",     icon: Gavel,         desc: "27 EU DPAs · live" },
+  { key: "apps",      label: "App radar",         icon: Smartphone,    desc: "iTunes EU charts × VLOP × GDPR Art. 8" },
+  { key: "edtech",    label: "EdTech map",        icon: GraduationCap, desc: "Annex III national systems" },
+  { key: "gdpr",      label: "GDPR Art. 8",       icon: Scale,         desc: "Fragmented age of consent" },
+  { key: "scanner",   label: "Trigger scanner",   icon: ScanSearch,    desc: "Regulatory trigger detection" },
 ];
 
 export default function ChildrenPage() {
@@ -80,6 +82,7 @@ export default function ChildrenPage() {
         {tab === "apps"      && <AppRadar />}
         {tab === "edtech"    && <EdtechMap />}
         {tab === "gdpr"      && <GdprAgeMap />}
+        {tab === "scanner"   && <TriggerScanner />}
       </div>
 
       <footer className="mt-12 pt-6 border-t border-[var(--color-border)] text-[11px] text-[var(--color-text-dim)] space-y-1">
