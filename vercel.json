@@ -27,6 +27,10 @@
     {
       "path": "/api/cron/children-dsa",
       "schedule": "0 7 * * 1"
+    },
+    {
+      "path": "/api/cron/children-policy",
+      "schedule": "0 */6 * * *"
     }
   ]
 }

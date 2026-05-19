@@ -1,17 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Gavel, Smartphone, GraduationCap, Scale } from "lucide-react";
+import { Gavel, Smartphone, GraduationCap, Scale, Radar } from "lucide-react";
 import { ChildrenKpiStrip } from "@/components/children/kpi-strip";
 import { DecisionsFeed } from "@/components/children/decisions-feed";
 import { AppRadar } from "@/components/children/app-radar";
 import { EdtechMap } from "@/components/children/edtech-map";
 import { GdprAgeMap } from "@/components/children/gdpr-age-map";
+import { PolicyRadar } from "@/components/children/policy-radar";
 import type { OverviewResponse } from "@/types/children-ui";
 
-type Tab = "decisions" | "apps" | "edtech" | "gdpr";
+type Tab = "policy" | "decisions" | "apps" | "edtech" | "gdpr";
 
 const TABS: { key: Tab; label: string; icon: typeof Gavel; desc: string }[] = [
+  { key: "policy",    label: "Policy radar",   icon: Radar,         desc: "FRA · EDPB · upstream signals" },
   { key: "decisions", label: "DPA decisions",  icon: Gavel,         desc: "27 EU DPAs · live" },
   { key: "apps",      label: "App radar",      icon: Smartphone,    desc: "iTunes EU charts × VLOP × GDPR Art. 8" },
   { key: "edtech",    label: "EdTech map",     icon: GraduationCap, desc: "Annex III national systems" },
@@ -19,7 +21,7 @@ const TABS: { key: Tab; label: string; icon: typeof Gavel; desc: string }[] = [
 ];
 
 export default function ChildrenPage() {
-  const [tab, setTab] = useState<Tab>("decisions");
+  const [tab, setTab] = useState<Tab>("policy");
   const [overview, setOverview] = useState<OverviewResponse | null>(null);
   const [overviewLoading, setOverviewLoading] = useState(true);
 
@@ -44,7 +46,7 @@ export default function ChildrenPage() {
           </span>
         </div>
         <p className="text-sm text-[var(--color-text-muted)] max-w-3xl">
-          Real-time intelligence on EU minors&apos; digital rights enforcement: DPA decisions, app market exposure, EdTech AI Act classification, and fragmented GDPR Article 8 age of consent.
+          Forward intelligence on EU minors&apos; digital rights: policy signals from FRA, EDPB &amp; agencies, DPA decisions, app market exposure, EdTech AI Act classification, and fragmented GDPR Article 8 age of consent.
         </p>
       </header>
 
@@ -73,6 +75,7 @@ export default function ChildrenPage() {
       </div>
 
       <div className="min-h-[400px]">
+        {tab === "policy"    && <PolicyRadar />}
         {tab === "decisions" && <DecisionsFeed />}
         {tab === "apps"      && <AppRadar />}
         {tab === "edtech"    && <EdtechMap />}
@@ -81,11 +84,11 @@ export default function ChildrenPage() {
 
       <footer className="mt-12 pt-6 border-t border-[var(--color-border)] text-[11px] text-[var(--color-text-dim)] space-y-1">
         <p>
-          Data sources: 27 EU national Data Protection Authorities (RSS + Claude classification),
+          Sources: FRA (EU Agency for Fundamental Rights), EDPB (European Data Protection Board), 27 EU national DPAs,
           Apple iTunes EU charts, EU Commission DSA designated VLOPs list, and verified national edtech deployments.
         </p>
         <p>
-          Ingestion pipelines run daily/weekly. Every signal links back to its primary source.
+          Pipelines run daily for app and DPA data, every 6 hours for policy signals. Every signal links back to its primary source.
         </p>
       </footer>
     </div>
