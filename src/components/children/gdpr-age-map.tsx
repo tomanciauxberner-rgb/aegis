@@ -1,73 +1,134 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { GDPR_AGES } from "@/types/children";
+import { useEffect, useState } from "react";
+import { ExternalLink, Loader2 } from "lucide-react";
+import type { GdprAgeResponse, GdprAgeItem } from "@/types/children-ui";
 
-const CODES = Object.keys(GDPR_AGES);
-
-function ageBg(age: number) {
-  if (age === 13) return { bg: "#0f2d1f", border: "#5ce8a040", text: "#5ce8a0" };
-  if (age === 14) return { bg: "#1a3a6e", border: "#4f7cff40", text: "#4f7cff" };
-  if (age === 15) return { bg: "#3d3220", border: "#e8b84b40", text: "#e8b84b" };
-  return          { bg: "#3d1a1a", border: "#ff5c5c40", text: "#ff5c5c" };
+function ageTier(age: number): { color: string; label: string } {
+  if (age <= 13) return { color: "var(--color-accent)", label: "13" };
+  if (age === 14) return { color: "var(--color-cyan)", label: "14" };
+  if (age === 15) return { color: "var(--color-gold)", label: "15" };
+  return { color: "var(--color-purple)", label: "16" };
 }
 
-interface Props {
-  selectedCountry?: string;
-  onSelect?: (code: string) => void;
-}
+export function GdprAgeMap() {
+  const [data, setData] = useState<GdprAgeResponse | null>(null);
+  const [loading, setLoading] = useState(true);
 
-export function GdprAgeMap({ selectedCountry, onSelect }: Props) {
+  useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+
+    fetch("/api/children-v2/gdpr-age", { signal: controller.signal })
+      .then((r) => r.ok ? r.json() : Promise.reject(r))
+      .then((d: GdprAgeResponse) => setData(d))
+      .catch((e) => { if (e?.name !== "AbortError") setData({ items: [], total: 0 }); })
+      .finally(() => setLoading(false));
+
+    return () => controller.abort();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]">
+        <Loader2 className="w-6 h-6 animate-spin text-[var(--color-accent)]" />
+      </div>
+    );
+  }
+
+  if (!data || data.items.length === 0) {
+    return (
+      <div className="rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--color-surface)] p-8 text-center">
+        <p className="text-sm text-[var(--color-text-muted)]">GDPR age data not available.</p>
+      </div>
+    );
+  }
+
+  const stats = computeStats(data.items);
+
   return (
-    <div className="bg-surface border border-border rounded-lg p-4">
-      <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-        <p className="text-xs font-semibold uppercase tracking-wider text-text-dim font-mono">
-          GDPR Art. 8 — digital consent age per member state
-        </p>
-        <div className="flex items-center gap-3 text-xs font-mono">
+    <div className="space-y-4">
+      <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+        <div className="text-xs text-[var(--color-text-dim)] uppercase tracking-wider mb-3">Distribution across EU-27</div>
+        <div className="grid grid-cols-4 gap-3">
           {[13, 14, 15, 16].map((age) => {
-            const c = ageBg(age);
+            const tier = ageTier(age);
+            const count = stats[age] ?? 0;
             return (
-              <span key={age} className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ background: c.bg, border: `1px solid ${c.border}` }} />
-                <span style={{ color: c.text }}>{age}</span>
-              </span>
+              <div key={age} className="text-center">
+                <div
+                  className="text-3xl font-bold mb-1 tabular-nums"
+                  style={{ color: tier.color }}
+                >
+                  {count}
+                </div>
+                <div className="text-[11px] text-[var(--color-text-dim)] uppercase tracking-wider">
+                  countries at age {age}
+                </div>
+              </div>
             );
           })}
         </div>
       </div>
 
-      <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-9 gap-1.5">
-        {CODES.map((code) => {
-          const c = GDPR_AGES[code];
-          const colors = ageBg(c.age);
-          const isSelected = selectedCountry === code;
-          return (
-            <button
-              key={code}
-              onClick={() => onSelect?.(code === selectedCountry ? "" : code)}
-              title={`${c.name} — consent age: ${c.age}`}
-              className={cn(
-                "flex flex-col items-center gap-0.5 p-1.5 rounded transition-all",
-                onSelect && "cursor-pointer hover:opacity-80"
-              )}
-              style={{
-                background: colors.bg,
-                border: `1px solid ${isSelected ? colors.text : colors.border}`,
-                boxShadow: isSelected ? `0 0 0 2px ${colors.text}40` : undefined,
-                transform: isSelected ? "scale(1.08)" : undefined,
-              }}
-            >
-              <span className="text-base leading-none">{c.flag}</span>
-              <span className="text-xs font-bold font-mono" style={{ color: colors.text }}>{c.age}</span>
-            </button>
-          );
-        })}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+        {data.items.map((item) => <AgeCard key={item.countryCode} item={item} />)}
       </div>
-
-      <p className="text-xs text-text-dim mt-3 font-mono">
-        A system lawful in BE (13) may be unlawful in NL (16) — verify consent age per deployment country.
-      </p>
     </div>
   );
 }
+
+function AgeCard({ item }: { item: GdprAgeItem }) {
+  const country = COUNTRIES_EU27.find((c) => c.code === item.countryCode);
+  const tier = ageTier(item.ageConsent);
+  return (
+    <a
+      href={item.sourceUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-3 hover:border-[var(--color-border-accent)] transition-colors"
+    >
+      <div className="flex items-center justify-between gap-2 mb-1">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-base">{country?.flag}</span>
+          <span className="text-xs text-[var(--color-text-dim)] uppercase tracking-wider truncate">{item.countryCode}</span>
+        </div>
+        <ExternalLink className="w-3 h-3 text-[var(--color-text-dim)] opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+      <div className="flex items-baseline gap-1">
+        <span className="text-2xl font-bold tabular-nums" style={{ color: tier.color }}>
+          {item.ageConsent}
+        </span>
+        <span className="text-[10px] text-[var(--color-text-dim)] uppercase tracking-wider">yrs</span>
+      </div>
+      <div className="text-[10px] text-[var(--color-text-dim)] mt-1 truncate" title={item.legalSource}>
+        {item.legalSource}
+      </div>
+    </a>
+  );
+}
+
+function computeStats(items: GdprAgeItem[]): Record<number, number> {
+  const out: Record<number, number> = {};
+  for (const item of items) {
+    out[item.ageConsent] = (out[item.ageConsent] ?? 0) + 1;
+  }
+  return out;
+}
+
+const COUNTRIES_EU27 = [
+  { code: "AT", name: "Austria",     flag: "🇦🇹" }, { code: "BE", name: "Belgium",     flag: "🇧🇪" },
+  { code: "BG", name: "Bulgaria",    flag: "🇧🇬" }, { code: "HR", name: "Croatia",     flag: "🇭🇷" },
+  { code: "CY", name: "Cyprus",      flag: "🇨🇾" }, { code: "CZ", name: "Czechia",     flag: "🇨🇿" },
+  { code: "DK", name: "Denmark",     flag: "🇩🇰" }, { code: "EE", name: "Estonia",     flag: "🇪🇪" },
+  { code: "FI", name: "Finland",     flag: "🇫🇮" }, { code: "FR", name: "France",      flag: "🇫🇷" },
+  { code: "DE", name: "Germany",     flag: "🇩🇪" }, { code: "GR", name: "Greece",      flag: "🇬🇷" },
+  { code: "HU", name: "Hungary",     flag: "🇭🇺" }, { code: "IE", name: "Ireland",     flag: "🇮🇪" },
+  { code: "IT", name: "Italy",       flag: "🇮🇹" }, { code: "LV", name: "Latvia",      flag: "🇱🇻" },
+  { code: "LT", name: "Lithuania",   flag: "🇱🇹" }, { code: "LU", name: "Luxembourg",  flag: "🇱🇺" },
+  { code: "MT", name: "Malta",       flag: "🇲🇹" }, { code: "NL", name: "Netherlands", flag: "🇳🇱" },
+  { code: "PL", name: "Poland",      flag: "🇵🇱" }, { code: "PT", name: "Portugal",    flag: "🇵🇹" },
+  { code: "RO", name: "Romania",     flag: "🇷🇴" }, { code: "SK", name: "Slovakia",    flag: "🇸🇰" },
+  { code: "SI", name: "Slovenia",    flag: "🇸🇮" }, { code: "ES", name: "Spain",       flag: "🇪🇸" },
+  { code: "SE", name: "Sweden",      flag: "🇸🇪" },
+];
