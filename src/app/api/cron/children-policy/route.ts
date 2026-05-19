@@ -19,7 +19,7 @@ export const maxDuration = 300;
 const PIPELINE = "children-policy";
 const MAX_SOURCES_PER_RUN = 20;
 const MAX_ITEMS_PER_SOURCE = 25;
-const MIN_RELEVANCE_TO_INSERT = 50;
+const MIN_RELEVANCE_TO_INSERT = 25;
 
 export async function GET(request: NextRequest) {
   const authError = verifyCronSecret(request);
