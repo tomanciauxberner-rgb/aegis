@@ -85,17 +85,7 @@ export default function ChildrenPage() {
         {tab === "scanner"   && <TriggerScanner />}
       </div>
 
-      {tab !== "scanner" && (
-        <footer className="mt-12 pt-6 border-t border-[var(--color-border)] text-[11px] text-[var(--color-text-dim)] space-y-1">
-          <p>
-            Sources: FRA (EU Agency for Fundamental Rights), EDPB (European Data Protection Board), 27 EU national DPAs,
-            Apple iTunes EU charts, EU Commission DSA designated VLOPs list, and verified national edtech deployments.
-          </p>
-          <p>
-            Pipelines run daily for app and DPA data, every 6 hours for policy signals. Every signal links back to its primary source.
-          </p>
-        </footer>
-      )}
+
     </div>
   );
 }
