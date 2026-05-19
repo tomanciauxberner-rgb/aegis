@@ -45,9 +45,11 @@ STRICT INCLUSION — keep an item if it touches:
 - Fundamental rights frameworks (UNCRC, Charter Art. 24, GDPR Art. 8) related to children
 - Position papers on platform liability for child safety
 - Education AI systems (Annex III point 3)
+- DPIA templates, anonymisation, transparency obligations that apply to minors data processors
+- Scientific research safeguards where minors are a vulnerable data subject category
 
 STRICT EXCLUSION — drop items about:
-- Generic data protection with no minors angle
+- Pure administrative/budget/HR/institutional news with zero rights dimension
 - Adult-only matters
 - Pure administrative/budget news
 - Topics where minors are not a material dimension
@@ -75,7 +77,8 @@ RELEVANCE SCORE (0-100):
 - 70-89: significant children dimension, policy makers will reference it
 - 50-69: children mentioned but not central focus
 - 30-49: tangential but worth tracking
-- below 30: drop
+- 20-29: marginal, include anyway
+- below 20: drop
 
 JURISDICTION: "eu" (EU institutions), "council_of_europe", or ISO-2 country code
 
