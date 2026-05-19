@@ -1,6 +1,6 @@
 import type { RssItem } from "@/types/children-v2";
 
-const USER_AGENT = "Aegis-Intelligence-Bot/1.0 (+https://aegis-eu.com)";
+const USER_AGENT = "Mozilla/5.0 (compatible; AegisBot/1.0; +https://aegis-eu.com/bot)";
 
 export async function fetchRssFeed(url: string, timeoutMs = 15_000): Promise<RssItem[]> {
   const res = await fetch(url, {
