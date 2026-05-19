@@ -1,0 +1,402 @@
+{
+  "version": "1.1.0",
+  "last_updated": "2026-05-19",
+  "rules": [
+    {
+      "id": "eu-gdpr-art8-age-collection",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor"
+      ],
+      "jurisdictions": [
+        "eu",
+        "all"
+      ],
+      "legal_basis": "gdpr_art8",
+      "title": "GDPR Art. 8 — Parental consent for data processing",
+      "description": "When a minor under 16 (or lower national threshold) is identified, processing their personal data requires verifiable parental consent.",
+      "action_required": "Implement verifiable parental consent mechanism before any data collection. Default age of consent is 16; check national law (DE/AT: 14, FR/IT/ES: 15, IE/DK/FI/SE: 13).",
+      "timing": "pre_deployment",
+      "max_fine_eur": 20000000,
+      "max_fine_pct_revenue": 4,
+      "enforcing_authority": [
+        "EDPB",
+        "national DPA"
+      ],
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679#d1e2015-1-1",
+      "applies_when": "age < 16 AND data_collection = true"
+    },
+    {
+      "id": "eu-gdpr-art22-automated-minor",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "automated_decision"
+      ],
+      "jurisdictions": [
+        "eu",
+        "all"
+      ],
+      "legal_basis": "gdpr_art22",
+      "title": "GDPR Art. 22 — Prohibition on automated decisions affecting minors",
+      "description": "Automated individual decisions, including profiling, that produce legal or similarly significant effects are prohibited for minors without explicit safeguards.",
+      "action_required": "Disable automated decision-making for users identified or suspected as minors. Implement human review override. Document processing impact assessment.",
+      "timing": "immediate",
+      "max_fine_eur": 20000000,
+      "max_fine_pct_revenue": 4,
+      "enforcing_authority": [
+        "EDPB",
+        "national DPA"
+      ],
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679#d1e2961-1-1",
+      "applies_when": "minor = true AND automated_profiling = true"
+    },
+    {
+      "id": "eu-gdpr-art35-dpia-minor",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "large_scale_processing"
+      ],
+      "jurisdictions": [
+        "eu",
+        "all"
+      ],
+      "legal_basis": "gdpr_art35",
+      "title": "GDPR Art. 35 — DPIA mandatory for minor data processing",
+      "description": "Large-scale processing of children's data, or processing using new technologies, requires a Data Protection Impact Assessment before deployment.",
+      "action_required": "Conduct and document a full DPIA. Consult supervisory authority if residual risk remains high. DPIA must cover specific risks to minors.",
+      "timing": "pre_deployment",
+      "max_fine_eur": 20000000,
+      "max_fine_pct_revenue": 4,
+      "enforcing_authority": [
+        "national DPA"
+      ],
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679#d1e3022-1-1",
+      "applies_when": "minor = true AND (large_scale = true OR new_technology = true)"
+    },
+    {
+      "id": "eu-dsa-art28-advertising-minor",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "advertising_context",
+        "profiling_context"
+      ],
+      "jurisdictions": [
+        "eu",
+        "all"
+      ],
+      "legal_basis": "dsa_art28",
+      "title": "DSA Art. 28 — Prohibition on targeted advertising to minors",
+      "description": "Online platforms must not present targeted advertising based on profiling to users they know or have reasonable grounds to believe are minors.",
+      "action_required": "Disable all profiling-based advertising for minor users. Implement age detection mechanism. Audit recommendation systems to exclude minors from behavioral targeting.",
+      "timing": "immediate",
+      "max_fine_eur": 15000000,
+      "max_fine_pct_revenue": 3,
+      "enforcing_authority": [
+        "DSC",
+        "European Commission (VLOPs)"
+      ],
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2065#d1e3552-1-1",
+      "applies_when": "minor = true AND (advertising = true OR profiling = true)"
+    },
+    {
+      "id": "eu-ai-act-annex3-edtech",
+      "signal_types": [
+        "edtech_context",
+        "educational_context",
+        "explicit_age_minor"
+      ],
+      "jurisdictions": [
+        "eu",
+        "all"
+      ],
+      "legal_basis": "ai_act_annex3",
+      "title": "AI Act Annex III pt. 3 — High-risk AI in education",
+      "description": "AI systems used to determine access to educational institutions, evaluate learning outcomes, assess students, or monitor students during exams are classified as high-risk.",
+      "action_required": "Register system in EU AI Act database. Conduct Fundamental Rights Impact Assessment (FRIA). Ensure human oversight. Implement conformity assessment before deployment.",
+      "timing": "pre_deployment",
+      "max_fine_eur": 15000000,
+      "max_fine_pct_revenue": 3,
+      "enforcing_authority": [
+        "national market surveillance authority",
+        "AI Office"
+      ],
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689#d1e6230-1-1",
+      "applies_when": "edtech = true AND ai_system = true"
+    },
+    {
+      "id": "eu-ai-act-art27-fria-minor",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "high_risk_ai"
+      ],
+      "jurisdictions": [
+        "eu",
+        "all"
+      ],
+      "legal_basis": "ai_act_art27",
+      "title": "AI Act Art. 27 — FRIA obligation for deployers affecting minors",
+      "description": "Deployers of high-risk AI systems that are likely to be used by or affect minors must conduct a Fundamental Rights Impact Assessment.",
+      "action_required": "Complete FRIA documentation. Assess specific impact on minors as vulnerable group. Register assessment with competent authority. Review annually or upon significant change.",
+      "timing": "pre_deployment",
+      "max_fine_eur": 15000000,
+      "max_fine_pct_revenue": 3,
+      "enforcing_authority": [
+        "AI Office",
+        "national market surveillance authority"
+      ],
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689#d1e4150-1-1",
+      "applies_when": "minor = true AND high_risk_ai = true"
+    },
+    {
+      "id": "us-coppa-under13",
+      "signal_types": [
+        "explicit_age_minor_under13"
+      ],
+      "jurisdictions": [
+        "us"
+      ],
+      "legal_basis": "gdpr_art8",
+      "title": "COPPA — Verifiable parental consent for under-13",
+      "description": "The Children's Online Privacy Protection Act prohibits collecting personal information from children under 13 without verifiable parental consent.",
+      "action_required": "Implement COPPA-compliant verifiable parental consent. Do not collect personal data from under-13 users without consent. Provide parents with access and deletion rights.",
+      "timing": "pre_deployment",
+      "max_fine_eur": null,
+      "max_fine_usd": 51744,
+      "max_fine_pct_revenue": null,
+      "enforcing_authority": [
+        "FTC"
+      ],
+      "source_url": "https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa",
+      "applies_when": "age < 13 AND jurisdiction = us"
+    },
+    {
+      "id": "eu-charter-art24-best-interests",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor"
+      ],
+      "jurisdictions": [
+        "eu",
+        "all"
+      ],
+      "legal_basis": "charter_art24",
+      "title": "EU Charter Art. 24 — Best interests of the child",
+      "description": "All actions relating to children must be assessed against the child's best interests as a primary consideration, per the EU Charter of Fundamental Rights.",
+      "action_required": "Document best-interests assessment in design decisions. Ensure data minimisation by default for minor users. Apply child-safe defaults (strictest privacy settings pre-selected).",
+      "timing": "pre_deployment",
+      "max_fine_eur": null,
+      "max_fine_pct_revenue": null,
+      "enforcing_authority": [
+        "CJEU",
+        "national courts",
+        "FRA"
+      ],
+      "source_url": "https://fra.europa.eu/en/eu-charter/article/24-rights-child",
+      "applies_when": "minor = true"
+    },
+    {
+      "id": "ca-pipeda-minor-consent",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "account_creation"
+      ],
+      "jurisdictions": [
+        "ca"
+      ],
+      "legal_basis": "gdpr_art8",
+      "title": "PIPEDA + Quebec Law 25 — Minor consent and parental authority",
+      "description": "Canada requires meaningful consent for data collection. Quebec Law 25 (Bill 64) imposes stricter obligations including privacy by default and mandatory incident reporting affecting minors.",
+      "action_required": "Obtain meaningful consent adapted to minors. Apply privacy by default settings. For Quebec: register processing activities, appoint a privacy officer, conduct PIA for high-risk processing involving minors.",
+      "timing": "pre_deployment",
+      "max_fine_eur": null,
+      "max_fine_cad": 25000000,
+      "max_fine_pct_revenue": 4,
+      "enforcing_authority": [
+        "OPC - Office of the Privacy Commissioner of Canada",
+        "Commission d'accès à l'information du Québec"
+      ],
+      "source_url": "https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/",
+      "applies_when": "minor = true AND jurisdiction = ca"
+    },
+    {
+      "id": "br-lgpd-minor-consent",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "account_creation",
+        "profiling_context"
+      ],
+      "jurisdictions": [
+        "br"
+      ],
+      "legal_basis": "gdpr_art8",
+      "title": "LGPD Art. 14 — Processing of children and adolescent data",
+      "description": "Brazil LGPD Art. 14 requires specific parental or guardian consent for processing data of children (under 12) and adolescents (12-18). Processing must be in the best interests of the minor.",
+      "action_required": "Obtain specific parental/guardian consent for under-18 data processing. Collect only necessary data. Prohibit sharing with third parties without specific consent. Conduct DPA if processing is large-scale.",
+      "timing": "pre_deployment",
+      "max_fine_eur": null,
+      "max_fine_brl": 50000000,
+      "max_fine_pct_revenue": 2,
+      "enforcing_authority": [
+        "ANPD - Autoridade Nacional de Proteção de Dados"
+      ],
+      "source_url": "https://www.gov.br/anpd/pt-br/assuntos/noticias/resolucao-cd-anpd-no-5-de-27-de-fevereiro-de-2024",
+      "applies_when": "minor = true AND jurisdiction = br"
+    },
+    {
+      "id": "au-privacy-act-minor",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "profiling_context",
+        "advertising_context"
+      ],
+      "jurisdictions": [
+        "au"
+      ],
+      "legal_basis": "gdpr_art8",
+      "title": "Australian Privacy Act 1988 + Online Safety Act — Minor protections",
+      "description": "The Privacy Act 1988 (amended 2024) and Online Safety Act impose obligations on platforms likely accessed by minors. The Online Safety (Basic Online Safety Expectations) determination applies to social media services accessed by Australian children.",
+      "action_required": "Implement age assurance measures. Apply Privacy by Design for services likely accessed by under-18s. Comply with Basic Online Safety Expectations. Report harmful content involving minors to eSafety Commissioner within 24h.",
+      "timing": "pre_deployment",
+      "max_fine_eur": null,
+      "max_fine_aud": 50000000,
+      "max_fine_pct_revenue": 30,
+      "enforcing_authority": [
+        "OAIC - Office of the Australian Information Commissioner",
+        "eSafety Commissioner"
+      ],
+      "source_url": "https://www.oaic.gov.au/privacy/privacy-legislation/the-privacy-act",
+      "applies_when": "minor = true AND jurisdiction = au"
+    },
+    {
+      "id": "in-dpdpa-minor-consent",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "account_creation",
+        "profiling_context"
+      ],
+      "jurisdictions": [
+        "in"
+      ],
+      "legal_basis": "gdpr_art8",
+      "title": "India DPDPA 2023 — Child data processing prohibition",
+      "description": "The Digital Personal Data Protection Act 2023 prohibits processing personal data of children (under 18) that is likely to cause detrimental effects. Requires verifiable parental consent. Prohibits tracking, behavioural monitoring, and targeted advertising directed at children.",
+      "action_required": "Obtain verifiable parental consent before any data processing of under-18 users. Prohibit behavioural tracking and targeted advertising for minors. Implement age verification. Data Fiduciaries must not cause detrimental effects on children.",
+      "timing": "immediate",
+      "max_fine_eur": null,
+      "max_fine_inr": 2500000000,
+      "max_fine_pct_revenue": null,
+      "enforcing_authority": [
+        "Data Protection Board of India"
+      ],
+      "source_url": "https://www.meity.gov.in/writereaddata/files/Digital%20Personal%20Data%20Protection%20Act%202023.pdf",
+      "applies_when": "minor = true AND jurisdiction = in"
+    },
+    {
+      "id": "eu-gdpr-art8-national-thresholds",
+      "signal_types": [
+        "explicit_age_minor",
+        "account_creation"
+      ],
+      "jurisdictions": [
+        "eu"
+      ],
+      "legal_basis": "gdpr_art8",
+      "title": "GDPR Art. 8 — National age thresholds below 16",
+      "description": "EU member states may lower the GDPR Art. 8 consent age to a minimum of 13. Current thresholds: IE/DK/FI/SE/LT/LV/EE/MT = 13 | AT/DE/CZ/BG/HR/CY/LU/NL/PL/PT/RO/SI/SK = 14 | FR/IT/ES/BE/GR = 15 | EU default = 16.",
+      "action_required": "Identify the member state(s) of your users. Apply the correct national threshold. Do not apply a single EU-wide 16 threshold if you serve users in IE, DE, FR etc. Document the legal basis per country in your ROPA.",
+      "timing": "pre_deployment",
+      "max_fine_eur": 20000000,
+      "max_fine_pct_revenue": 4,
+      "enforcing_authority": [
+        "national DPA"
+      ],
+      "source_url": "https://edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-052023-consent_en",
+      "applies_when": "jurisdiction = eu AND age_collection = true"
+    },
+    {
+      "id": "eu-dsa-art34-risk-assessment-minor",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "large_scale_processing",
+        "profiling_context"
+      ],
+      "jurisdictions": [
+        "eu"
+      ],
+      "legal_basis": "dsa_art34",
+      "title": "DSA Art. 34 — Risk assessment for systemic risks to minors",
+      "description": "Very Large Online Platforms and Search Engines must assess systemic risks arising from their services, specifically including negative effects on minors and the protection of public health.",
+      "action_required": "Conduct annual systemic risk assessment. Document specific risks to minors. Implement mitigation measures per Art. 35. Submit assessment to Digital Services Coordinator. For VLOPs: share with European Commission.",
+      "timing": "within_30d",
+      "max_fine_eur": 15000000,
+      "max_fine_pct_revenue": 3,
+      "enforcing_authority": [
+        "Digital Services Coordinator",
+        "European Commission"
+      ],
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2065#d1e3480-1-1",
+      "applies_when": "minor = true AND (vlop = true OR large_scale = true)"
+    },
+    {
+      "id": "eu-ai-act-art5-prohibited-minor",
+      "signal_types": [
+        "implicit_age_minor",
+        "explicit_age_minor",
+        "automated_decision",
+        "high_risk_ai"
+      ],
+      "jurisdictions": [
+        "eu",
+        "all"
+      ],
+      "legal_basis": "ai_act_art5",
+      "title": "AI Act Art. 5 — Prohibited AI practices targeting minors",
+      "description": "AI systems that deploy subliminal techniques beyond a person's consciousness or exploit vulnerabilities of persons due to their age to distort behaviour causing harm are absolutely prohibited.",
+      "action_required": "Immediately audit AI systems for subliminal or exploitative techniques targeting minors. Cease any prohibited practice. These prohibitions apply from 2 February 2025 — no grace period.",
+      "timing": "immediate",
+      "max_fine_eur": 35000000,
+      "max_fine_pct_revenue": 7,
+      "enforcing_authority": [
+        "AI Office",
+        "national market surveillance authority"
+      ],
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689#d1e2816-1-1",
+      "applies_when": "minor = true AND (subliminal_technique = true OR exploitative_ai = true)"
+    },
+    {
+      "id": "gb-age-appropriate-design-code",
+      "signal_types": [
+        "explicit_age_minor",
+        "implicit_age_minor",
+        "account_creation",
+        "profiling_context",
+        "advertising_context"
+      ],
+      "jurisdictions": [
+        "gb"
+      ],
+      "legal_basis": "gdpr_art8",
+      "title": "UK ICO Children's Code (Age Appropriate Design Code)",
+      "description": "The UK Children's Code applies to online services likely to be accessed by under-18s. It mandates 15 standards including high privacy defaults, no profiling by default, geolocation off by default, and no nudge techniques.",
+      "action_required": "Conduct a Children's Code risk assessment. Apply privacy-protective defaults for all users unless age is verified. Disable profiling and targeted advertising by default for minor users. Switch off geolocation by default. No nudge techniques or dark patterns.",
+      "timing": "pre_deployment",
+      "max_fine_eur": null,
+      "max_fine_gbp": 17500000,
+      "max_fine_pct_revenue": 4,
+      "enforcing_authority": [
+        "ICO - Information Commissioner's Office"
+      ],
+      "source_url": "https://ico.org.uk/for-organisations/guide-to-data-protection/ico-codes-of-practice/age-appropriate-design-a-code-of-practice-for-online-services/",
+      "applies_when": "minor = true AND jurisdiction = gb"
+    }
+  ]
+}
