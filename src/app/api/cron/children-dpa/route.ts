@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 300;
 
 const PIPELINE = "dpa-decisions";
-const MAX_DPAS_PER_RUN = 8;
+const MAX_DPAS_PER_RUN = 20;
 const MAX_ITEMS_PER_DPA = 20;
 
 export async function GET(request: NextRequest) {
@@ -34,13 +34,21 @@ export async function GET(request: NextRequest) {
     const dpas = await db
       .select()
       .from(childrenDpaRegistry)
-      .where(and(eq(childrenDpaRegistry.isActive, true)))
+      .where(and(
+        eq(childrenDpaRegistry.isActive, true),
+        eq(childrenDpaRegistry.ingestStrategy, "rss"),
+      ))
       .orderBy(sql`COALESCE(${childrenDpaRegistry.lastIngestedAt}, '1970-01-01'::timestamptz) ASC`)
       .limit(MAX_DPAS_PER_RUN);
 
+    if (dpas.length === 0) {
+      errorDetails.push("no DPAs with ingest_strategy='rss' found");
+    }
+
     for (const dpa of dpas) {
       try {
-        if (dpa.ingestStrategy !== "rss" || !dpa.rssUrl) {
+        if (!dpa.rssUrl) {
+          await markDpaIngested(dpa.id);
           skipped++;
           continue;
         }
@@ -54,6 +62,12 @@ export async function GET(request: NextRequest) {
 
         const trimmed = items.slice(0, MAX_ITEMS_PER_DPA);
         const decisions = await classifyDpaItems(trimmed, dpa.languageCode);
+
+        if (decisions.length === 0) {
+          await markDpaIngested(dpa.id);
+          skipped++;
+          continue;
+        }
 
         for (const dec of decisions) {
           const res = await upsertDecision(dpa.id, dpa.countryCode, dpa.languageCode, dec);
