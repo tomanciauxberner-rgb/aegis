@@ -5,7 +5,7 @@ import { Gavel, Smartphone, GraduationCap, Scale, Radar, ScanSearch } from "luci
 import { ChildrenKpiStrip } from "@/components/children/kpi-strip";
 import { EnforcementTab } from "@/components/children/enforcement-tab";
 import { AppTab } from "@/components/children/app-tab";
-import { EdtechMap } from "@/components/children/edtech-map";
+import { EdtechTab } from "@/components/children/edtech-tab";
 import { GdprAgeMap } from "@/components/children/gdpr-age-map";
 import { PolicyRadar } from "@/components/children/policy-radar";
 import { TriggerScanner } from "@/components/children/trigger-scanner";
@@ -80,7 +80,7 @@ export default function ChildrenPage() {
         {tab === "policy"    && <PolicyRadar />}
         {tab === "decisions" && <EnforcementTab />}
         {tab === "apps"      && <AppTab />}
-        {tab === "edtech"    && <EdtechMap />}
+        {tab === "edtech"    && <EdtechTab />}
         {tab === "gdpr"      && <GdprAgeMap />}
         {tab === "scanner"   && <TriggerScanner />}
       </div>
