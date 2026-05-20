@@ -8,6 +8,7 @@ import {
   Font,
 } from "@react-pdf/renderer";
 import type { FriaWizardState, RiskLevel } from "@/types";
+import { CHILD_AGE_BANDS, CHILD_RIGHTS_FRAMEWORKS, CHILD_VULNERABILITIES } from "@/lib/fria/child-rights";
 import type { JurisprudenceCase } from "@/types/jurisprudence";
 
 Font.register({
@@ -85,6 +86,97 @@ function riskScore(likelihood: RiskLevel, severity: RiskLevel): RiskLevel {
   if (s >= 6)  return "medium";
   if (s >= 3)  return "low";
   return "minimal";
+}
+
+
+function ChildRightsPage({ ca, systemName, page }: {
+  ca: NonNullable<FriaWizardState["childAssessment"]>;
+  systemName: string;
+  page: number;
+}) {
+  const bandMap = Object.fromEntries(CHILD_AGE_BANDS.map((b) => [b.code, b]));
+  const fwMap = Object.fromEntries(CHILD_RIGHTS_FRAMEWORKS.map((f) => [f.code, f]));
+  const vulnMap = Object.fromEntries(CHILD_VULNERABILITIES.map((v) => [v.code, v]));
+
+  return (
+    <Page size="A4" style={s.page}>
+      <View style={s.section}>
+        <Text style={s.h1}>2b. Child Rights Assessment</Text>
+        <Text style={[s.articleRef, { marginBottom: 8 }]}>EU Charter Art. 24 · UN CRC · AI Act Annex III(3) — Best interests of the child</Text>
+
+        <View style={s.legalNote}>
+          <Text style={[s.body, { marginBottom: 0 }]}>
+            Where an AI system affects minors, the best interests of the child must be a primary consideration (Charter Art. 24, UN CRC Art. 3). The following developmental and legal dimensions were assessed.
+          </Text>
+        </View>
+
+        {ca.ageBands.length > 0 && (
+          <View style={{ marginBottom: 12 }}>
+            <Text style={s.h3}>Age bands affected</Text>
+            {ca.ageBands.map((code) => {
+              const b = bandMap[code];
+              if (!b) return null;
+              return (
+                <View key={code} style={s.cardBorder}>
+                  <Text style={[s.body, { fontWeight: 700, marginBottom: 2 }]}>{b.label} ({b.range})</Text>
+                  <Text style={[s.body, { marginBottom: 2 }]}>{b.cognitiveProfile}</Text>
+                  <Text style={s.articleRef}>{b.consentNote}</Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
+
+        {ca.frameworks.length > 0 && (
+          <View style={{ marginBottom: 12 }}>
+            <Text style={s.h3}>Applicable legal frameworks</Text>
+            {ca.frameworks.map((code) => {
+              const f = fwMap[code];
+              if (!f) return null;
+              return (
+                <View key={code} style={s.card}>
+                  <Text style={[s.body, { fontWeight: 700, marginBottom: 1 }]}>{f.framework} {f.article} — {f.label}</Text>
+                  <Text style={[s.body, { marginBottom: 0 }]}>{f.description}</Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
+
+        {ca.vulnerabilities.length > 0 && (
+          <View style={{ marginBottom: 12 }}>
+            <Text style={s.h3}>Developmental vulnerabilities at stake</Text>
+            {ca.vulnerabilities.map((code) => {
+              const v = vulnMap[code];
+              if (!v) return null;
+              return (
+                <View key={code} style={[s.cardBorder, { borderLeftColor: "#ef4444" }]}>
+                  <Text style={[s.body, { fontWeight: 700, marginBottom: 1 }]}>{v.label}</Text>
+                  <Text style={[s.body, { marginBottom: 0 }]}>{v.description}</Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
+
+        {ca.bestInterestsNotes ? (
+          <View style={{ marginBottom: 10 }}>
+            <Text style={s.label}>Best Interests Assessment (Charter Art. 24 / UN CRC Art. 3)</Text>
+            <Text style={s.body}>{ca.bestInterestsNotes}</Text>
+          </View>
+        ) : null}
+
+        {ca.ageAssuranceMethod ? (
+          <View>
+            <Text style={s.label}>Age-Assurance Method (GDPR Art. 8)</Text>
+            <Text style={s.body}>{ca.ageAssuranceMethod}</Text>
+          </View>
+        ) : null}
+      </View>
+
+      <Footer title={systemName} page={page} />
+    </Page>
+  );
 }
 
 interface PDFProps {
@@ -205,6 +297,15 @@ export function FriaPdfDocument({ state, systemName, orgName, cases, generatedAt
 
         <Footer title={systemName} page={2} />
       </Page>
+
+      {state.childAssessment &&
+       ((state.childAssessment.ageBands?.length ?? 0) > 0 ||
+        (state.childAssessment.frameworks?.length ?? 0) > 0 ||
+        (state.childAssessment.vulnerabilities?.length ?? 0) > 0 ||
+        !!state.childAssessment.bestInterestsNotes ||
+        !!state.childAssessment.ageAssuranceMethod) ? (
+        <ChildRightsPage ca={state.childAssessment} systemName={systemName} page={2} />
+      ) : null}
 
       {/* ── Section 3: Risks ── */}
       <Page size="A4" style={s.page}>

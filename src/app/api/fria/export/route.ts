@@ -54,6 +54,13 @@ const BodySchema = z.object({
     dpiaReference: z.string(),
     dpiaOverlapNotes: z.string(),
     selectedCases: z.array(z.string()),
+    childAssessment: z.object({
+      ageBands: z.array(z.string()),
+      frameworks: z.array(z.string()),
+      vulnerabilities: z.array(z.string()),
+      bestInterestsNotes: z.string(),
+      ageAssuranceMethod: z.string(),
+    }).optional(),
   }),
   systemName: z.string().max(200).default("AI System"),
   orgName: z.string().max(200).default("Organisation"),
