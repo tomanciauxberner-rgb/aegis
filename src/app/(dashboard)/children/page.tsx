@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Gavel, Smartphone, GraduationCap, Scale, Radar, ScanSearch } from "lucide-react";
+import { Gavel, Smartphone, GraduationCap, Scale, Radar, ScanSearch, Trophy } from "lucide-react";
 import { ChildrenKpiStrip } from "@/components/children/kpi-strip";
+import { ChildrenRightsIndex } from "@/components/children/children-rights-index";
 import { EnforcementTab } from "@/components/children/enforcement-tab";
 import { AppTab } from "@/components/children/app-tab";
 import { EdtechTab } from "@/components/children/edtech-tab";
@@ -11,9 +12,10 @@ import { PolicyTab } from "@/components/children/policy-tab";
 import { TriggerScanner } from "@/components/children/trigger-scanner";
 import type { OverviewResponse } from "@/types/children-ui";
 
-type Tab = "policy" | "decisions" | "apps" | "edtech" | "gdpr" | "scanner";
+type Tab = "index" | "policy" | "decisions" | "apps" | "edtech" | "gdpr" | "scanner";
 
 const TABS: { key: Tab; label: string; icon: typeof Gavel; desc: string }[] = [
+  { key: "index",     label: "Rights Index",      icon: Trophy,        desc: "EU-27 composite ranking" },
   { key: "policy",    label: "Forward Signal",    icon: Radar,         desc: "Action windows · deadlines" },
   { key: "decisions", label: "Enforcement",       icon: Gavel,         desc: "Cross-border patterns + case law" },
   { key: "apps",      label: "Compliance gaps",   icon: Smartphone,    desc: "Age-of-consent violations across EU" },
@@ -23,7 +25,7 @@ const TABS: { key: Tab; label: string; icon: typeof Gavel; desc: string }[] = [
 ];
 
 export default function ChildrenPage() {
-  const [tab, setTab] = useState<Tab>("policy");
+  const [tab, setTab] = useState<Tab>("index");
   const [overview, setOverview] = useState<OverviewResponse | null>(null);
   const [overviewLoading, setOverviewLoading] = useState(true);
 
@@ -77,6 +79,7 @@ export default function ChildrenPage() {
       </div>
 
       <div className="min-h-[400px]">
+        {tab === "index"     && <ChildrenRightsIndex />}
         {tab === "policy"    && <PolicyTab />}
         {tab === "decisions" && <EnforcementTab />}
         {tab === "apps"      && <AppTab />}
