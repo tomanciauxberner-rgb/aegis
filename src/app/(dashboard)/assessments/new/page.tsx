@@ -1,4 +1,6 @@
 "use client";
+
+import { Suspense } from "react";
 import { FriaWizard } from "@/components/fria/wizard";
 
 export default function NewAssessmentPage() {
@@ -12,7 +14,9 @@ export default function NewAssessmentPage() {
           Fundamental Rights Impact Assessment — Article 27, EU AI Act
         </p>
       </div>
-      <FriaWizard />
+      <Suspense fallback={<div className="text-sm text-text-dim">Loading…</div>}>
+        <FriaWizard />
+      </Suspense>
     </div>
   );
 }

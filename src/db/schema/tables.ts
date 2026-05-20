@@ -234,7 +234,6 @@ export const friaAssessments = pgTable(
       .notNull()
       .references(() => organizations.id, { onDelete: "cascade" }),
     aiSystemId: uuid("ai_system_id")
-      .notNull()
       .references(() => aiSystems.id, { onDelete: "cascade" }),
     version: integer("version").notNull().default(1),
     status: friaStatusEnum("status").notNull().default("draft"),
@@ -260,6 +259,9 @@ export const friaAssessments = pgTable(
     overallRiskLevel: riskLevelEnum("overall_risk_level"),
     conclusion: text("conclusion"),
     exportPath: text("export_path"),
+    title: varchar("title", { length: 300 }),
+    sourceRef: varchar("source_ref", { length: 200 }),
+    draftState: jsonb("draft_state").$type<Record<string, unknown>>(),
     notifiedAuthority: boolean("notified_authority").notNull().default(false),
     notifiedAt: timestamp("notified_at", { withTimezone: true }),
     publishedAt: timestamp("published_at", { withTimezone: true }),
