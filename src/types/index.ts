@@ -70,6 +70,13 @@ export interface FriaWizardState {
   dpiaReference: string;
   dpiaOverlapNotes: string;
   selectedCases: string[];
+  childAssessment?: {
+    ageBands: string[];
+    frameworks: string[];
+    vulnerabilities: string[];
+    bestInterestsNotes: string;
+    ageAssuranceMethod: string;
+  };
 }
 
 export interface ApiResponse<T = unknown> {
