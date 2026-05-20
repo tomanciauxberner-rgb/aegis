@@ -32,6 +32,15 @@ const ROADMAP = [
   "Publication-ready visualisations",
 ];
 
+const UPDATES = [
+  { tag: "Intelligence", color: "#4f7cff", title: "Children Digital Rights Index", desc: "Composite EU-27 ranking across enforcement, app compliance, EdTech risk and framework maturity." },
+  { tag: "Intelligence", color: "#4f7cff", title: "Enforcement Intelligence", desc: "Cross-border DPA enforcement patterns linked to CJEU / ECHR case law." },
+  { tag: "Intelligence", color: "#e8b84b", title: "Compliance Gap Engine", desc: "Systemic age-of-consent violations: declared app ages vs GDPR Art. 8 per country." },
+  { tag: "Intelligence", color: "#e8b84b", title: "Deployment Risk Atlas", desc: "Risk-scored national EdTech systems with one-click FRIA generation." },
+  { tag: "FRIA", color: "#34d399", title: "Minors-specialised FRIA engine", desc: "Age bands, Charter Art. 24, UN CRC and developmental vulnerabilities — persisted and exportable." },
+  { tag: "Platform", color: "#a78bfa", title: "Document ingestion", desc: "Upload PDF / DOCX reports — structured data extracted automatically for review." },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -234,11 +243,68 @@ export default function HomePage() {
           text-transform: uppercase;
           margin-top: 6px;
         }
-        .pillars {
-          display: grid;
-          grid-template-columns: 1fr 1px 1fr 1px 1fr;
-          gap: 0;
+        .updates {
           width: 100%;
+          margin: 8px 0 40px;
+          padding: 24px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 14px;
+          background: rgba(255,255,255,0.02);
+        }
+        .updates-head {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          margin-bottom: 18px;
+        }
+        .updates-badge {
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          color: #34d399;
+          text-transform: uppercase;
+        }
+        .updates-sub {
+          font-size: 11px;
+          color: rgba(255,255,255,0.4);
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+        .updates-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+        .update-card {
+          padding: 14px;
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 10px;
+          background: rgba(255,255,255,0.02);
+          text-align: left;
+        }
+        .update-tag {
+          display: inline-block;
+          font-size: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 2px 8px;
+          border-radius: 5px;
+          margin-bottom: 8px;
+        }
+        .update-title {
+          font-size: 14px;
+          font-weight: 600;
+          color: #fff;
+          margin: 0 0 4px;
+        }
+        .update-desc {
+          font-size: 12px;
+          line-height: 1.5;
+          color: rgba(255,255,255,0.55);
+          margin: 0;
+        }
+        .pillars {
           background: rgba(30,58,95,0.3);
           border: 1px solid #1e3a5f;
           border-radius: 16px;
@@ -419,6 +485,7 @@ export default function HomePage() {
           .open-mission { font-size: 11px; }
           .landing { padding: 48px 16px 40px; }
           .pillars { grid-template-columns: 1fr; }
+          .updates-grid { grid-template-columns: 1fr; }
           .pillar-divider { display: none; }
           .pillar { padding: 24px 18px; }
           .headline { font-size: 26px; }
@@ -466,24 +533,24 @@ export default function HomePage() {
         <div className="content">
           <Image src="/logo.png" alt="Aegis" width={180} height={210} priority />
 
-          <p className="tagline">Discrimination Intelligence · AI Risk Assessment · EU27</p>
+          <p className="tagline">Children&apos;s Digital Rights Intelligence · FRIA for Minors · EU27</p>
 
           <h1 className="headline">
-            Know where discrimination meets AI.<br /><em>Before regulators do.</em>
+            Protect children where AI meets their rights.<br /><em>Before harm is done.</em>
           </h1>
 
           <p className="sub">
-            AEGIS is the first platform to cross-reference AI deployments
-            with real discrimination data across 27 EU Member States —
-            turning compliance from guesswork into evidence-based action.
+            AEGIS is an open, non-profit platform that turns the fragmented landscape of
+            children&apos;s digital rights into actionable intelligence — and the only tool that
+            generates EU AI Act Fundamental Rights Impact Assessments specialised for minors.
           </p>
 
           <div className="stats-row">
             {[
-              { value: "27", label: "Member States" },
-              { value: "8", label: "Population Groups" },
-              { value: "8", label: "Risk Sectors" },
-              { value: "2016–2024", label: "Trend Data" },
+              { value: "27", label: "EU Member States" },
+              { value: "5", label: "Intelligence Modules" },
+              { value: "Art. 27", label: "FRIA Engine" },
+              { value: "Open", label: "Non-profit · AGPL" },
             ].map((s) => (
               <div key={s.label} className="stat-item">
                 <p className="stat-value">{s.value}</p>
@@ -492,19 +559,36 @@ export default function HomePage() {
             ))}
           </div>
 
+          {/* ── LATEST UPDATES ── */}
+          <div className="updates">
+            <div className="updates-head">
+              <span className="updates-badge">● Latest updates</span>
+              <span className="updates-sub">Recently shipped</span>
+            </div>
+            <div className="updates-grid">
+              {UPDATES.map((u) => (
+                <div key={u.title} className="update-card">
+                  <span className="update-tag" style={{ color: u.color, border: `1px solid ${u.color}40`, background: `${u.color}14` }}>{u.tag}</span>
+                  <p className="update-title">{u.title}</p>
+                  <p className="update-desc">{u.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* ── THREE PILLARS ── */}
           <div className="pillars">
             <div className="pillar">
               <span className="pillar-tag" style={{ background: "rgba(255,92,92,0.1)", color: "#ff5c5c", border: "1px solid rgba(255,92,92,0.25)" }}>
                 Intelligence
               </span>
-              <h2 className="pillar-title">Discrimination<br />Signal Monitor</h2>
+              <h2 className="pillar-title">Children&apos;s Rights<br />Intelligence</h2>
               <ul className="pillar-items">
-                <li className="pillar-item">Real-time signals across EU27 countries and 8 population groups</li>
-                <li className="pillar-item">Multi-source convergence — statistical, legislative, incident</li>
-                <li className="pillar-item">Gender-based violence and disability rights monitoring</li>
-                <li className="pillar-item">Historical trend analysis — 2016 to 2024</li>
-                <li className="pillar-item">AI-generated country briefings exportable as PDF</li>
+                <li className="pillar-item">Children Digital Rights Index — composite EU-27 ranking</li>
+                <li className="pillar-item">Cross-border DPA enforcement patterns + linked case law</li>
+                <li className="pillar-item">Compliance gaps: app ages vs GDPR Art. 8 per country</li>
+                <li className="pillar-item">EdTech Deployment Risk Atlas — Annex III national systems</li>
+                <li className="pillar-item">Forward Signal — open consultations &amp; policy windows</li>
               </ul>
             </div>
 
@@ -512,15 +596,15 @@ export default function HomePage() {
 
             <div className="pillar">
               <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)" }}>
-                Cross-Reference
+                FRIA
               </span>
-              <h2 className="pillar-title">AI × Discrimination<br />Risk Context</h2>
+              <h2 className="pillar-title">FRIA Engine<br />for Minors</h2>
               <ul className="pillar-items">
-                <li className="pillar-item">Maps your AI deployments against real discrimination data</li>
-                <li className="pillar-item">Automatic risk context by country, sector and affected group</li>
-                <li className="pillar-item">Recommendations citing applicable EU AI Act articles</li>
-                <li className="pillar-item">Triggers FRIA automatically when thresholds are met</li>
-                <li className="pillar-item">AI-powered report ingestion — any dataset, structured in seconds</li>
+                <li className="pillar-item">Article 27 Fundamental Rights Impact Assessments</li>
+                <li className="pillar-item">Child age bands with developmental cognitive profiles</li>
+                <li className="pillar-item">Charter Art. 24, UN CRC &amp; AI Act Annex III mapping</li>
+                <li className="pillar-item">One-click generation from any EdTech system</li>
+                <li className="pillar-item">Auto-saved, versioned, exportable legal document</li>
               </ul>
             </div>
 
@@ -528,15 +612,15 @@ export default function HomePage() {
 
             <div className="pillar">
               <span className="pillar-tag" style={{ background: "rgba(79,124,255,0.1)", color: "#4f7cff", border: "1px solid rgba(79,124,255,0.25)" }}>
-                Compliance
+                Open
               </span>
-              <h2 className="pillar-title">EU AI Act<br />FRIA Platform</h2>
+              <h2 className="pillar-title">Open Contributive<br />Platform</h2>
               <ul className="pillar-items">
-                <li className="pillar-item">AI systems registry with Annex III high-risk classification</li>
-                <li className="pillar-item">Contextual FRIA pre-loaded with deployment country data</li>
-                <li className="pillar-item">Discrimination context auto-populated per country and sector</li>
-                <li className="pillar-item">Audit-ready export for national authorities</li>
-                <li className="pillar-item">Article 9 compliance — deadline August 2, 2026</li>
+                <li className="pillar-item">Non-profit, open-source — offered to the rights community</li>
+                <li className="pillar-item">Upload PDF / DOCX reports — AI structures the data</li>
+                <li className="pillar-item">Verified, sourced landmark decisions with attribution</li>
+                <li className="pillar-item">Built for institutional experts to enrich and validate</li>
+                <li className="pillar-item">Every data point links back to its primary source</li>
               </ul>
             </div>
           </div>
