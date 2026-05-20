@@ -9,6 +9,7 @@ import type { FriaWizardState } from "@/types";
 interface Props {
   state: FriaWizardState;
   onUpdate: (updates: Partial<FriaWizardState>) => void;
+  friaId?: string | null;
 }
 
 const RISK_COLORS: Record<string, string> = {
@@ -19,10 +20,35 @@ const RISK_COLORS: Record<string, string> = {
   minimal:  "text-text-muted",
 };
 
-export function StepExport({ state }: Props) {
+export function StepExport({ state, friaId }: Props) {
   const [pdfLoading, setPdfLoading]   = useState(false);
   const [jsonLoading, setJsonLoading] = useState(false);
   const [error, setError]             = useState<string | null>(null);
+  const [finalizing, setFinalizing]   = useState(false);
+  const [friaStatus, setFriaStatus]   = useState<string | null>(null);
+
+  async function finalize(targetStatus: "in_review" | "published") {
+    if (!friaId) { setError("Save the draft first before finalising."); return; }
+    setFinalizing(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/fria/assessments/${friaId}/finalize`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ targetStatus }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.error ?? `Finalisation failed (${res.status})`);
+      }
+      const data = await res.json();
+      setFriaStatus(data.status);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Finalisation failed");
+    } finally {
+      setFinalizing(false);
+    }
+  }
 
   const completionChecks = [
     { label: "Deployment context described",  done: !!state.context.deploymentDescription },
@@ -192,13 +218,39 @@ export function StepExport({ state }: Props) {
         </button>
       </div>
 
-      <button className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-surface border border-border text-text-muted rounded-lg hover:border-gold hover:text-gold transition-colors">
-        <Send className="w-5 h-5" />
-        <div className="text-left">
-          <div className="text-sm font-semibold">Notify Market Surveillance Authority</div>
-          <div className="text-xs">Art. 27(1) — Submit FRIA results to competent national authority</div>
+      <div className="border border-border rounded-lg p-4 space-y-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-sm font-semibold text-text">Finalise assessment</div>
+            <div className="text-xs text-text-muted">Normalise risks &amp; mitigations into the record and lock the version</div>
+          </div>
+          {friaStatus && (
+            <span className="text-[10px] uppercase tracking-wider font-medium px-2 py-0.5 rounded bg-accent/10 text-accent">
+              {friaStatus.replace(/_/g, " ")}
+            </span>
+          )}
         </div>
-      </button>
+
+        <div className="flex flex-col sm:flex-row gap-2">
+          <button
+            onClick={() => finalize("in_review")}
+            disabled={finalizing || !friaId}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-surface border border-border text-text rounded-lg hover:border-accent disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-sm font-medium"
+          >
+            {finalizing ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
+            Submit for review
+          </button>
+          <button
+            onClick={() => finalize("published")}
+            disabled={finalizing || !friaId}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-accent text-white rounded-lg hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-sm font-medium"
+          >
+            <Send className="w-4 h-4" />
+            Publish FRIA
+          </button>
+        </div>
+        {!friaId && <p className="text-[11px] text-text-dim">Draft must be saved before it can be finalised.</p>}
+      </div>
     </div>
   );
 }

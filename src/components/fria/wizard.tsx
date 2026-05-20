@@ -166,7 +166,7 @@ export function FriaWizard() {
         {state.step === 6 && <StepJurisprudence state={state} onUpdate={updateState} />}
         {state.step === 7 && <StepOversight state={state} onUpdate={updateState} />}
         {state.step === 8 && <StepDpiaBridge state={state} onUpdate={updateState} />}
-        {state.step === 9 && <StepExport state={state} onUpdate={updateState} />}
+        {state.step === 9 && <StepExport state={state} onUpdate={updateState} friaId={friaId} />}
       </div>
 
       <div className="flex items-center justify-between mt-6">
