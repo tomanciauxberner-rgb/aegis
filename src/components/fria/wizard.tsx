@@ -39,9 +39,10 @@ export function FriaWizard() {
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Load existing draft (?id=) or seed from EdTech bridge (?system=&country=...)
+  // Load existing draft (?id=) or seed from EdTech bridge (?edtechId=)
   useEffect(() => {
     const id = searchParams.get("id");
+    const edtechId = searchParams.get("edtechId");
     const systemName = searchParams.get("system");
     const country = searchParams.get("country");
 
@@ -53,6 +54,27 @@ export function FriaWizard() {
           setFriaId(id);
         })
         .catch(() => {})
+        .finally(() => setLoading(false));
+      return;
+    }
+
+    if (edtechId) {
+      fetch(`/api/fria/prefill?edtechId=${encodeURIComponent(edtechId)}`)
+        .then((r) => r.ok ? r.json() : Promise.reject(r))
+        .then((data) => {
+          if (data.draftState) setState({ ...INITIAL_STATE, ...data.draftState });
+        })
+        .catch(() => {
+          if (systemName) {
+            setState((prev) => ({
+              ...prev,
+              context: {
+                ...prev.context,
+                deploymentDescription: `${systemName}${country ? ` (deployed in ${country})` : ""} — `,
+              },
+            }));
+          }
+        })
         .finally(() => setLoading(false));
       return;
     }
