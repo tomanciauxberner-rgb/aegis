@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Building2, Users, Key, Upload, Loader2, CheckCircle, AlertTriangle } from "lucide-react";
+import { FileTextExtractor } from "@/components/settings/file-text-extractor";
 
 function DataIngestionPanel() {
   const [text, setText] = useState("");
@@ -64,6 +65,12 @@ function DataIngestionPanel() {
             <label className="block text-xs font-medium text-text-muted mb-1.5 uppercase tracking-wider">Source URL</label>
             <input type="url" className="w-full px-3 py-2 bg-bg border border-border rounded text-sm text-text focus:outline-none focus:border-accent transition-colors" placeholder="https://fra.europa.eu/..." value={sourceUrl} onChange={(e) => setSourceUrl(e.target.value)} />
           </div>
+        </div>
+
+        <div>
+          <label className="block text-xs font-medium text-text-muted mb-1.5 uppercase tracking-wider">Upload document</label>
+          <FileTextExtractor onExtracted={(t, name) => { setText(t); if (name && !sourceLabel) setSourceLabel(name.replace(/\.[^.]+$/, "")); }} maxChars={30000} />
+          <p className="text-[11px] text-text-dim mt-1.5">PDF, DOCX, TXT — text is extracted in your browser, then you can review it below before ingesting.</p>
         </div>
 
         <div>
