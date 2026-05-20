@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Gavel, Smartphone, GraduationCap, Scale, Radar, ScanSearch } from "lucide-react";
 import { ChildrenKpiStrip } from "@/components/children/kpi-strip";
-import { DecisionsFeed } from "@/components/children/decisions-feed";
+import { EnforcementTab } from "@/components/children/enforcement-tab";
 import { AppRadar } from "@/components/children/app-radar";
 import { EdtechMap } from "@/components/children/edtech-map";
 import { GdprAgeMap } from "@/components/children/gdpr-age-map";
@@ -15,7 +15,7 @@ type Tab = "policy" | "decisions" | "apps" | "edtech" | "gdpr" | "scanner";
 
 const TABS: { key: Tab; label: string; icon: typeof Gavel; desc: string }[] = [
   { key: "policy",    label: "Policy radar",      icon: Radar,         desc: "FRA · EDPB · upstream signals" },
-  { key: "decisions", label: "DPA decisions",     icon: Gavel,         desc: "27 EU DPAs · live" },
+  { key: "decisions", label: "Enforcement",       icon: Gavel,         desc: "Cross-border patterns + case law" },
   { key: "apps",      label: "App radar",         icon: Smartphone,    desc: "iTunes EU charts × VLOP × GDPR Art. 8" },
   { key: "edtech",    label: "EdTech map",        icon: GraduationCap, desc: "Annex III national systems" },
   { key: "gdpr",      label: "GDPR Art. 8",       icon: Scale,         desc: "Fragmented age of consent" },
@@ -78,7 +78,7 @@ export default function ChildrenPage() {
 
       <div className="min-h-[400px]">
         {tab === "policy"    && <PolicyRadar />}
-        {tab === "decisions" && <DecisionsFeed />}
+        {tab === "decisions" && <EnforcementTab />}
         {tab === "apps"      && <AppRadar />}
         {tab === "edtech"    && <EdtechMap />}
         {tab === "gdpr"      && <GdprAgeMap />}
