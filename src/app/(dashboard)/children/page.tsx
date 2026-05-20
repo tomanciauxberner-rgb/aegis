@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Gavel, Smartphone, GraduationCap, Scale, Radar, ScanSearch } from "lucide-react";
 import { ChildrenKpiStrip } from "@/components/children/kpi-strip";
 import { EnforcementTab } from "@/components/children/enforcement-tab";
-import { AppRadar } from "@/components/children/app-radar";
+import { AppTab } from "@/components/children/app-tab";
 import { EdtechMap } from "@/components/children/edtech-map";
 import { GdprAgeMap } from "@/components/children/gdpr-age-map";
 import { PolicyRadar } from "@/components/children/policy-radar";
@@ -16,7 +16,7 @@ type Tab = "policy" | "decisions" | "apps" | "edtech" | "gdpr" | "scanner";
 const TABS: { key: Tab; label: string; icon: typeof Gavel; desc: string }[] = [
   { key: "policy",    label: "Policy radar",      icon: Radar,         desc: "FRA · EDPB · upstream signals" },
   { key: "decisions", label: "Enforcement",       icon: Gavel,         desc: "Cross-border patterns + case law" },
-  { key: "apps",      label: "App radar",         icon: Smartphone,    desc: "iTunes EU charts × VLOP × GDPR Art. 8" },
+  { key: "apps",      label: "Compliance gaps",   icon: Smartphone,    desc: "Age-of-consent violations across EU" },
   { key: "edtech",    label: "EdTech map",        icon: GraduationCap, desc: "Annex III national systems" },
   { key: "gdpr",      label: "GDPR Art. 8",       icon: Scale,         desc: "Fragmented age of consent" },
   { key: "scanner",   label: "Trigger scanner",   icon: ScanSearch,    desc: "Regulatory trigger detection" },
@@ -79,7 +79,7 @@ export default function ChildrenPage() {
       <div className="min-h-[400px]">
         {tab === "policy"    && <PolicyRadar />}
         {tab === "decisions" && <EnforcementTab />}
-        {tab === "apps"      && <AppRadar />}
+        {tab === "apps"      && <AppTab />}
         {tab === "edtech"    && <EdtechMap />}
         {tab === "gdpr"      && <GdprAgeMap />}
         {tab === "scanner"   && <TriggerScanner />}
