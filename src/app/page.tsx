@@ -33,12 +33,30 @@ const ROADMAP = [
 ];
 
 const UPDATES = [
-  { tag: "Intelligence", color: "#4f7cff", title: "Children Digital Rights Index", desc: "Composite EU-27 ranking across enforcement, app compliance, EdTech risk and framework maturity." },
-  { tag: "Intelligence", color: "#4f7cff", title: "Enforcement Intelligence", desc: "Cross-border DPA enforcement patterns linked to CJEU / ECHR case law." },
-  { tag: "Intelligence", color: "#e8b84b", title: "Compliance Gap Engine", desc: "Systemic age-of-consent violations: declared app ages vs GDPR Art. 8 per country." },
-  { tag: "Intelligence", color: "#e8b84b", title: "Deployment Risk Atlas", desc: "Risk-scored national EdTech systems with one-click FRIA generation." },
-  { tag: "FRIA", color: "#34d399", title: "Minors-specialised FRIA engine", desc: "Age bands, Charter Art. 24, UN CRC and developmental vulnerabilities — persisted and exportable." },
-  { tag: "Platform", color: "#a78bfa", title: "Document ingestion", desc: "Upload PDF / DOCX reports — structured data extracted automatically for review." },
+  { date: "May 2026", tag: "Intelligence", color: "#ff5c5c", title: "DSA Article 28 — Minors Protection tracker", desc: "Commission investigations, guidelines and the age-verification push that drive child-safety enforcement in 2026." },
+  { date: "May 2026", tag: "Platform", color: "#a78bfa", title: "Document ingestion (PDF / DOCX)", desc: "Upload reports and decisions — structured data extracted automatically for review before it enters the platform." },
+  { date: "May 2026", tag: "FRIA", color: "#34d399", title: "Minors-specialised FRIA engine", desc: "Age bands, Charter Art. 24, UN CRC and developmental vulnerabilities — auto-saved, versioned and exportable as a legal document." },
+  { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Children Digital Rights Index", desc: "Composite EU-27 ranking across enforcement, app compliance, EdTech risk and framework maturity." },
+  { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Deployment Risk Atlas", desc: "Risk-scored national EdTech systems with one-click FRIA generation." },
+  { date: "May 2026", tag: "Intelligence", color: "#e8b84b", title: "Compliance Gap Engine", desc: "Systemic age-of-consent violations: declared app ages vs GDPR Art. 8 per country." },
+  { date: "May 2026", tag: "Intelligence", color: "#e8b84b", title: "Enforcement Intelligence", desc: "Cross-border DPA enforcement patterns linked to CJEU / ECHR case law." },
+  { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Forward Signal", desc: "Open consultations and policy windows ranked by deadline and relevance." },
+];
+
+const WHO = [
+  { icon: "🏛️", title: "Regulators & oversight bodies", desc: "See enforcement patterns, policy windows and where frameworks are converging across the EU." },
+  { icon: "🔬", title: "Researchers & academics", desc: "Sourced, citable data on children's digital rights — every figure links back to its primary source." },
+  { icon: "🏫", title: "EdTech & public-sector deployers", desc: "Identify your AI Act obligations and generate a ready-to-file Fundamental Rights Impact Assessment." },
+  { icon: "🛡️", title: "Child-rights advocates", desc: "Track how AI and platforms affect minors, and where the gaps in protection actually are." },
+];
+
+const MODULES = [
+  { color: "#4f7cff", name: "Rights Index", what: "A composite 0–100 score ranking all EU-27 countries on how well children's digital rights are protected — built live from the modules below." },
+  { color: "#ff5c5c", name: "DSA Minors", what: "Commission enforcement of DSA Article 28: investigations into platforms, the protection-of-minors guidelines, and the EU age-verification push." },
+  { color: "#4f7cff", name: "Enforcement Intelligence", what: "Cross-border patterns in data-protection enforcement against systems affecting minors, linked to the case law that shapes them." },
+  { color: "#e8b84b", name: "Compliance Gaps", what: "Where an app's declared minimum age clashes with the legal age of consent of each country — systemic violations, quantified." },
+  { color: "#e8b84b", name: "Risk Atlas", what: "National EdTech systems scored for fundamental-rights risk, each with a one-click path to a full impact assessment." },
+  { color: "#34d399", name: "Forward Signal", what: "Upcoming consultations, bills and policy moves ranked by deadline — so you act before the window closes." },
 ];
 
 export default function HomePage() {
@@ -243,6 +261,78 @@ export default function HomePage() {
           text-transform: uppercase;
           margin-top: 6px;
         }
+        .cta-high {
+          margin: 4px 0 44px;
+        }
+        .block-section {
+          width: 100%;
+          margin: 0 0 44px;
+        }
+        .block-label {
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.45);
+          margin-bottom: 18px;
+          text-align: left;
+        }
+        .block-intro {
+          font-size: 14px;
+          line-height: 1.6;
+          color: rgba(255,255,255,0.6);
+          text-align: left;
+          margin: -8px 0 20px;
+          max-width: 760px;
+        }
+        .block-intro strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+        .who-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
+        }
+        .who-card {
+          padding: 18px;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 12px;
+          background: rgba(255,255,255,0.02);
+          text-align: left;
+        }
+        .who-icon { font-size: 22px; display: block; margin-bottom: 10px; }
+        .who-title { font-size: 14px; font-weight: 600; color: #fff; margin: 0 0 6px; }
+        .who-desc { font-size: 12px; line-height: 1.5; color: rgba(255,255,255,0.55); margin: 0; }
+        .modules-list {
+          display: flex;
+          flex-direction: column;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .module-row {
+          display: grid;
+          grid-template-columns: 12px 160px 1fr;
+          align-items: start;
+          gap: 14px;
+          padding: 16px 18px;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          text-align: left;
+        }
+        .module-row:last-child { border-bottom: none; }
+        .module-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; }
+        .module-name { font-size: 13px; font-weight: 600; color: #fff; }
+        .module-what { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.6); }
+        .update-card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 8px;
+        }
+        .update-date {
+          font-size: 10px;
+          color: rgba(255,255,255,0.4);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
         .updates {
           width: 100%;
           margin: 8px 0 40px;
@@ -290,7 +380,6 @@ export default function HomePage() {
           letter-spacing: 0.5px;
           padding: 2px 8px;
           border-radius: 5px;
-          margin-bottom: 8px;
         }
         .update-title {
           font-size: 14px;
@@ -486,6 +575,9 @@ export default function HomePage() {
           .landing { padding: 48px 16px 40px; }
           .pillars { grid-template-columns: 1fr; }
           .updates-grid { grid-template-columns: 1fr; }
+          .who-grid { grid-template-columns: 1fr; }
+          .module-row { grid-template-columns: 12px 1fr; }
+          .module-row .module-what { grid-column: 2; }
           .pillar-divider { display: none; }
           .pillar { padding: 24px 18px; }
           .headline { font-size: 26px; }
@@ -560,6 +652,54 @@ export default function HomePage() {
             ))}
           </div>
 
+          {/* ── PRIMARY CTA (high) ── */}
+          <Link href="/login" className="cta cta-high">
+            ACCESS PLATFORM <ArrowRight style={{ width: 18, height: 18 }} />
+          </Link>
+
+          {/* ── WHO IT'S FOR ── */}
+          <div className="block-section">
+            <p className="block-label">Who it&apos;s for</p>
+            <div className="who-grid">
+              {WHO.map((w) => (
+                <div key={w.title} className="who-card">
+                  <span className="who-icon">{w.icon}</span>
+                  <p className="who-title">{w.title}</p>
+                  <p className="who-desc">{w.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── WHAT AEGIS DOES ── */}
+          <div className="block-section">
+            <p className="block-label">What each part of Aegis does</p>
+            <p className="block-intro">
+              Aegis has two halves that feed each other: an <strong>intelligence layer</strong> that
+              maps where children&apos;s rights are at risk across the EU, and a <strong>FRIA engine</strong>
+              that turns that knowledge into a compliant impact assessment you can file.
+            </p>
+            <div className="modules-list">
+              {MODULES.map((m) => (
+                <div key={m.name} className="module-row">
+                  <span className="module-dot" style={{ background: m.color }} />
+                  <span className="module-name">{m.name}</span>
+                  <span className="module-what">{m.what}</span>
+                </div>
+              ))}
+              <div className="module-row">
+                <span className="module-dot" style={{ background: "#34d399" }} />
+                <span className="module-name">FRIA Engine</span>
+                <span className="module-what">Generate an EU AI Act Article 27 Fundamental Rights Impact Assessment, specialised for minors — auto-saved, versioned, and exportable as a legal document.</span>
+              </div>
+              <div className="module-row">
+                <span className="module-dot" style={{ background: "#a78bfa" }} />
+                <span className="module-name">Contribute</span>
+                <span className="module-what">Upload a report or decision (PDF / DOCX) and the platform structures it for review — so field experts shape what Aegis tracks.</span>
+              </div>
+            </div>
+          </div>
+
           {/* ── LATEST UPDATES ── */}
           <div className="updates">
             <div className="updates-head">
@@ -569,7 +709,10 @@ export default function HomePage() {
             <div className="updates-grid">
               {UPDATES.map((u) => (
                 <div key={u.title} className="update-card">
-                  <span className="update-tag" style={{ color: u.color, border: `1px solid ${u.color}40`, background: `${u.color}14` }}>{u.tag}</span>
+                  <div className="update-card-top">
+                    <span className="update-tag" style={{ color: u.color, border: `1px solid ${u.color}40`, background: `${u.color}14` }}>{u.tag}</span>
+                    <span className="update-date">{u.date}</span>
+                  </div>
                   <p className="update-title">{u.title}</p>
                   <p className="update-desc">{u.desc}</p>
                 </div>
