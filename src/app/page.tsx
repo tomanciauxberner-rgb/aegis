@@ -533,16 +533,17 @@ export default function HomePage() {
         <div className="content">
           <Image src="/logo.png" alt="Aegis" width={180} height={210} priority />
 
-          <p className="tagline">Children&apos;s Digital Rights Intelligence · FRIA for Minors · EU27</p>
+          <p className="tagline">Fundamental Rights Intelligence · EU AI Act FRIA · EU27</p>
 
           <h1 className="headline">
-            Protect children where AI meets their rights.<br /><em>Before harm is done.</em>
+            Fundamental rights intelligence,<br /><em>turned into AI Act compliance.</em>
           </h1>
 
           <p className="sub">
-            AEGIS is an open, non-profit platform that turns the fragmented landscape of
-            children&apos;s digital rights into actionable intelligence — and the only tool that
-            generates EU AI Act Fundamental Rights Impact Assessments specialised for minors.
+            AEGIS is an open, non-profit platform that turns fundamental rights intelligence
+            across the EU into action — from live monitoring of enforcement, policy and risk,
+            to ready-to-file EU AI Act Impact Assessments. Today its sharpest edge is
+            children&apos;s digital rights.
           </p>
 
           <div className="stats-row">
