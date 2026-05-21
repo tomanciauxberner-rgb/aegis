@@ -394,6 +394,8 @@ export default function HomePage() {
           margin: 0;
         }
         .pillars {
+          display: grid;
+          grid-template-columns: 1fr 1px 1fr 1px 1fr;
           background: rgba(30,58,95,0.3);
           border: 1px solid #1e3a5f;
           border-radius: 16px;
