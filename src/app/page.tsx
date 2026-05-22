@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { RequestAccessForm } from "@/components/landing/request-access-form";
 
 const DOMAINS = [
   { label: "Employment & HR", icon: "💼" },
@@ -669,6 +670,8 @@ export default function HomePage() {
           <Link href="/login" className="cta cta-high">
             ACCESS PLATFORM <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
+
+          <RequestAccessForm />
 
           {/* ── WHO IT'S FOR ── */}
           <div className="block-section">
