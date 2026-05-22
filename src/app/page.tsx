@@ -571,6 +571,17 @@ export default function HomePage() {
           letter-spacing: 0.1em;
           text-align: center;
         }
+        .footer-legal {
+          margin-top: 10px;
+          text-align: center;
+          font-size: 12px;
+        }
+        .footer-legal a {
+          color: rgba(255,255,255,0.45);
+          text-decoration: none;
+        }
+        .footer-legal a:hover { color: rgba(255,255,255,0.8); }
+        .footer-legal span { color: rgba(255,255,255,0.25); }
         @media (max-width: 700px) {
           .open-banner { padding: 12px 16px; gap: 8px; }
           .open-mission { font-size: 11px; }
@@ -879,6 +890,13 @@ export default function HomePage() {
         </div>
 
         <p className="footer-text">© 2026 AEGIS · THINKLANCE AI</p>
+        <p className="footer-legal">
+          <Link href="/legal/privacy">Privacy</Link>
+          <span> · </span>
+          <Link href="/legal/terms">Terms</Link>
+          <span> · </span>
+          <Link href="/legal/notice">Legal notice</Link>
+        </p>
       </main>
     </>
   );
