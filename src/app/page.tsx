@@ -736,54 +736,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* ── THREE PILLARS ── */}
-          <div className="pillars">
-            <div className="pillar">
-              <span className="pillar-tag" style={{ background: "rgba(255,92,92,0.1)", color: "#ff5c5c", border: "1px solid rgba(255,92,92,0.25)" }}>
-                Intelligence
-              </span>
-              <h2 className="pillar-title">Children&apos;s Rights<br />Intelligence</h2>
-              <ul className="pillar-items">
-                <li className="pillar-item">Children Digital Rights Index — composite EU-27 ranking</li>
-                <li className="pillar-item">Cross-border DPA enforcement patterns + linked case law</li>
-                <li className="pillar-item">Compliance gaps: app ages vs GDPR Art. 8 per country</li>
-                <li className="pillar-item">EdTech Deployment Risk Atlas — Annex III national systems</li>
-                <li className="pillar-item">Forward Signal — open consultations &amp; policy windows</li>
-              </ul>
-            </div>
-
-            <div className="pillar-divider" />
-
-            <div className="pillar">
-              <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)" }}>
-                FRIA
-              </span>
-              <h2 className="pillar-title">FRIA Engine<br />for Minors</h2>
-              <ul className="pillar-items">
-                <li className="pillar-item">Article 27 Fundamental Rights Impact Assessments</li>
-                <li className="pillar-item">Child age bands with developmental cognitive profiles</li>
-                <li className="pillar-item">Charter Art. 24, UN CRC &amp; AI Act Annex III mapping</li>
-                <li className="pillar-item">One-click generation from any EdTech system</li>
-                <li className="pillar-item">Auto-saved, versioned, exportable legal document</li>
-              </ul>
-            </div>
-
-            <div className="pillar-divider" />
-
-            <div className="pillar">
-              <span className="pillar-tag" style={{ background: "rgba(79,124,255,0.1)", color: "#4f7cff", border: "1px solid rgba(79,124,255,0.25)" }}>
-                Open
-              </span>
-              <h2 className="pillar-title">Open Contributive<br />Platform</h2>
-              <ul className="pillar-items">
-                <li className="pillar-item">Non-profit, open-source — offered to the rights community</li>
-                <li className="pillar-item">Upload PDF / DOCX reports — AI structures the data</li>
-                <li className="pillar-item">Verified, sourced landmark decisions with attribution</li>
-                <li className="pillar-item">Built for institutional experts to enrich and validate</li>
-                <li className="pillar-item">Every data point links back to its primary source</li>
-              </ul>
-            </div>
-          </div>
 
           {/* ── SIGNAL MONITOR DEMO ── */}
           <div className="demo-block">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 export function RequestAccessForm() {
+  const [open, setOpen] = useState(false);
   const [fullName, setFullName] = useState("");
   const [roleTitle, setRoleTitle] = useState("");
   const [organisation, setOrganisation] = useState("");
@@ -47,6 +48,18 @@ export function RequestAccessForm() {
     );
   }
 
+  if (!open) {
+    return (
+      <div className="ra-collapsed">
+        <button className="ra-trigger" onClick={() => setOpen(true)}>
+          Request contributor access
+        </button>
+        <p className="ra-trigger-sub">Viewing is open to all · contribution is granted on request</p>
+        <style>{raStyles}</style>
+      </div>
+    );
+  }
+
   return (
     <div className="ra-wrap" id="request-access">
       <div className="ra-head">
@@ -77,6 +90,14 @@ export function RequestAccessForm() {
 }
 
 const raStyles = `
+  .ra-collapsed { width: 100%; max-width: 760px; margin: 0 auto 56px; text-align: center; }
+  .ra-trigger {
+    padding: 13px 28px; font-size: 14px; font-weight: 600;
+    background: transparent; color: #4f7cff; border: 1px solid rgba(79,124,255,0.4);
+    border-radius: 10px; cursor: pointer; transition: all 0.2s;
+  }
+  .ra-trigger:hover { background: rgba(79,124,255,0.1); border-color: #4f7cff; }
+  .ra-trigger-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 10px; }
   .ra-wrap {
     width: 100%;
     max-width: 760px;
