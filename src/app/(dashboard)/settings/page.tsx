@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Building2, Users, Key, Upload, Loader2, CheckCircle, AlertTriangle } from "lucide-react";
 import { FileTextExtractor } from "@/components/settings/file-text-extractor";
 
@@ -11,6 +11,14 @@ function DataIngestionPanel() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState("");
+  const [access, setAccess] = useState<"loading" | "allowed" | "denied">("loading");
+
+  useEffect(() => {
+    fetch("/api/me/can-contribute")
+      .then((r) => r.ok ? r.json() : Promise.reject(r))
+      .then((d) => setAccess(d.canContribute ? "allowed" : "denied"))
+      .catch(() => setAccess("denied"));
+  }, []);
 
   async function handleIngest() {
     if (text.trim().length < 50) {
@@ -39,6 +47,36 @@ function DataIngestionPanel() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (access !== "allowed") {
+    return (
+      <div className="bg-surface border border-border rounded-lg p-6">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-8 h-8 rounded bg-accent-soft flex items-center justify-center">
+            <Upload className="w-4 h-4 text-accent" />
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold text-text">Data Ingestion</h2>
+            <p className="text-xs text-text-muted">Contributor access required</p>
+          </div>
+        </div>
+        {access === "loading" ? (
+          <p className="text-sm text-text-dim">Checking access…</p>
+        ) : (
+          <div className="text-sm text-text-muted leading-relaxed">
+            <p className="mb-2">
+              Viewing Aegis is open to everyone. Contributing data — uploading reports and enriching the
+              platform — is reserved for approved contributors, to protect the integrity of what we surface.
+            </p>
+            <p>
+              If you&apos;d like to contribute, request access from the{" "}
+              <a href="/" className="text-accent hover:underline">home page</a>. We&apos;ll be in touch.
+            </p>
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (

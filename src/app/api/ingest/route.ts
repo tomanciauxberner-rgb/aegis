@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { insertSignals, buildExternalId } from "@/lib/signal-inserter";
 import { rateLimit } from "@/lib/rate-limit";
+import { canContribute } from "@/lib/auth/contributor";
 
 const EU27 = new Set([
   "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR",
@@ -56,6 +57,14 @@ export async function POST(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const allowed = await canContribute(user.id);
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Contributor access required. Viewing is open to all; data contribution is granted to approved contributors." },
+      { status: 403 },
+    );
   }
 
   let body: { text: string; sourceLabel?: string; sourceUrl?: string };
