@@ -4,7 +4,7 @@
 > *Algorithmic systems do not operate in a vacuum. They land in societies already shaped by structural discrimination, civic space pressures, and unequal access to justice. AEGIS maps this terrain — before harm occurs.*
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Article%2027-green)](https://artificialintelligenceact.eu/)
+[![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-FRIA%20Art.%2027-green)](https://artificialintelligenceact.eu/)
 [![Data: FRA](https://img.shields.io/badge/Data-EU%20Agency%20for%20Fundamental%20Rights-orange)](https://fra.europa.eu)
 [![Status: Community](https://img.shields.io/badge/Status-Open%20to%20Collaboration-purple)]()
 
@@ -14,7 +14,7 @@
 
 Across the EU, high-risk AI systems are increasingly deployed in employment, access to services, law enforcement, and border management — precisely the contexts where FRA survey data consistently documents entrenched discrimination, civic space erosion, and vulnerability among specific groups.
 
-The EU AI Act mandates Fundamental Rights Impact Assessments (FRIA) under Article 27. Yet today, most FRIA processes remain disconnected from the structural social conditions that determine whether an AI system becomes dangerous in practice.
+The EU AI Act mandates Fundamental Rights Impact Assessments (FRIA) under Article 27. Following the Digital Omnibus political agreement of 7 May 2026, the bulk of the high-risk obligations now apply from 2 December 2027 (standalone Annex III systems) and 2 August 2028 (AI embedded in regulated products). The deadline moved; the underlying problem did not. Most FRIA processes remain disconnected from the structural social conditions that determine whether an AI system becomes dangerous in practice — and the additional runway is precisely the window in which a defensible, evidence-grounded governance record can be built, rather than templates completed under last-minute pressure.
 
 **AEGIS bridges this gap.**
 
@@ -61,6 +61,20 @@ This is not a scoring model. It is a **sociotechnical early warning system** —
 
 ---
 
+## Regulatory timeline (post-Digital Omnibus)
+
+The Digital Omnibus on AI, provisionally agreed by the European Parliament and Council on 7 May 2026, revised the application dates for high-risk obligations:
+
+- **2 December 2027** — standalone high-risk AI systems under Annex III
+- **2 August 2028** — high-risk AI systems embedded in regulated products
+- **2 December 2026** — transparency / watermarking obligations under Art. 50
+
+The Act's architecture is unchanged: risk-based classification, the four tiers, conformity assessment, the GPAI track, and the AI Office's oversight role all remain. Formal adoption and publication in the Official Journal are still pending at the time of writing.
+
+AEGIS treats these dates as the operative planning baseline. The extended timeline does not reduce the FRIA obligation — it lengthens the runway to do it properly. The FRA's own 2025 findings note that deployer self-assessments are often insufficient due to knowledge gaps and the risk of minimal compliance, and call for FRIA guidance that goes beyond privacy and discrimination. That is the gap AEGIS is built to address.
+
+---
+
 ## Alignment with current EU priorities
 
 AEGIS was built in direct response to challenges being actively addressed by European institutions:
@@ -70,11 +84,11 @@ AEGIS was built in direct response to challenges being actively addressed by Eur
 | AI governance and fundamental rights | FRA Director, Privacy Symposium 2026 | Contextual FRIA grounded in FRA data |
 | Children's safety in algorithmic environments | FRA survey: 89% concerned about exploitation | Minor-specific risk profiling in education/platform sectors |
 | Civic space under pressure | FRA civic space webinar 2026 | Civic space indicators integrated into convergence model |
-| Encryption and data sovereignty | EDPS 2026 | No PII stored; EU-only data residency (Ireland) |
+| Encryption and data sovereignty | EDPS 2026 | No PII stored; EU-only data residency (Supabase, eu-west-1 / Ireland) |
 | Anti-Muslim hatred and racialised discrimination | FRA Director, Vienna meeting 2026 | Group-specific discrimination signal tracking |
 | Disability rights and service access | FRA independent living focus | Persons with disabilities as primary tracked group |
 | Labour exploitation of migrant workers | FRA, International Workers' Day 2026 | Migration × employment sector convergence alerts |
-| GDPR and Digital Omnibus | EDPS, June 2026 conference | Privacy-by-design architecture, no profiling |
+| GDPR and Digital Omnibus | Digital Omnibus agreement, 7 May 2026 | Privacy-by-design architecture, no profiling; timeline tracking built in |
 
 ---
 
@@ -84,7 +98,7 @@ AEGIS was built in direct response to challenges being actively addressed by Eur
 - **Evidence-based** — every risk signal is traceable to a published EU institutional source
 - **Transparent methodology** — convergence logic is fully documented and open to scrutiny
 - **No PII** — FRIA assessments concern AI *systems*, not individuals
-- **EU data residency** — all data processed and stored within the EU (Ireland)
+- **EU data residency** — all data processed and stored within the EU (Supabase, eu-west-1 / Ireland)
 - **Auditable** — append-only audit log, zero trust architecture, Row Level Security
 
 ---
