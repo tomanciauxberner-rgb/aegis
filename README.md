@@ -82,7 +82,7 @@ AEGIS was built in direct response to challenges being actively addressed by Eur
 | Priority | Institutional source | AEGIS response |
 |----------|---------------------|----------------|
 | AI governance and fundamental rights | FRA Director, Privacy Symposium 2026 | Contextual FRIA grounded in FRA data |
-| Children's safety in algorithmic environments | FRA survey: 89% concerned about exploitation | Minor-specific risk profiling in education/platform sectors |
+| Children's safety in algorithmic environments | Commission DSA minor-protection guidelines (2025) & active enforcement (2026) | Minor-specific risk profiling in education/platform sectors |
 | Civic space under pressure | FRA civic space webinar 2026 | Civic space indicators integrated into convergence model |
 | Encryption and data sovereignty | EDPS 2026 | No PII stored; EU-only data residency (Supabase, eu-west-1 / Ireland) |
 | Anti-Muslim hatred and racialised discrimination | FRA Director, Vienna meeting 2026 | Group-specific discrimination signal tracking |
@@ -96,7 +96,7 @@ AEGIS was built in direct response to challenges being actively addressed by Eur
 
 - **Public-interest by design** — no monetisation model, no vendor lock-in, no data brokering
 - **Evidence-based** — every risk signal is traceable to a published EU institutional source
-- **Transparent methodology** — convergence logic is fully documented and open to scrutiny
+- **Transparent methodology** — convergence logic is fully documented in [METHODOLOGY.md](./METHODOLOGY.md) and open to scrutiny
 - **No PII** — FRIA assessments concern AI *systems*, not individuals
 - **EU data residency** — all data processed and stored within the EU (Supabase, eu-west-1 / Ireland)
 - **Auditable** — append-only audit log, zero trust architecture, Row Level Security
