@@ -3,18 +3,18 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Aegis — AI Compliance & Fundamental Rights Intelligence",
+    default: "Aegis — Fundamental Rights Intelligence for the EU AI Act",
     template: "%s | Aegis",
   },
   description:
-    "FRIA compliance platform powered by real FRA data. Know your rights risk before you deploy.",
+    "Open, non-profit observatory for EU fundamental rights intelligence — grounding AI Act assessments in real FRA, Eurostat and case-law data. Built with researchers and policy experts.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
   ),
   openGraph: {
-    title: "Aegis — AI Compliance & Fundamental Rights Intelligence",
+    title: "Aegis — Fundamental Rights Intelligence for the EU AI Act",
     description:
-      "FRIA compliance platform powered by real FRA data. Know your rights risk before you deploy.",
+      "Open, non-profit observatory for EU fundamental rights intelligence — grounding AI Act assessments in real FRA, Eurostat and case-law data. Built with researchers and policy experts.",
     type: "website",
     locale: "en_EU",
   },

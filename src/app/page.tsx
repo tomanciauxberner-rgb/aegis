@@ -60,6 +60,14 @@ const MODULES = [
   { color: "#34d399", name: "Forward Signal", what: "Upcoming consultations, bills and policy moves ranked by deadline — so you act before the window closes." },
 ];
 
+const VERTICALS = [
+  { code: "children",  label: "Children's Digital Rights",   status: "live",     desc: "Flagship vertical — index, enforcement, gaps, EdTech atlas, DSA Art. 28." },
+  { code: "omnibus",   label: "AI Act × Digital Omnibus",    status: "building", desc: "Track the moving target: high-risk deadlines, CEN/CENELEC standards, Article 50 transparency." },
+  { code: "employment",label: "Employment & HR AI",          status: "next",     desc: "Annex III(4): recruitment, evaluation, workforce-management systems. Where the largest deployer volume sits." },
+  { code: "essential", label: "Essential Services AI",       status: "next",     desc: "Annex III(5): credit scoring, insurance, access to public services and emergency response." },
+  { code: "public",    label: "Public-sector AI",            status: "scoping",  desc: "AI in justice, law enforcement and migration — the most rights-sensitive uses of all." },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -160,6 +168,13 @@ export default function HomePage() {
           color: #00c882;
         }
         .open-link-contribute:hover { background: rgba(0,200,130,0.14); }
+
+        .open-link-roadmap {
+          background: rgba(79,124,255,0.08);
+          border: 1px solid rgba(79,124,255,0.25);
+          color: #4f7cff;
+        }
+        .open-link-roadmap:hover { background: rgba(79,124,255,0.14); }
 
         .landing {
           min-height: 100vh;
@@ -322,6 +337,39 @@ export default function HomePage() {
         .module-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; }
         .module-name { font-size: 13px; font-weight: 600; color: #fff; }
         .module-what { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.6); }
+        .vert-list {
+          display: flex;
+          flex-direction: column;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .vert-row {
+          display: grid;
+          grid-template-columns: 96px 200px 1fr;
+          align-items: center;
+          gap: 14px;
+          padding: 14px 18px;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          text-align: left;
+        }
+        .vert-row:last-child { border-bottom: none; }
+        .vert-status {
+          font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+          padding: 4px 8px; border-radius: 5px; text-align: center;
+        }
+        .vert-status-live      { background: rgba(52,211,153,0.18); color: #34d399; }
+        .vert-status-building  { background: rgba(79,124,255,0.18); color: #4f7cff; }
+        .vert-status-next      { background: rgba(232,184,75,0.18); color: #e8b84b; }
+        .vert-status-scoping   { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); }
+        .vert-name { font-size: 13px; font-weight: 600; color: #fff; }
+        .vert-desc { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.6); }
+        .vert-cta {
+          font-size: 13px; color: rgba(255,255,255,0.55);
+          margin-top: 14px; text-align: left;
+        }
+        .vert-link { color: #4f7cff; text-decoration: none; }
+        .vert-link:hover { text-decoration: underline; }
         .update-card-top {
           display: flex;
           align-items: center;
@@ -592,6 +640,8 @@ export default function HomePage() {
           .who-grid { grid-template-columns: 1fr; }
           .module-row { grid-template-columns: 12px 1fr; }
           .module-row .module-what { grid-column: 2; }
+          .vert-row { grid-template-columns: 96px 1fr; }
+          .vert-row .vert-desc { grid-column: 2; }
           .pillar-divider { display: none; }
           .pillar { padding: 24px 18px; }
           .headline { font-size: 26px; }
@@ -628,6 +678,9 @@ export default function HomePage() {
           <a href="https://github.com/tomanciauxberner-rgb/aegis/issues" target="_blank" rel="noopener noreferrer" className="open-link open-link-contribute">
             Contribute
           </a>
+          <Link href="/roadmap" className="open-link open-link-roadmap">
+            Roadmap
+          </Link>
         </div>
       </div>
 
@@ -714,6 +767,34 @@ export default function HomePage() {
                 <span className="module-what">Upload a report or decision (PDF / DOCX) and the platform structures it for review — so field experts shape what Aegis tracks.</span>
               </div>
             </div>
+          </div>
+
+          {/* ── WHERE AEGIS IS GOING ── */}
+          <div className="block-section">
+            <p className="block-label">Where Aegis is going</p>
+            <p className="block-intro">
+              Children&apos;s digital rights is the first vertical Aegis covers in depth. The same
+              infrastructure — intelligence layer, FRIA engine, contributive ingestion — applies
+              across every high-risk domain the EU AI Act regulates. <strong>The community helps
+              prioritise what comes next.</strong>
+            </p>
+            <div className="vert-list">
+              {VERTICALS.map((v) => {
+                const cls = `vert-status vert-status-${v.status}`;
+                const label = v.status === "live" ? "Live" : v.status === "building" ? "Building" : v.status === "next" ? "Next" : "Scoping";
+                return (
+                  <div key={v.code} className="vert-row">
+                    <span className={cls}>{label}</span>
+                    <span className="vert-name">{v.label}</span>
+                    <span className="vert-desc">{v.desc}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="vert-cta">
+              See the full roadmap →&nbsp;
+              <Link href="/roadmap" className="vert-link">aegis-eu.com/roadmap</Link>
+            </p>
           </div>
 
           {/* ── LATEST UPDATES ── */}
