@@ -9,9 +9,9 @@ const VERTICALS = [
     what: "Digital Rights Index across the EU-27, cross-border DPA enforcement intelligence, compliance-gap engine (app ages vs GDPR Art. 8), EdTech Risk Atlas with one-click FRIA, Forward Signal on policy windows, DSA Article 28 minors-protection tracker.",
   },
   {
-    code: "omnibus", status: "building", title: "AI Act × Digital Omnibus",
-    why: "The deadline that decides everything: are providers and deployers preparing for August 2026 or December 2027? CEN/CENELEC standards remain unfinished and harmonised tools are scarce.",
-    what: "A live tracker of the high-risk deadline trajectory, the status of harmonised standards, Article 4 AI-literacy and Article 50 transparency obligations, and the agreements / political milestones that move the target.",
+    code: "omnibus", status: "live", title: "AI Act × Digital Omnibus",
+    why: "The deadline that decides everything: are providers and deployers preparing for August 2026 or December 2027? CEN/CENELEC standards remain unfinished and harmonised tools are scarce — so the real need is not another news tracker, but a way to model how the framework could play out for a specific system.",
+    what: "A live Regulatory Scenario Engine: describe a system and Aegis projects the plausible regulatory futures (Omnibus adopted, not adopted in time, strict national reading, pro-innovation path), your personalised deadline, your exposure under each, a sourced map of where experts diverge, and the actions that are robust whichever timeline lands. Every output is cited; none is legal advice.",
   },
   {
     code: "employment", status: "next", title: "Employment & HR AI",
@@ -64,6 +64,11 @@ export default function RoadmapPage() {
               </div>
               <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.55)", marginBottom: 10 }}><strong style={{ color: "rgba(255,255,255,0.8)" }}>Why it matters · </strong>{v.why}</p>
               <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.55)" }}><strong style={{ color: "rgba(255,255,255,0.8)" }}>What it includes · </strong>{v.what}</p>
+              {v.code === "omnibus" && (
+                <p style={{ marginTop: 12 }}>
+                  <Link href="/ai-act-scenarios" style={{ fontSize: 13, fontWeight: 600, color: "#4f7cff", textDecoration: "none" }}>Try the live engine →</Link>
+                </p>
+              )}
             </section>
           ))}
         </div>
