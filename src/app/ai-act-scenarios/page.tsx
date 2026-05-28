@@ -34,6 +34,33 @@ export default function ScenarioPage() {
   const [country, setCountry] = useState("FR");
   const [description, setDescription] = useState("");
   const [result, setResult] = useState<ScenarioResult | null>(null);
+  const [ai, setAi] = useState<any | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
+
+  async function runAI() {
+    setAiError(null);
+    setAiLoading(true);
+    setAi(null);
+    try {
+      const res = await fetch("/api/scenario/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role, nature, annexArea, country, description }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d.error ?? `Analysis failed (${res.status})`);
+      }
+      const data = await res.json();
+      setAi(data.analysis);
+      setTimeout(() => document.getElementById("ai-result")?.scrollIntoView({ behavior: "smooth" }), 50);
+    } catch (e) {
+      setAiError(e instanceof Error ? e.message : "Analysis failed");
+    } finally {
+      setAiLoading(false);
+    }
+  }
 
   function run() {
     const input: ScenarioInput = { role, nature, annexArea, country, description };
@@ -82,7 +109,101 @@ export default function ScenarioPage() {
           <button onClick={run} style={{ marginTop: 8, width: "100%", padding: 14, fontSize: 15, fontWeight: 600, background: "#4f7cff", color: "#fff", border: "none", borderRadius: 10, cursor: "pointer" }}>
             Run scenario analysis
           </button>
+          <button onClick={runAI} disabled={aiLoading} style={{ marginTop: 10, width: "100%", padding: 14, fontSize: 15, fontWeight: 600, background: aiLoading ? "rgba(255,255,255,0.1)" : "transparent", color: "#a78bfa", border: "1px solid rgba(167,139,250,0.4)", borderRadius: 10, cursor: aiLoading ? "default" : "pointer" }}>
+            {aiLoading ? "Reasoning over your system…" : "✦ Deep AI analysis (reasons on your specific system)"}
+          </button>
+          {aiError && <p style={{ fontSize: 12, color: "#ff7676", marginTop: 8 }}>{aiError}</p>}
         </div>
+
+        {ai && (
+          <div id="ai-result" style={{ marginBottom: 36 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#a78bfa" }}>✦ Deep analysis — reasoned on your system</span>
+            </div>
+
+            {ai.classification && (
+              <div style={{ border: "1px solid rgba(167,139,250,0.3)", borderRadius: 14, padding: 22, background: "linear-gradient(180deg, rgba(167,139,250,0.07), rgba(255,255,255,0.02))", marginBottom: 24 }}>
+                <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#a78bfa", marginBottom: 8 }}>Classification</p>
+                <p style={{ fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{String(ai.classification.verdict ?? "").replace(/_/g, " ")}</p>
+                <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", marginBottom: ai.classification.profilingFlag ? 10 : 0 }}>{ai.classification.reasoning}</p>
+                {ai.classification.profilingFlag && (
+                  <p style={{ fontSize: 12, lineHeight: 1.55, color: "#ff9b9b", background: "rgba(255,92,92,0.08)", border: "1px solid rgba(255,92,92,0.25)", borderRadius: 8, padding: 10 }}>⚠ Profiling: {ai.classification.profilingFlag}</p>
+                )}
+                {ai.classification.verified === false && ai.classification.gap && (
+                  <p style={{ fontSize: 12, lineHeight: 1.55, color: "#e8b84b", marginTop: 10 }}>Not fully determinable: {ai.classification.gap}</p>
+                )}
+              </div>
+            )}
+
+            {ai.personalDeadline && (
+              <div style={{ border: "1px solid rgba(79,124,255,0.3)", borderRadius: 14, padding: 20, background: "rgba(79,124,255,0.05)", marginBottom: 24 }}>
+                <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#4f7cff", marginBottom: 6 }}>Your deadline</p>
+                <p style={{ fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 6 }}>{ai.personalDeadline.date}</p>
+                <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.65)" }}>{ai.personalDeadline.note}</p>
+              </div>
+            )}
+
+            {Array.isArray(ai.scenarios) && ai.scenarios.length > 0 && (
+              <>
+                <h2 style={sectionTitle}>Plausible futures for your system</h2>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+                  {ai.scenarios.map((sc: any, i: number) => (
+                    <div key={i} style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: 18, background: "rgba(255,255,255,0.02)" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, marginBottom: 8, flexWrap: "wrap" }}>
+                        <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{sc.label}</span>
+                        {sc.likelihood && <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", padding: "3px 9px", borderRadius: 5, background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)" }}>{sc.likelihood}</span>}
+                      </div>
+                      {sc.trigger && <p style={{ fontSize: 13, lineHeight: 1.55, color: "rgba(255,255,255,0.6)", marginBottom: 6 }}><strong style={{ color: "rgba(255,255,255,0.8)" }}>Trigger · </strong>{sc.trigger}</p>}
+                      {sc.deadline && <p style={{ fontSize: 13, lineHeight: 1.55, color: "rgba(255,255,255,0.6)", marginBottom: 6 }}><strong style={{ color: "rgba(255,255,255,0.8)" }}>Deadline · </strong>{sc.deadline}</p>}
+                      {sc.exposure && <p style={{ fontSize: 13, lineHeight: 1.55, color: "rgba(255,255,255,0.6)" }}><strong style={{ color: "rgba(255,255,255,0.8)" }}>Exposure · </strong>{sc.exposure}</p>}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {Array.isArray(ai.divergences) && ai.divergences.length > 0 && (
+              <>
+                <h2 style={sectionTitle}>Where interpretations diverge</h2>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+                  {ai.divergences.map((d: any, i: number) => (
+                    <div key={i} style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: 18, background: "rgba(255,255,255,0.02)" }}>
+                      <p style={{ fontSize: 14, fontWeight: 600, color: "#fff", marginBottom: 12 }}>{d.question}</p>
+                      {Array.isArray(d.positions) && d.positions.map((p: any, j: number) => (
+                        <div key={j} style={{ display: "flex", gap: 10, marginBottom: 8, alignItems: "flex-start" }}>
+                          <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: 0.5, textTransform: "uppercase", padding: "3px 7px", borderRadius: 4, background: `${WEIGHT_COLOR[p.weight] ?? "rgba(255,255,255,0.1)"}22`, color: WEIGHT_COLOR[p.weight] ?? "rgba(255,255,255,0.6)", whiteSpace: "nowrap", marginTop: 2 }}>{p.weight}</span>
+                          <div>
+                            <span style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>{p.stance}</span>
+                            <span style={{ fontSize: 12, lineHeight: 1.5, color: "rgba(255,255,255,0.55)", display: "block" }}>{p.basis}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {Array.isArray(ai.robustActions) && ai.robustActions.length > 0 && (
+              <>
+                <h2 style={sectionTitle}>Actions robust to every scenario</h2>
+                <div style={{ border: "1px solid rgba(52,211,153,0.25)", borderRadius: 12, padding: 18, background: "rgba(52,211,153,0.04)", marginBottom: 24 }}>
+                  {ai.robustActions.map((a: string, i: number) => (
+                    <div key={i} style={{ display: "flex", gap: 10, marginBottom: i === ai.robustActions.length - 1 ? 0 : 10 }}>
+                      <span style={{ color: "#34d399", fontWeight: 700 }}>✓</span>
+                      <span style={{ fontSize: 13, lineHeight: 1.55, color: "rgba(255,255,255,0.7)" }}>{a}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <div style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: 16, background: "rgba(255,255,255,0.02)" }}>
+              <p style={{ fontSize: 12, lineHeight: 1.6, color: "rgba(255,255,255,0.55)", marginBottom: 12 }}>{ai.caveat ?? "This is regulatory scenario intelligence, not legal advice. Validate with a qualified professional."}</p>
+              <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)" }}>Reasoned by Aegis over a sourced AI Act knowledge base. Grounded in the cited sources below; not a substitute for professional review.</p>
+            </div>
+          </div>
+        )}
 
         {result && (
           <div id="scenario-result">
