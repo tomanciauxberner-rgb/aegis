@@ -792,8 +792,10 @@ export default function HomePage() {
               })}
             </div>
             <p className="vert-cta">
-              See the full roadmap →&nbsp;
-              <Link href="/roadmap" className="vert-link">aegis-eu.com/roadmap</Link>
+              Try the live engine →&nbsp;
+              <Link href="/ai-act-scenarios" className="vert-link">AI Act Regulatory Scenario Engine</Link>
+              &nbsp;· or see the&nbsp;
+              <Link href="/roadmap" className="vert-link">full roadmap</Link>
             </p>
           </div>
 
