@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { rateLimitDistributed } from "@/lib/rate-limit";
 import { buildKnowledgeContext, KB_SOURCES } from "@/lib/scenario/ai-act-knowledge";
+import { db } from "@/db/client";
+import { scenarioAnalyses } from "@/db/schema/scenario-analyses";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -126,6 +128,26 @@ export async function POST(request: NextRequest) {
         },
         { status: 502 },
       );
+    }
+
+    const a = analysis as Record<string, unknown>;
+    const cls = (a.classification ?? {}) as Record<string, unknown>;
+
+    // Persist anonymously (no user identifiers) — fire and forget, never block the response.
+    try {
+      await db.insert(scenarioAnalyses).values({
+        role: parsed.data.role,
+        nature: parsed.data.nature,
+        annexArea: parsed.data.annexArea,
+        country: parsed.data.country || null,
+        description: parsed.data.description || null,
+        verdict: typeof cls.verdict === "string" ? cls.verdict.slice(0, 40) : null,
+        profilingFlag: !!(cls.profilingFlag && String(cls.profilingFlag).length > 0),
+        analysis: a,
+        model: "claude-haiku-4-5",
+      });
+    } catch (persistErr) {
+      console.error("[scenario/analyze] persist failed (non-blocking):", persistErr);
     }
 
     return NextResponse.json({
