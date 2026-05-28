@@ -87,9 +87,12 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5",
-        max_tokens: 3000,
+        max_tokens: 4096,
         system: SYSTEM_PROMPT,
-        messages: [{ role: "user", content: buildUserPrompt(parsed.data) }],
+        messages: [
+          { role: "user", content: buildUserPrompt(parsed.data) },
+          { role: "assistant", content: "{" },
+        ],
       }),
     });
 
@@ -100,15 +103,29 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await res.json();
-    const raw = data.content?.[0]?.text ?? "{}";
-    const clean = raw.replace(/```json|```/g, "").trim();
+    const raw: string = "{" + (data.content?.[0]?.text ?? "");
+
+    // Robust extraction: strip fences, then take the outermost JSON object.
+    let candidate = raw.replace(/```json/gi, "").replace(/```/g, "").trim();
+    const first = candidate.indexOf("{");
+    const last = candidate.lastIndexOf("}");
+    if (first !== -1 && last !== -1 && last > first) {
+      candidate = candidate.slice(first, last + 1);
+    }
 
     let analysis: unknown;
     try {
-      analysis = JSON.parse(clean);
+      analysis = JSON.parse(candidate);
     } catch {
-      console.error("[scenario/analyze] parse error:", raw.slice(0, 300));
-      return NextResponse.json({ error: "Could not parse analysis" }, { status: 502 });
+      console.error("[scenario/analyze] parse error. stop_reason:", data.stop_reason, "raw:", raw.slice(0, 400));
+      return NextResponse.json(
+        {
+          error: data.stop_reason === "max_tokens"
+            ? "The analysis was too long and got cut off. Please try again."
+            : "Could not parse analysis. Please try again.",
+        },
+        { status: 502 },
+      );
     }
 
     return NextResponse.json({
