@@ -774,10 +774,10 @@ export default function HomePage() {
           <div className="block-section">
             <p className="block-label">Where Aegis is going</p>
             <p className="block-intro">
-              Children&apos;s digital rights is the first vertical Aegis covers in depth. The same
-              infrastructure — intelligence layer, FRIA engine, contributive ingestion — applies
-              across every high-risk domain the EU AI Act regulates. <strong>The community helps
-              prioritise what comes next.</strong>
+              Aegis runs on one infrastructure — intelligence layer, FRIA engine, reasoning engine,
+              contributive ingestion — applied across the high-risk domains the EU AI Act regulates.
+              Two are already live: children&apos;s digital rights, covered in depth, and the AI Act
+              scenario engine. <strong>The community helps prioritise what comes next.</strong>
             </p>
             <div className="vert-list">
               {VERTICALS.map((v) => {

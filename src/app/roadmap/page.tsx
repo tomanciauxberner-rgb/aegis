@@ -52,7 +52,7 @@ export default function RoadmapPage() {
           One platform, every high-risk domain the EU AI Act regulates.
         </h1>
         <p style={{ fontSize: 16, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 720, marginBottom: 40 }}>
-          Aegis was born to answer one question — <em>where do AI deployments meet fundamental rights, and how do you assess that before harm is done?</em> Children&apos;s digital rights is the first vertical built in depth. The same intelligence layer, the same FRIA engine and the same contributive model apply across every other high-risk domain. Here is where we&apos;re going, and where the community shapes priority.
+          Aegis was born to answer one question — <em>where do AI deployments meet fundamental rights, and how do you assess that before harm is done?</em> Two verticals are already live: children&apos;s digital rights, built in depth, and the AI Act scenario engine. The same intelligence layer, FRIA engine, reasoning engine and contributive model apply across every other high-risk domain. Here is where we&apos;re going, and where the community shapes priority.
         </p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
