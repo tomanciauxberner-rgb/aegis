@@ -11,7 +11,7 @@ const VERTICALS = [
   {
     code: "omnibus", status: "live", title: "AI Act × Digital Omnibus",
     why: "The deadline that decides everything: are providers and deployers preparing for August 2026 or December 2027? CEN/CENELEC standards remain unfinished and harmonised tools are scarce — so the real need is not another news tracker, but a way to model how the framework could play out for a specific system.",
-    what: "A live Regulatory Scenario Engine: describe a system and Aegis projects the plausible regulatory futures (Omnibus adopted, not adopted in time, strict national reading, pro-innovation path), your personalised deadline, your exposure under each, a sourced map of where experts diverge, and the actions that are robust whichever timeline lands. Every output is cited; none is legal advice.",
+    what: "A live Regulatory Scenario Engine that reasons over a sourced AI Act knowledge base (Annex III, the Article 6(3) exception filter, Omnibus deadlines, deployer and transparency duties). Describe a system and it classifies it for THIS case, projects the plausible regulatory futures (Omnibus adopted, not adopted in time, strict national reading, pro-innovation path), your personalised deadline, your exposure under each, a sourced map of where experts diverge, and the actions robust to every timeline. Expert-reviewed analyses build a living interpretive corpus. Every output is cited; none is legal advice.",
   },
   {
     code: "employment", status: "next", title: "Employment & HR AI",

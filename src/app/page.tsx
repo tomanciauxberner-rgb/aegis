@@ -34,7 +34,7 @@ const ROADMAP = [
 ];
 
 const UPDATES = [
-  { date: "May 2026", tag: "Scenario Engine", color: "#4f7cff", title: "AI Act Regulatory Scenario Engine", desc: "Model the plausible regulatory futures for a system: personalised deadline, exposure per scenario, and a sourced map of where experts diverge. Not a tracker — a simulator." },
+  { date: "May 2026", tag: "Scenario Engine", color: "#4f7cff", title: "AI Act Regulatory Scenario Engine", desc: "Describe your system and Aegis reasons over a sourced AI Act knowledge base to classify it, project plausible regulatory futures, your deadline, your exposure, and where experts diverge. Reviewed analyses feed a living interpretive corpus. Not a tracker — a reasoning engine." },
   { date: "May 2026", tag: "Intelligence", color: "#ff5c5c", title: "DSA Article 28 — Minors Protection tracker", desc: "Commission investigations, guidelines and the age-verification push that drive child-safety enforcement in 2026." },
   { date: "May 2026", tag: "Platform", color: "#a78bfa", title: "Document ingestion (PDF / DOCX)", desc: "Upload reports and decisions — structured data extracted automatically for review before it enters the platform." },
   { date: "May 2026", tag: "FRIA", color: "#34d399", title: "Minors-specialised FRIA engine", desc: "Age bands, Charter Art. 24, UN CRC and developmental vulnerabilities — auto-saved, versioned and exportable as a legal document." },
@@ -63,7 +63,7 @@ const MODULES = [
 
 const VERTICALS = [
   { code: "children",  label: "Children's Digital Rights",   status: "live",     desc: "Flagship vertical — index, enforcement, gaps, EdTech atlas, DSA Art. 28." },
-  { code: "omnibus",   label: "AI Act × Digital Omnibus",    status: "live",     desc: "Live Regulatory Scenario Engine: model the plausible regulatory futures for your system, your real deadline, your exposure, and where experts diverge." },
+  { code: "omnibus",   label: "AI Act × Digital Omnibus",    status: "live",     desc: "Live Regulatory Scenario Engine: reasons over a sourced AI Act knowledge base to classify your specific system, project its regulatory futures, deadline, exposure, and where experts diverge." },
   { code: "employment",label: "Employment & HR AI",          status: "next",     desc: "Annex III(4): recruitment, evaluation, workforce-management systems. Where the largest deployer volume sits." },
   { code: "essential", label: "Essential Services AI",       status: "next",     desc: "Annex III(5): credit scoring, insurance, access to public services and emergency response." },
   { code: "public",    label: "Public-sector AI",            status: "scoping",  desc: "AI in justice, law enforcement and migration — the most rights-sensitive uses of all." },
