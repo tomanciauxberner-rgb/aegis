@@ -34,6 +34,8 @@ const ROADMAP = [
 ];
 
 const UPDATES = [
+  { date: "May 2026", tag: "Rights Graph", color: "#4f7cff", title: "Unified Rights Graph", desc: "A living, sourced map of real AI systems deployed across the EU — what they do, who runs them, the fundamental rights they touch, and whether a FRIA is known to exist. Small and rigorous by design; it grows through verified expert contribution." },
+  { date: "May 2026", tag: "Divergence", color: "#ff5c5c", title: "Regulatory Divergence Engine", desc: "Surfaces where Europe's regulators disagree on the same question — Commission, EDPB, EDPS, national authorities — on the record, each position sourced. The information that didn't exist in one place before." },
   { date: "May 2026", tag: "Scenario Engine", color: "#4f7cff", title: "AI Act Regulatory Scenario Engine", desc: "Describe your system and Aegis reasons over a sourced AI Act knowledge base to classify it, project plausible regulatory futures, your deadline, your exposure, and where experts diverge. Reviewed analyses feed a living interpretive corpus. Not a tracker — a reasoning engine." },
   { date: "May 2026", tag: "Intelligence", color: "#ff5c5c", title: "DSA Article 28 — Minors Protection tracker", desc: "Commission investigations, guidelines and the age-verification push that drive child-safety enforcement in 2026." },
   { date: "May 2026", tag: "Platform", color: "#a78bfa", title: "Document ingestion (PDF / DOCX)", desc: "Upload reports and decisions — structured data extracted automatically for review before it enters the platform." },
@@ -62,6 +64,7 @@ const MODULES = [
 ];
 
 const VERTICALS = [
+  { code: "graph",     label: "Unified Rights Graph",         status: "live",     desc: "The map at the core of Aegis: real AI systems deployed across the EU, the rights they touch, whether a FRIA is known — and where regulators diverge on the same question. Every node sourced." },
   { code: "children",  label: "Children's Digital Rights",   status: "live",     desc: "Flagship vertical — index, enforcement, gaps, EdTech atlas, DSA Art. 28." },
   { code: "omnibus",   label: "AI Act × Digital Omnibus",    status: "live",     desc: "Live Regulatory Scenario Engine: reasons over a sourced AI Act knowledge base to classify your specific system, project its regulatory futures, deadline, exposure, and where experts diverge." },
   { code: "employment",label: "Employment & HR AI",          status: "next",     desc: "Annex III(4): recruitment, evaluation, workforce-management systems. Where the largest deployer volume sits." },
@@ -774,10 +777,11 @@ export default function HomePage() {
           <div className="block-section">
             <p className="block-label">Where Aegis is going</p>
             <p className="block-intro">
-              Aegis runs on one infrastructure — intelligence layer, FRIA engine, reasoning engine,
-              contributive ingestion — applied across the high-risk domains the EU AI Act regulates.
-              Two are already live: children&apos;s digital rights, covered in depth, and the AI Act
-              scenario engine. <strong>The community helps prioritise what comes next.</strong>
+              At the core of Aegis is the Unified Rights Graph — real AI systems, the rights they touch,
+              and where regulators diverge, every node sourced. Around it run the AI Act reasoning engine
+              and a children&apos;s-rights vertical covered in depth. The same infrastructure extends across
+              every high-risk domain the EU AI Act regulates. <strong>The community helps prioritise what
+              comes next.</strong>
             </p>
             <div className="vert-list">
               {VERTICALS.map((v) => {
@@ -795,10 +799,12 @@ export default function HomePage() {
             <p className="vert-cta">
               Explore the&nbsp;
               <Link href="/rights-graph" className="vert-link">Unified Rights Graph</Link>
-              &nbsp;· try the&nbsp;
+              &nbsp;· the&nbsp;
+              <Link href="/rights-graph/divergence" className="vert-link">Divergence Engine</Link>
+              &nbsp;· the&nbsp;
               <Link href="/ai-act-scenarios" className="vert-link">Scenario Engine</Link>
-              &nbsp;· see the&nbsp;
-              <Link href="/roadmap" className="vert-link">full roadmap</Link>
+              &nbsp;· the&nbsp;
+              <Link href="/roadmap" className="vert-link">roadmap</Link>
             </p>
           </div>
 
