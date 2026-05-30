@@ -948,6 +948,8 @@ export default function HomePage() {
           <Link href="/legal/terms">Terms</Link>
           <span> · </span>
           <Link href="/legal/notice">Legal notice</Link>
+          <span> · </span>
+          <Link href="/methodology">Methodology</Link>
         </p>
       </main>
     </>
