@@ -807,6 +807,8 @@ export default function HomePage() {
               &nbsp;· the&nbsp;
               <Link href="/rights-graph/fria-gap" className="vert-link">FRIA Gap</Link>
               &nbsp;· the&nbsp;
+              <Link href="/rights-graph/exposure" className="vert-link">Exposure view</Link>
+              &nbsp;· the&nbsp;
               <Link href="/ai-act-scenarios" className="vert-link">Scenario Engine</Link>
               &nbsp;· the&nbsp;
               <Link href="/roadmap" className="vert-link">roadmap</Link>
