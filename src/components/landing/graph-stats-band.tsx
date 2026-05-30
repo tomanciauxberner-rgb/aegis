@@ -34,6 +34,13 @@ export function GraphStatsBand() {
 
   return (
     <div className="gsb-wrap">
+      {s && s.highRisk > 0 && (
+        <p className="gsb-story">
+          {s.friaGap === s.highRisk
+            ? <>Among the {s.highRisk} high-risk AI systems mapped so far, <strong>none have a known Fundamental Rights Impact Assessment.</strong></>
+            : <><strong>{s.friaGap} of {s.highRisk}</strong> high-risk AI systems mapped so far have <strong>no known Fundamental Rights Impact Assessment.</strong></>}
+        </p>
+      )}
       <div className="gsb-grid">
         {(items ?? Array.from({ length: 6 })).map((it, i) => (
           <div key={i} className="gsb-cell">
@@ -47,6 +54,11 @@ export function GraphStatsBand() {
       </p>
       <style>{`
         .gsb-wrap { margin: 0 0 28px; }
+        .gsb-story {
+          font-size: 17px; line-height: 1.5; color: rgba(255,255,255,0.85);
+          margin-bottom: 16px; max-width: 720px;
+        }
+        .gsb-story strong { color: #ff7676; font-weight: 700; }
         .gsb-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));

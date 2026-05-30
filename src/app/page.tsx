@@ -66,7 +66,7 @@ const MODULES = [
 ];
 
 const VERTICALS = [
-  { code: "graph",     label: "Unified Rights Graph",         status: "live",     desc: "The map at the core of Aegis: real AI systems deployed across the EU, the rights they touch, whether a FRIA is known — and where regulators diverge on the same question. Every node sourced." },
+  { code: "graph",     label: "Unified Rights Graph",         status: "live",     desc: "A verified registry of high-risk AI systems — small by design, every entry reviewed and sourced. Maps the rights each system touches, whether a FRIA is known, and where regulators diverge on the same question." },
   { code: "children",  label: "Children's Digital Rights",   status: "live",     desc: "Flagship vertical — index, enforcement, gaps, EdTech atlas, DSA Art. 28." },
   { code: "omnibus",   label: "AI Act × Digital Omnibus",    status: "live",     desc: "Live Regulatory Scenario Engine: reasons over a sourced AI Act knowledge base to classify your specific system, project its regulatory futures, deadline, exposure, and where experts diverge." },
   { code: "employment",label: "Employment & HR AI",          status: "next",     desc: "Annex III(4): recruitment, evaluation, workforce-management systems. Where the largest deployer volume sits." },
