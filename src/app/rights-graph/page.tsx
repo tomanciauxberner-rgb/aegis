@@ -49,6 +49,7 @@ export default function RightsGraphPage() {
           <Link href="/" style={{ fontWeight: 700, letterSpacing: 1, color: "#fff", textDecoration: "none" }}>AEGIS</Link>
           <nav style={{ display: "flex", gap: 18, fontSize: 13 }}>
             <Link href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Home</Link>
+            <Link href="/rights-graph/divergence" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Divergence</Link>
             <Link href="/ai-act-scenarios" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Scenario Engine</Link>
             <Link href="/roadmap" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Roadmap</Link>
           </nav>
