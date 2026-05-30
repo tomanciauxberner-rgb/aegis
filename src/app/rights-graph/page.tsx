@@ -50,6 +50,7 @@ export default function RightsGraphPage() {
           <nav style={{ display: "flex", gap: 18, fontSize: 13 }}>
             <Link href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Home</Link>
             <Link href="/rights-graph/divergence" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Divergence</Link>
+            <Link href="/rights-graph/fria-gap" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>FRIA Gap</Link>
             <Link href="/ai-act-scenarios" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Scenario Engine</Link>
             <Link href="/roadmap" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Roadmap</Link>
           </nav>
