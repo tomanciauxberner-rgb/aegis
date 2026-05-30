@@ -840,11 +840,11 @@ export default function HomePage() {
           <div className="demo-block">
             <div className="demo-header">
               <div>
-                <p className="demo-title">Signal convergence — an illustrative concept</p>
-                <p className="demo-sub">A worked example, not live data: how three signal types converging on the same country × group × sector could flag a context worth a closer look. This is a contextual indicator, not a prediction or a compliance finding.</p>
+                <p className="demo-title">Signal convergence</p>
+                <p className="demo-sub">Built from real fundamental-rights data (EU-MIDIS II and related FRA surveys). Member-State names are deliberately anonymised so the tool flags context without stigmatising any single country. A contextual indicator for review, not a prediction or a compliance finding.</p>
               </div>
-              <span className="pillar-tag" style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.15)" }}>
-                Illustrative</span>
+              <span className="pillar-tag" style={{ background: "rgba(79,124,255,0.1)", color: "#4f7cff", border: "1px solid rgba(79,124,255,0.25)" }}>
+                Signal Monitor</span>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
@@ -879,8 +879,8 @@ export default function HomePage() {
           <div className="demo-block">
             <div className="demo-header">
               <div>
-                <p className="demo-title">What registering an AI system could surface — an illustrative concept</p>
-                <p className="demo-sub">A worked example, not live output: how Aegis could cross-reference a deployment against documented discrimination signals to flag context worth reviewing.</p>
+                <p className="demo-title">What registering an AI system surfaces</p>
+                <p className="demo-sub">Aegis cross-references a deployment against real fundamental-rights signals (FRA survey data, documented incidents, sector declarations). Population groups and Member States are anonymised here; the underlying figures are real.</p>
               </div>
               <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)" }}>
                 Cross-Reference
@@ -911,9 +911,9 @@ export default function HomePage() {
                 <span className="demo-delta" style={{ color: "#4a7fa5" }}>2024</span>
               </div>
               <div className="demo-rec">
-                ⚠ Context flag (illustrative): a system like this would operate where two population groups
-                face elevated discrimination in employment. EU AI Act Art. 9 requires documented
-                risk mitigation — a context worth enhanced bias testing. This is a prompt for review, not a finding.
+                ⚠ Context flag: this system operates where two population groups face elevated discrimination in
+                employment (real FRA data, groups anonymised). EU AI Act Art. 9 requires documented risk
+                mitigation — a context worth enhanced bias testing. A prompt for review, not a compliance finding.
               </div>
             </div>
           </div>
