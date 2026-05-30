@@ -38,7 +38,7 @@ const UPDATES = [
   { date: "May 2026", tag: "Coverage Gap", color: "#34d399", title: "Fundamental Rights Assessment Gap", desc: "A first measurement of how many high-risk AI systems in the graph have a known Fundamental Rights Impact Assessment — and how many don't. Computed only from sourced systems, sample size always shown. A number that doesn't exist anywhere else yet." },
   { date: "May 2026", tag: "Rights Graph", color: "#4f7cff", title: "Unified Rights Graph", desc: "A living, sourced map of real AI systems deployed across the EU — what they do, who runs them, the fundamental rights they touch, and whether a FRIA is known to exist. Small and rigorous by design; it grows through verified expert contribution." },
   { date: "May 2026", tag: "Divergence", color: "#ff5c5c", title: "Regulatory Divergence Engine", desc: "Surfaces where Europe's regulators disagree on the same question — Commission, EDPB, EDPS, national authorities — on the record, each position sourced. The information that didn't exist in one place before." },
-  { date: "May 2026", tag: "Scenario Engine", color: "#4f7cff", title: "AI Act Regulatory Scenario Engine", desc: "Describe your system and Aegis reasons over a sourced AI Act knowledge base to classify it, project plausible regulatory futures, your deadline, your exposure, and where experts diverge. Reviewed analyses feed a living interpretive corpus. Not a tracker — a reasoning engine." },
+  { date: "May 2026", tag: "Scenario Engine", color: "#4f7cff", title: "AI Act Regulatory Scenario Engine", desc: "Describe your system and Aegis reasons over a structured, sourced AI Act knowledge base — Annex III, the Article 6(3) exception, Omnibus deadlines — to classify it, project regulatory futures, and flag where experts diverge. It cites the articles it relies on and marks what it cannot determine as unverified, rather than guessing. Not a chatbot over a PDF; a constrained, traceable reasoning layer." },
   { date: "May 2026", tag: "Intelligence", color: "#ff5c5c", title: "DSA Article 28 — Minors Protection tracker", desc: "Commission investigations, guidelines and the age-verification push that drive child-safety enforcement in 2026." },
   { date: "May 2026", tag: "Platform", color: "#a78bfa", title: "Document ingestion (PDF / DOCX)", desc: "Upload reports and decisions — structured data extracted automatically for review before it enters the platform." },
   { date: "May 2026", tag: "FRIA", color: "#34d399", title: "Minors-specialised FRIA engine", desc: "Age bands, Charter Art. 24, UN CRC and developmental vulnerabilities — auto-saved, versioned and exportable as a legal document." },
@@ -52,7 +52,7 @@ const UPDATES = [
 const WHO = [
   { icon: "🏛️", title: "Regulators & oversight bodies", desc: "See enforcement patterns, policy windows and where frameworks are converging across the EU." },
   { icon: "🔬", title: "Researchers & academics", desc: "Sourced, citable data on children's digital rights — every figure links back to its primary source." },
-  { icon: "🏫", title: "EdTech & public-sector deployers", desc: "Identify your AI Act obligations and generate a ready-to-file Fundamental Rights Impact Assessment." },
+  { icon: "🏫", title: "EdTech & public-sector deployers", desc: "Identify your AI Act obligations and produce a structured first draft of a Fundamental Rights Impact Assessment — a starting point for expert review, not a finished filing." },
   { icon: "🛡️", title: "Child-rights advocates", desc: "Track how AI and platforms affect minors, and where the gaps in protection actually are." },
 ];
 
@@ -68,7 +68,7 @@ const MODULES = [
 const VERTICALS = [
   { code: "graph",     label: "Unified Rights Graph",         status: "live",     desc: "A verified registry of high-risk AI systems — small by design, every entry reviewed and sourced. Maps the rights each system touches, whether a FRIA is known, and where regulators diverge on the same question." },
   { code: "children",  label: "Children's Digital Rights",   status: "live",     desc: "Flagship vertical — index, enforcement, gaps, EdTech atlas, DSA Art. 28." },
-  { code: "omnibus",   label: "AI Act × Digital Omnibus",    status: "live",     desc: "Live Regulatory Scenario Engine: reasons over a sourced AI Act knowledge base to classify your specific system, project its regulatory futures, deadline, exposure, and where experts diverge." },
+  { code: "omnibus",   label: "AI Act × Digital Omnibus",    status: "live",     desc: "Live Regulatory Scenario Engine: reasons over a structured, sourced AI Act knowledge base to classify your specific system — citing the articles it relies on and marking what it cannot determine, rather than guessing." },
   { code: "employment",label: "Employment & HR AI",          status: "next",     desc: "Annex III(4): recruitment, evaluation, workforce-management systems. Where the largest deployer volume sits." },
   { code: "essential", label: "Essential Services AI",       status: "next",     desc: "Annex III(5): credit scoring, insurance, access to public services and emergency response." },
   { code: "public",    label: "Public-sector AI",            status: "scoping",  desc: "AI in justice, law enforcement and migration — the most rights-sensitive uses of all." },
@@ -707,7 +707,7 @@ export default function HomePage() {
           <p className="sub">
             AEGIS is an open, non-profit platform that turns fundamental rights intelligence
             across the EU into action — from live monitoring of enforcement, policy and risk,
-            to ready-to-file EU AI Act Impact Assessments. Today its sharpest edge is
+            to structured first drafts of EU AI Act Impact Assessments for expert review. Today its sharpest edge is
             children&apos;s digital rights.
           </p>
 
@@ -765,7 +765,7 @@ export default function HomePage() {
               <div className="module-row">
                 <span className="module-dot" style={{ background: "#34d399" }} />
                 <span className="module-name">FRIA Engine</span>
-                <span className="module-what">Generate an EU AI Act Article 27 Fundamental Rights Impact Assessment, specialised for minors — auto-saved, versioned, and exportable as a legal document.</span>
+                <span className="module-what">Produce a structured first draft of an EU AI Act Article 27 Fundamental Rights Impact Assessment, specialised for minors — auto-saved, versioned and exportable. A starting point for expert completion, not a substitute for it.</span>
               </div>
               <div className="module-row">
                 <span className="module-dot" style={{ background: "#a78bfa" }} />
@@ -840,12 +840,11 @@ export default function HomePage() {
           <div className="demo-block">
             <div className="demo-header">
               <div>
-                <p className="demo-title">Early Warning System — live convergence detection</p>
-                <p className="demo-sub">Three signal types converge on the same country × group × sector = alert triggered</p>
+                <p className="demo-title">Signal convergence — an illustrative concept</p>
+                <p className="demo-sub">A worked example, not live data: how three signal types converging on the same country × group × sector could flag a context worth a closer look. This is a contextual indicator, not a prediction or a compliance finding.</p>
               </div>
-              <span className="pillar-tag" style={{ background: "rgba(255,92,92,0.1)", color: "#ff5c5c", border: "1px solid rgba(255,92,92,0.25)" }}>
-                Signal Monitor
-              </span>
+              <span className="pillar-tag" style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.15)" }}>
+                Illustrative</span>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>

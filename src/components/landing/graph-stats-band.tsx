@@ -27,7 +27,7 @@ export function GraphStatsBand() {
         { v: s.domains, l: "Annex III domains" },
         { v: s.countries, l: "countries" },
         { v: s.sources, l: "primary sources" },
-        { v: s.friaGap, l: "high-risk, no known FRIA" },
+        { v: s.friaGap, l: "high-risk, no publicly known FRIA" },
         { v: s.divergingTopics, l: "topics where regulators diverge" },
       ]
     : null;
@@ -37,8 +37,8 @@ export function GraphStatsBand() {
       {s && s.highRisk > 0 && (
         <p className="gsb-story">
           {s.friaGap === s.highRisk
-            ? <>Among the {s.highRisk} high-risk AI systems mapped so far, <strong>none have a known Fundamental Rights Impact Assessment.</strong></>
-            : <><strong>{s.friaGap} of {s.highRisk}</strong> high-risk AI systems mapped so far have <strong>no known Fundamental Rights Impact Assessment.</strong></>}
+            ? <>Among the {s.highRisk} high-risk AI systems mapped so far, <strong>none have a publicly identifiable Fundamental Rights Impact Assessment.</strong></>
+            : <><strong>{s.friaGap} of {s.highRisk}</strong> high-risk AI systems mapped so far have <strong>no publicly identifiable Fundamental Rights Impact Assessment.</strong></>}
         </p>
       )}
       <div className="gsb-grid">

@@ -45,7 +45,7 @@ export default function ExposurePage() {
       <main style={{ maxWidth: 1000, margin: "0 auto", padding: "48px 24px 96px" }}>
         <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "#4f7cff", marginBottom: 14 }}>Rights Exposure · the question that crosses all three layers</p>
         <h1 style={{ fontSize: 32, fontWeight: 800, color: "#fff", lineHeight: 1.18, marginBottom: 16 }}>
-          Show me the high-risk systems with no known FRIA — and the questions regulators can&apos;t agree on.
+          Show me the high-risk systems with no publicly known FRIA — and the questions regulators can&apos;t agree on.
         </h1>
         <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 800, marginBottom: 36 }}>
           This is the question an expert actually asks. It can only be answered by crossing three layers at once: the systems in the Rights Graph, their FRIA coverage, and where the authorities themselves diverge. Below is that crossing — on the systems verified so far, each one sourced.
@@ -53,7 +53,7 @@ export default function ExposurePage() {
 
         {sum && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 40 }}>
-            <Stat value={sum.systemsNoFria} label="High-risk systems, no known FRIA" color="#ff5c5c" />
+            <Stat value={sum.systemsNoFria} label="High-risk, no publicly known FRIA" color="#ff5c5c" />
             <Stat value={sum.affectingChildren} label="…affecting children" color="#4f7cff" />
             <Stat value={sum.affectingMigrants} label="…affecting migrants" color="#4f7cff" />
             <Stat value={sum.divergingTopics} label="Regulatory questions in dispute" color="#e8b84b" />
@@ -68,8 +68,8 @@ export default function ExposurePage() {
           </div>
         ) : (
           <>
-            <h2 style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 6 }}>High-risk systems without a known FRIA</h2>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 16 }}>Each is a system the AI Act would likely require to be assessed — where no assessment is known to exist.</p>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 6 }}>High-risk systems without a publicly known FRIA</h2>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 16 }}>Each is a system the AI Act would likely require to be assessed — where no assessment is identifiable in the public record. This means none was found publicly, not that none exists.</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 }}>
               {data.systems.map((s) => (
                 <div key={s.id} style={{ border: "1px solid rgba(255,92,92,0.2)", borderRadius: 10, padding: "14px 16px", background: "rgba(255,92,92,0.03)" }}>
@@ -85,7 +85,7 @@ export default function ExposurePage() {
                   <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", display: "flex", gap: 14, flexWrap: "wrap" }}>
                     {s.provider && <span>{s.provider}</span>}
                     {s.countries.length > 0 && <span>{s.countries.join(", ")}</span>}
-                    <span style={{ color: "#ff7676" }}>No known FRIA</span>
+                    <span style={{ color: "#ff7676" }}>No public FRIA</span>
                     <span>{s.sources} source{s.sources !== 1 ? "s" : ""}</span>
                   </div>
                 </div>

@@ -6,7 +6,7 @@ const VERTICALS = [
   {
     code: "children", status: "live", title: "Children's Digital Rights",
     why: "The most rights-sensitive domain where children meet AI — education, app stores, content platforms.",
-    what: "Digital Rights Index across the EU-27, cross-border DPA enforcement intelligence, compliance-gap engine (app ages vs GDPR Art. 8), EdTech Risk Atlas with one-click FRIA, Forward Signal on policy windows, DSA Article 28 minors-protection tracker.",
+    what: "Digital Rights Index across the EU-27, cross-border DPA enforcement intelligence, compliance-gap engine (app ages vs GDPR Art. 8), EdTech Risk Atlas with one-click FRIA drafting, Forward Signal on policy windows, DSA Article 28 minors-protection tracker.",
   },
   {
     code: "omnibus", status: "live", title: "AI Act × Digital Omnibus",

@@ -72,7 +72,7 @@ export default function RightsGraphPage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 40 }}>
             <Stat value={s.total} label="Systems mapped" color="#fff" />
             <Stat value={s.highRisk} label="High-risk or prohibited" color="#e8b84b" />
-            <Stat value={s.withoutFria} label="High-risk, no known FRIA" color="#ff5c5c" />
+            <Stat value={s.withoutFria} label="High-risk, no publicly known FRIA" color="#ff5c5c" />
             <Stat value={s.affectingChildren} label="Affecting children" color="#4f7cff" />
             <Stat value={s.affectingMigrants} label="Affecting migrants" color="#4f7cff" />
             <Stat value={s.verified} label="Source-verified" color="#34d399" />
@@ -103,7 +103,7 @@ export default function RightsGraphPage() {
                   <div style={{ display: "flex", gap: 16, flexWrap: "wrap", fontSize: 12, color: "rgba(255,255,255,0.5)" }}>
                     {it.provider && <span>Operator: <span style={{ color: "rgba(255,255,255,0.75)" }}>{it.provider}</span></span>}
                     {it.countries.length > 0 && <span>Deployment: {it.countries.join(", ")}</span>}
-                    <span>{it.friaKnown ? "✓ FRIA known" : "⚠ No known FRIA"}</span>
+                    <span>{it.friaKnown ? "✓ FRIA on record" : "⚠ No FRIA on public record"}</span>
                     {it.affectsChildren && <span style={{ color: "#4f7cff" }}>Affects children</span>}
                     {it.affectsMigrants && <span style={{ color: "#4f7cff" }}>Affects migrants</span>}
                     <span>{it.sourceCount} source{it.sourceCount !== 1 ? "s" : ""}</span>

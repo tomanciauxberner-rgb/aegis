@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(
       {
-        question: "High-risk AI systems with no known Fundamental Rights Impact Assessment — set against the regulatory questions where authorities themselves diverge.",
+        question: "High-risk AI systems with no publicly identifiable Fundamental Rights Impact Assessment — set against the regulatory questions where authorities themselves diverge.",
         systems,
         divergences,
         summary: {

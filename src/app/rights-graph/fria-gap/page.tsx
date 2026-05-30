@@ -43,7 +43,7 @@ export default function FriaGapPage() {
       <main style={{ maxWidth: 1000, margin: "0 auto", padding: "48px 24px 96px" }}>
         <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "#4f7cff", marginBottom: 14 }}>Fundamental Rights Assessment Gap · Beta</p>
         <h1 style={{ fontSize: 34, fontWeight: 800, color: "#fff", lineHeight: 1.15, marginBottom: 16 }}>
-          How many high-risk AI systems have a known Fundamental Rights Impact Assessment — and how many don&apos;t?
+          How many high-risk AI systems have a publicly identifiable Fundamental Rights Impact Assessment — and how many don&apos;t?
         </h1>
         <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 800, marginBottom: 12 }}>
           The AI Act requires many high-risk deployers to carry out a FRIA. But no one tracks whether they actually exist. This is a first measurement of that gap — built only from the systems currently in the Aegis Rights Graph, each one sourced.
@@ -68,7 +68,7 @@ export default function FriaGapPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12, marginBottom: 16 }}>
               <Stat value={c.highRisk} label="High-risk / prohibited systems mapped" color="#fff" />
               <Stat value={c.withFria} label="With a FRIA known to exist" color="#34d399" />
-              <Stat value={c.gap} label="No known FRIA" color="#ff5c5c" />
+              <Stat value={c.gap} label="No publicly known FRIA" color="#ff5c5c" />
               <Stat value={c.coverageRate !== null ? `${c.coverageRate}%` : "—"} label="Known coverage rate" color="#e8b84b" />
             </div>
 
@@ -80,7 +80,7 @@ export default function FriaGapPage() {
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 6 }}>
                 <span>FRIA known</span>
-                <span>No known FRIA</span>
+                <span>No publicly known FRIA</span>
               </div>
             </div>
 
