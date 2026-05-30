@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Cpu, FileCheck, Settings, LogOut, Radio, Menu, X, Baby, Scale } from "lucide-react";
+import { LayoutDashboard, Cpu, FileCheck, Settings, LogOut, Radio, Menu, X, Baby, Scale, Network } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,7 @@ const navItems = [
   { href: "/signals",     label: "Signal Monitor",    icon: Radio },
   { href: "/children",    label: "Children's Rights", icon: Baby },
   { href: "/ai-act-scenarios", label: "AI Act Scenarios", icon: Scale },
+  { href: "/rights-graph", label: "Rights Graph", icon: Network },
   { href: "/systems",     label: "AI Systems",        icon: Cpu },
   { href: "/assessments", label: "Assessments",    icon: FileCheck },
   { href: "/settings",    label: "Settings",       icon: Settings },

@@ -793,9 +793,11 @@ export default function HomePage() {
               })}
             </div>
             <p className="vert-cta">
-              Try the live engine →&nbsp;
-              <Link href="/ai-act-scenarios" className="vert-link">AI Act Regulatory Scenario Engine</Link>
-              &nbsp;· or see the&nbsp;
+              Explore the&nbsp;
+              <Link href="/rights-graph" className="vert-link">Unified Rights Graph</Link>
+              &nbsp;· try the&nbsp;
+              <Link href="/ai-act-scenarios" className="vert-link">Scenario Engine</Link>
+              &nbsp;· see the&nbsp;
               <Link href="/roadmap" className="vert-link">full roadmap</Link>
             </p>
           </div>
