@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { RequestAccessForm } from "@/components/landing/request-access-form";
+import { GraphStatsBand } from "@/components/landing/graph-stats-band";
 
 const DOMAINS = [
   { label: "Employment & HR", icon: "💼" },
@@ -784,6 +785,7 @@ export default function HomePage() {
               every high-risk domain the EU AI Act regulates. <strong>The community helps prioritise what
               comes next.</strong>
             </p>
+            <GraphStatsBand />
             <div className="vert-list">
               {VERTICALS.map((v) => {
                 const cls = `vert-status vert-status-${v.status}`;
