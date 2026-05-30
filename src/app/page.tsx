@@ -35,15 +35,15 @@ const ROADMAP = [
 ];
 
 const UPDATES = [
-  { date: "May 2026", tag: "Coverage Gap", color: "#34d399", title: "Fundamental Rights Assessment Gap", desc: "A first measurement of how many high-risk AI systems in the graph have a known Fundamental Rights Impact Assessment — and how many don't. Computed only from sourced systems, sample size always shown. A number that doesn't exist anywhere else yet." },
+  { date: "May 2026", tag: "Coverage Gap", color: "#34d399", title: "Fundamental Rights Assessment Gap", desc: "A first measurement of how many high-risk AI systems in the graph have a publicly identifiable Fundamental Rights Impact Assessment — and how many don't. Computed only from sourced systems, sample size always shown. A number that doesn't exist anywhere else yet." },
   { date: "May 2026", tag: "Rights Graph", color: "#4f7cff", title: "Unified Rights Graph", desc: "A living, sourced map of real AI systems deployed across the EU — what they do, who runs them, the fundamental rights they touch, and whether a FRIA is known to exist. Small and rigorous by design; it grows through verified expert contribution." },
   { date: "May 2026", tag: "Divergence", color: "#ff5c5c", title: "Regulatory Divergence Engine", desc: "Surfaces where Europe's regulators disagree on the same question — Commission, EDPB, EDPS, national authorities — on the record, each position sourced. The information that didn't exist in one place before." },
   { date: "May 2026", tag: "Scenario Engine", color: "#4f7cff", title: "AI Act Regulatory Scenario Engine", desc: "Describe your system and Aegis reasons over a structured, sourced AI Act knowledge base — Annex III, the Article 6(3) exception, Omnibus deadlines — to classify it, project regulatory futures, and flag where experts diverge. It cites the articles it relies on and marks what it cannot determine as unverified, rather than guessing. Not a chatbot over a PDF; a constrained, traceable reasoning layer." },
   { date: "May 2026", tag: "Intelligence", color: "#ff5c5c", title: "DSA Article 28 — Minors Protection tracker", desc: "Commission investigations, guidelines and the age-verification push that drive child-safety enforcement in 2026." },
   { date: "May 2026", tag: "Platform", color: "#a78bfa", title: "Document ingestion (PDF / DOCX)", desc: "Upload reports and decisions — structured data extracted automatically for review before it enters the platform." },
-  { date: "May 2026", tag: "FRIA", color: "#34d399", title: "Minors-specialised FRIA engine", desc: "Age bands, Charter Art. 24, UN CRC and developmental vulnerabilities — auto-saved, versioned and exportable as a legal document." },
+  { date: "May 2026", tag: "FRIA", color: "#34d399", title: "Minors-specialised FRIA engine", desc: "Age bands, Charter Art. 24, UN CRC and developmental vulnerabilities — auto-saved, versioned and exportable as a structured first draft for expert completion." },
   { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Children Digital Rights Index", desc: "Composite EU-27 ranking across enforcement, app compliance, EdTech risk and framework maturity." },
-  { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Deployment Risk Atlas", desc: "Risk-scored national EdTech systems with one-click FRIA generation." },
+  { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Deployment Risk Atlas", desc: "Risk-scored national EdTech systems with one-click FRIA first-draft generation." },
   { date: "May 2026", tag: "Intelligence", color: "#e8b84b", title: "Compliance Gap Engine", desc: "Systemic age-of-consent violations: declared app ages vs GDPR Art. 8 per country." },
   { date: "May 2026", tag: "Intelligence", color: "#e8b84b", title: "Enforcement Intelligence", desc: "Cross-border DPA enforcement patterns linked to CJEU / ECHR case law." },
   { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Forward Signal", desc: "Open consultations and policy windows ranked by deadline and relevance." },
@@ -61,7 +61,7 @@ const MODULES = [
   { color: "#ff5c5c", name: "DSA Minors", what: "Commission enforcement of DSA Article 28: investigations into platforms, the protection-of-minors guidelines, and the EU age-verification push." },
   { color: "#4f7cff", name: "Enforcement Intelligence", what: "Cross-border patterns in data-protection enforcement against systems affecting minors, linked to the case law that shapes them." },
   { color: "#e8b84b", name: "Compliance Gaps", what: "Where an app's declared minimum age clashes with the legal age of consent of each country — systemic violations, quantified." },
-  { color: "#e8b84b", name: "Risk Atlas", what: "National EdTech systems scored for fundamental-rights risk, each with a one-click path to a full impact assessment." },
+  { color: "#e8b84b", name: "Risk Atlas", what: "National EdTech systems scored for fundamental-rights risk, each with a one-click path to a structured FRIA first draft." },
   { color: "#34d399", name: "Forward Signal", what: "Upcoming consultations, bills and policy moves ranked by deadline — so you act before the window closes." },
 ];
 
@@ -752,7 +752,7 @@ export default function HomePage() {
             <p className="block-intro">
               Aegis has two halves that feed each other: an <strong>intelligence layer</strong> that
               maps where children&apos;s rights are at risk across the EU, and a <strong>FRIA engine</strong>
-              that turns that knowledge into a compliant impact assessment you can file.
+              that turns that knowledge into a structured first draft of an impact assessment for expert completion.
             </p>
             <div className="modules-list">
               {MODULES.map((m) => (
@@ -879,8 +879,8 @@ export default function HomePage() {
           <div className="demo-block">
             <div className="demo-header">
               <div>
-                <p className="demo-title">What happens when you register an AI system?</p>
-                <p className="demo-sub">AEGIS cross-references your deployment against real discrimination signals</p>
+                <p className="demo-title">What registering an AI system could surface — an illustrative concept</p>
+                <p className="demo-sub">A worked example, not live output: how Aegis could cross-reference a deployment against documented discrimination signals to flag context worth reviewing.</p>
               </div>
               <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)" }}>
                 Cross-Reference
@@ -911,9 +911,9 @@ export default function HomePage() {
                 <span className="demo-delta" style={{ color: "#4a7fa5" }}>2024</span>
               </div>
               <div className="demo-rec">
-                ⚠ WARNING: Your AI system operates in a context where two population groups
+                ⚠ Context flag (illustrative): a system like this would operate where two population groups
                 face elevated discrimination in employment. EU AI Act Art. 9 requires documented
-                risk mitigation. Consider enhanced bias testing for affected populations.
+                risk mitigation — a context worth enhanced bias testing. This is a prompt for review, not a finding.
               </div>
             </div>
           </div>
