@@ -699,24 +699,24 @@ export default function HomePage() {
         <div className="content">
           <Image src="/logo.png" alt="Aegis" width={180} height={210} priority />
 
-          <p className="tagline">Fundamental Rights Intelligence · EU AI Act FRIA · EU27</p>
+          <p className="tagline">Open Rights Graph · AI Systems × Fundamental Rights · EU27</p>
 
           <h1 className="headline">
-            Fundamental rights intelligence,<br /><em>turned into AI Act compliance.</em>
+            The open reference graph of<br /><em>AI systems and fundamental rights in Europe.</em>
           </h1>
 
           <p className="sub">
-            AEGIS is an open, non-profit platform that turns fundamental rights intelligence
-            across the EU into action — from live monitoring of enforcement, policy and risk,
-            to structured first drafts of EU AI Act Impact Assessments for expert review. Today its sharpest edge is
-            children&apos;s digital rights.
+            AEGIS is an open, non-profit platform mapping the real AI systems deployed across the EU,
+            the fundamental rights they touch, the case law that shapes them, and where regulators diverge —
+            every entry sourced. On top of that graph it adds reasoning and structured FRIA first drafts for
+            expert review. Small and rigorous by design; deepest today on children&apos;s digital rights.
           </p>
 
           <div className="stats-row">
             {[
               { value: "27", label: "EU Member States" },
-              { value: "5", label: "Intelligence Modules" },
-              { value: "Art. 27", label: "FRIA Engine" },
+              { value: "Graph", label: "AI systems × rights × case law" },
+              { value: "Sourced", label: "every node, primary sources" },
               { value: "Open", label: "Non-profit · AGPL" },
             ].map((s) => (
               <div key={s.label} className="stat-item">
