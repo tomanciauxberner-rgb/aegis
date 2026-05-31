@@ -747,35 +747,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* ── WHAT AEGIS DOES ── */}
-          <div className="block-section">
-            <p className="block-label">What each part of Aegis does</p>
-            <p className="block-intro">
-              Aegis has two halves that feed each other: an <strong>intelligence layer</strong> that
-              maps where children&apos;s rights are at risk across the EU, and a <strong>FRIA engine</strong>
-              that turns that knowledge into a structured first draft of an impact assessment for expert completion.
-            </p>
-            <div className="modules-list">
-              {MODULES.map((m) => (
-                <div key={m.name} className="module-row">
-                  <span className="module-dot" style={{ background: m.color }} />
-                  <span className="module-name">{m.name}</span>
-                  <span className="module-what">{m.what}</span>
-                </div>
-              ))}
-              <div className="module-row">
-                <span className="module-dot" style={{ background: "#34d399" }} />
-                <span className="module-name">FRIA Engine</span>
-                <span className="module-what">Produce a structured first draft of an EU AI Act Article 27 Fundamental Rights Impact Assessment, specialised for minors — auto-saved, versioned and exportable. A starting point for expert completion, not a substitute for it.</span>
-              </div>
-              <div className="module-row">
-                <span className="module-dot" style={{ background: "#a78bfa" }} />
-                <span className="module-name">Contribute</span>
-                <span className="module-what">Upload a report or decision (PDF / DOCX) and the platform structures it for review — so field experts shape what Aegis tracks.</span>
-              </div>
-            </div>
-          </div>
-
           {/* ── WHERE AEGIS IS GOING ── */}
           <div className="block-section">
             <p className="block-label">Where Aegis is going</p>
@@ -816,6 +787,36 @@ export default function HomePage() {
               &nbsp;· the&nbsp;
               <Link href="/roadmap" className="vert-link">roadmap</Link>
             </p>
+          </div>
+
+          {/* ── WHAT AEGIS DOES ── */}
+          <div className="block-section">
+            <p className="block-label">Inside the children&apos;s-rights vertical — our deepest layer</p>
+            <p className="block-intro">
+              The graph is the core of Aegis. To prove the method end-to-end, we went deep on one vertical first:
+              <strong> children&apos;s digital rights</strong>. Everything below is the children&apos;s-rights vertical in
+              detail — an intelligence layer mapping where those rights are at risk across the EU, feeding a FRIA engine
+              that produces a structured first draft for expert completion. It is depth on one domain, not the whole of Aegis.
+            </p>
+            <div className="modules-list">
+              {MODULES.map((m) => (
+                <div key={m.name} className="module-row">
+                  <span className="module-dot" style={{ background: m.color }} />
+                  <span className="module-name">{m.name}</span>
+                  <span className="module-what">{m.what}</span>
+                </div>
+              ))}
+              <div className="module-row">
+                <span className="module-dot" style={{ background: "#34d399" }} />
+                <span className="module-name">FRIA Engine</span>
+                <span className="module-what">Produce a structured first draft of an EU AI Act Article 27 Fundamental Rights Impact Assessment, specialised for minors — auto-saved, versioned and exportable. A starting point for expert completion, not a substitute for it.</span>
+              </div>
+              <div className="module-row">
+                <span className="module-dot" style={{ background: "#a78bfa" }} />
+                <span className="module-name">Contribute</span>
+                <span className="module-what">Upload a report or decision (PDF / DOCX) and the platform structures it for review — so field experts shape what Aegis tracks.</span>
+              </div>
+            </div>
           </div>
 
           {/* ── LATEST UPDATES ── */}
