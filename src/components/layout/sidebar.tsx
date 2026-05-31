@@ -11,14 +11,14 @@ import Image from "next/image";
 import type { User } from "@supabase/supabase-js";
 
 const navItems = [
-  { href: "/overview",    label: "Overview",       icon: LayoutDashboard },
-  { href: "/signals",     label: "Signal Monitor",    icon: Radio },
-  { href: "/children",    label: "Children's Rights", icon: Baby },
-  { href: "/ai-act-scenarios", label: "AI Act Scenarios", icon: Scale },
-  { href: "/rights-graph", label: "Rights Graph", icon: Network },
+  { href: "/overview",    label: "Overview",         icon: LayoutDashboard },
+  { href: "/rights-graph", label: "Rights Graph",     icon: Network },
   { href: "/systems",     label: "AI Systems",        icon: Cpu },
-  { href: "/assessments", label: "Assessments",    icon: FileCheck },
-  { href: "/settings",    label: "Settings",       icon: Settings },
+  { href: "/ai-act-scenarios", label: "AI Act Scenarios", icon: Scale },
+  { href: "/children",    label: "Children's Rights", icon: Baby },
+  { href: "/assessments", label: "Assessments",      icon: FileCheck },
+  { href: "/signals",     label: "Signal Monitor",    icon: Radio },
+  { href: "/settings",    label: "Settings",         icon: Settings },
 ];
 
 export function Sidebar({ user }: { user: User }) {

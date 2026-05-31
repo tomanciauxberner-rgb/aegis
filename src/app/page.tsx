@@ -839,7 +839,14 @@ export default function HomePage() {
           </div>
 
 
-          {/* ── SIGNAL MONITOR DEMO ── */}
+          {/* ── SIGNAL MONITOR DEMO (secondary, contextual layer) ── */}
+          <p className="block-label" style={{ marginTop: 8 }}>A secondary layer — context, not scoring</p>
+          <p className="block-intro" style={{ maxWidth: 760, marginBottom: 24 }}>
+            The core of Aegis is the graph: systems, rights, case law and regulatory positions.
+            Around it sits an optional context layer that points to published fundamental-rights data
+            (e.g. FRA surveys) relevant to a deployment&apos;s sector. It is a prompt to look closer —
+            <strong> never a risk score for a country, a group or a person</strong>, and never a compliance verdict.
+          </p>
           <div className="demo-block">
             <div className="demo-header">
               <div>
