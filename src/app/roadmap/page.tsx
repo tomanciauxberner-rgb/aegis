@@ -4,6 +4,11 @@ export const metadata = { title: "Roadmap — Aegis", robots: { index: true, fol
 
 const VERTICALS = [
   {
+    code: "graph", status: "live", title: "Unified Rights Graph (cross-cutting)",
+    why: "Underneath every vertical sits one question: which real AI systems touch which rights, where is no FRIA known, and where do regulators themselves diverge? That map is the core asset — small by design, every node sourced.",
+    what: "A verified registry of high-risk AI systems linked to the fundamental rights they affect; a Regulatory Divergence Engine surfacing where the Commission, EDPB, EDPS and national authorities take conflicting positions on the same question; a FRIA Coverage Gap measured on the mapped sample; an Exposure view crossing all three; and a Rights Precedent System linking each system to the binding and persuasive case law in its sector. Every entry sourced; it grows through verified contribution.",
+  },
+  {
     code: "children", status: "live", title: "Children's Digital Rights",
     why: "The most rights-sensitive domain where children meet AI — education, app stores, content platforms.",
     what: "Digital Rights Index across the EU-27, cross-border DPA enforcement intelligence, compliance-gap engine (app ages vs GDPR Art. 8), EdTech Risk Atlas with one-click FRIA drafting, Forward Signal on policy windows, DSA Article 28 minors-protection tracker.",

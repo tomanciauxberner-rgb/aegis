@@ -35,6 +35,7 @@ const ROADMAP = [
 ];
 
 const UPDATES = [
+  { date: "May 2026", tag: "Precedents", color: "#a06bff", title: "Rights Precedent System", desc: "For each mapped high-risk system, the binding and persuasive case law in its regulatory sector — CJEU, ECHR, DPA and national rulings — with the holding and how strongly it binds. Matched by sector, every ruling sourced." },
   { date: "May 2026", tag: "Coverage Gap", color: "#34d399", title: "Fundamental Rights Assessment Gap", desc: "A first measurement of how many high-risk AI systems in the graph have a publicly identifiable Fundamental Rights Impact Assessment — and how many don't. Computed only from sourced systems, sample size always shown. A number that doesn't exist anywhere else yet." },
   { date: "May 2026", tag: "Rights Graph", color: "#4f7cff", title: "Unified Rights Graph", desc: "A living, sourced map of real AI systems deployed across the EU — what they do, who runs them, the fundamental rights they touch, and whether a FRIA is known to exist. Small and rigorous by design; it grows through verified expert contribution." },
   { date: "May 2026", tag: "Divergence", color: "#ff5c5c", title: "Regulatory Divergence Engine", desc: "Surfaces where Europe's regulators disagree on the same question — Commission, EDPB, EDPS, national authorities — on the record, each position sourced. The information that didn't exist in one place before." },
@@ -808,6 +809,8 @@ export default function HomePage() {
               <Link href="/rights-graph/fria-gap" className="vert-link">FRIA Gap</Link>
               &nbsp;· the&nbsp;
               <Link href="/rights-graph/exposure" className="vert-link">Exposure view</Link>
+              &nbsp;· the&nbsp;
+              <Link href="/rights-graph/precedents" className="vert-link">Precedent System</Link>
               &nbsp;· the&nbsp;
               <Link href="/ai-act-scenarios" className="vert-link">Scenario Engine</Link>
               &nbsp;· the&nbsp;
