@@ -57,6 +57,87 @@ const WHO = [
   { icon: "🛡️", title: "Child-rights advocates", desc: "Track how AI and platforms affect minors, and where the gaps in protection actually are." },
 ];
 
+const USE_CASES = [
+  {
+    color: "#4f7cff",
+    tag: "Rights Graph",
+    icon: "🗺️",
+    title: "Map a real AI system's rights footprint",
+    steps: [
+      "Enter a deployed EU system — e.g. a border screening tool or HR scoring platform",
+      "Aegis surfaces the fundamental rights it touches, documented incidents, and known FRIA status",
+      "Cross-references regulatory positions and binding case law by sector — every node sourced",
+    ],
+    outcome: "A sourced picture of a system's rights exposure in minutes, not weeks of desk research.",
+    link: "/rights-graph",
+  },
+  {
+    color: "#ff5c5c",
+    tag: "Divergence Engine",
+    icon: "⚡",
+    title: "Find where regulators contradict each other",
+    steps: [
+      "Pick a regulatory question — e.g. lawful basis for AI-assisted credit scoring",
+      "Aegis surfaces every on-record position: Commission, EDPB, EDPS, national authorities",
+      "Each position linked to its source document, divergences flagged explicitly",
+    ],
+    outcome: "The regulatory contradictions that didn't exist in one place before — sourced and comparable.",
+    link: "/rights-graph/divergence",
+  },
+  {
+    color: "#34d399",
+    tag: "FRIA Gap",
+    icon: "📊",
+    title: "Measure how many high-risk systems have no FRIA",
+    steps: [
+      "Browse high-risk AI systems in the graph by sector or Member State",
+      "Aegis shows which have a publicly identifiable FRIA — and which don't",
+      "Sample size always visible; export the gap data for research or enforcement monitoring",
+    ],
+    outcome: "A number that doesn't exist anywhere else: the public FRIA coverage rate by sector.",
+    link: "/rights-graph/fria-gap",
+  },
+  {
+    color: "#a06bff",
+    tag: "Precedent System",
+    icon: "⚖️",
+    title: "Pull binding case law for your deployment sector",
+    steps: [
+      "Select a sector — recruitment, healthcare, law enforcement, education, essential services",
+      "Aegis returns every relevant ruling: CJEU, ECHR, DPA decisions and national courts",
+      "Each case shows the holding and binding force — persuasive or mandatory — matched to your context",
+    ],
+    outcome: "The jurisprudence your FRIA needs, matched by sector, every ruling sourced.",
+    link: "/rights-graph/precedents",
+  },
+  {
+    color: "#e8b84b",
+    tag: "Scenario Engine",
+    icon: "🧠",
+    title: "Classify your AI system under the AI Act",
+    steps: [
+      "Describe your system — purpose, inputs, outputs, deployment context",
+      "Aegis reasons over Annex III, Art. 6(3) and Omnibus deadlines, citing every article it relies on",
+      "Marks what it cannot determine as unverified — not a guess, a traceable reasoning chain",
+    ],
+    outcome: "A cited classification with article references — not a chatbot over a PDF.",
+    link: "/ai-act-scenarios",
+  },
+  {
+    color: "#4f7cff",
+    tag: "Children's Rights Index",
+    icon: "🛡️",
+    title: "Benchmark children's digital rights across EU-27",
+    steps: [
+      "Open the composite index — all 27 Member States scored on enforcement, EdTech risk and framework maturity",
+      "Drill into any country: DSA Art. 28 enforcement actions, declared age-of-consent gaps, risk atlas",
+      "One-click path to a structured FRIA first draft for any flagged EdTech system",
+    ],
+    outcome: "The only composite EU-27 ranking of children's digital rights — built from primary sources.",
+    link: "/children",
+  },
+];
+
 const MODULES = [
   { color: "#4f7cff", name: "Rights Index", what: "A composite 0–100 score ranking all EU-27 countries on how well children's digital rights are protected — built live from the modules below." },
   { color: "#ff5c5c", name: "DSA Minors", what: "Commission enforcement of DSA Article 28: investigations into platforms, the protection-of-minors guidelines, and the EU age-verification push." },
@@ -175,7 +256,6 @@ export default function HomePage() {
           color: #00c882;
         }
         .open-link-contribute:hover { background: rgba(0,200,130,0.14); }
-
         .open-link-roadmap {
           background: rgba(79,124,255,0.08);
           border: 1px solid rgba(79,124,255,0.25);
@@ -324,6 +404,94 @@ export default function HomePage() {
         .who-icon { font-size: 22px; display: block; margin-bottom: 10px; }
         .who-title { font-size: 14px; font-weight: 600; color: #fff; margin: 0 0 6px; }
         .who-desc { font-size: 12px; line-height: 1.5; color: rgba(255,255,255,0.55); margin: 0; }
+
+        .usecases-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          width: 100%;
+        }
+        .usecase-card {
+          padding: 24px;
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 14px;
+          background: rgba(255,255,255,0.02);
+          text-align: left;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          transition: border-color 0.2s, background 0.2s;
+          text-decoration: none;
+        }
+        .usecase-card:hover {
+          background: rgba(255,255,255,0.04);
+        }
+        .usecase-head {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+        }
+        .usecase-icon {
+          font-size: 20px;
+          flex-shrink: 0;
+          line-height: 1;
+          margin-top: 3px;
+        }
+        .usecase-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+        .usecase-tag {
+          font-family: var(--font-mono), monospace;
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          padding: 3px 8px;
+          border-radius: 4px;
+          display: inline-block;
+          align-self: flex-start;
+        }
+        .usecase-title {
+          font-size: 14px;
+          font-weight: 700;
+          color: #e8eaf0;
+          line-height: 1.35;
+          margin: 0;
+        }
+        .usecase-steps {
+          display: flex;
+          flex-direction: column;
+          gap: 7px;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+        .usecase-step {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 12px;
+          color: rgba(255,255,255,0.55);
+          line-height: 1.55;
+        }
+        .usecase-step-num {
+          font-family: var(--font-mono), monospace;
+          font-size: 10px;
+          font-weight: 700;
+          flex-shrink: 0;
+          margin-top: 1px;
+          opacity: 0.5;
+        }
+        .usecase-outcome {
+          font-size: 12px;
+          font-style: italic;
+          line-height: 1.5;
+          padding-top: 10px;
+          border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
         .modules-list {
           display: flex;
           flex-direction: column;
@@ -645,6 +813,7 @@ export default function HomePage() {
           .pillars { grid-template-columns: 1fr; }
           .updates-grid { grid-template-columns: 1fr; }
           .who-grid { grid-template-columns: 1fr; }
+          .usecases-grid { grid-template-columns: 1fr; }
           .module-row { grid-template-columns: 12px 1fr; }
           .module-row .module-what { grid-column: 2; }
           .vert-row { grid-template-columns: 96px 1fr; }
@@ -747,6 +916,40 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* ── USE CASES ── */}
+          <div className="block-section">
+            <p className="block-label">What you can do with Aegis</p>
+            <div className="usecases-grid">
+              {USE_CASES.map((uc) => (
+                <Link key={uc.title} href={uc.link} className="usecase-card" style={{ borderColor: `${uc.color}22` }}>
+                  <div className="usecase-head">
+                    <span className="usecase-icon">{uc.icon}</span>
+                    <div className="usecase-meta">
+                      <span
+                        className="usecase-tag"
+                        style={{ color: uc.color, background: `${uc.color}14`, border: `1px solid ${uc.color}33` }}
+                      >
+                        {uc.tag}
+                      </span>
+                      <p className="usecase-title">{uc.title}</p>
+                    </div>
+                  </div>
+                  <ol className="usecase-steps">
+                    {uc.steps.map((step, i) => (
+                      <li key={i} className="usecase-step">
+                        <span className="usecase-step-num" style={{ color: uc.color }}>{i + 1}.</span>
+                        <span>{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                  <p className="usecase-outcome" style={{ color: uc.color }}>
+                    → {uc.outcome}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* ── WHERE AEGIS IS GOING ── */}
           <div className="block-section">
             <p className="block-label">Where Aegis is going</p>
@@ -839,8 +1042,7 @@ export default function HomePage() {
             </div>
           </div>
 
-
-          {/* ── SIGNAL MONITOR DEMO (secondary, contextual layer) ── */}
+          {/* ── SIGNAL MONITOR DEMO ── */}
           <p className="block-label" style={{ marginTop: 8 }}>A secondary layer — context, not scoring</p>
           <p className="block-intro" style={{ maxWidth: 760, marginBottom: 24 }}>
             The core of Aegis is the graph: systems, rights, case law and regulatory positions.
