@@ -59,19 +59,6 @@ const WHO = [
 
 const USE_CASES = [
   {
-    color: "#4f7cff",
-    tag: "Rights Graph",
-    icon: "🗺️",
-    title: "Map a real AI system's rights footprint",
-    steps: [
-      "Enter a deployed EU system — e.g. a border screening tool or HR scoring platform",
-      "Aegis surfaces the fundamental rights it touches, documented incidents, and known FRIA status",
-      "Cross-references regulatory positions and binding case law by sector — every node sourced",
-    ],
-    outcome: "A sourced picture of a system's rights exposure in minutes, not weeks of desk research.",
-    link: "/rights-graph",
-  },
-  {
     color: "#ff5c5c",
     tag: "Divergence Engine",
     icon: "⚡",
@@ -98,17 +85,17 @@ const USE_CASES = [
     link: "/rights-graph/fria-gap",
   },
   {
-    color: "#a06bff",
-    tag: "Precedent System",
-    icon: "⚖️",
-    title: "Pull binding case law for your deployment sector",
+    color: "#4f7cff",
+    tag: "Rights Graph",
+    icon: "🗺️",
+    title: "Map a real AI system's rights footprint",
     steps: [
-      "Select a sector — recruitment, healthcare, law enforcement, education, essential services",
-      "Aegis returns every relevant ruling: CJEU, ECHR, DPA decisions and national courts",
-      "Each case shows the holding and binding force — persuasive or mandatory — matched to your context",
+      "Enter a deployed EU system — e.g. a border screening tool or HR scoring platform",
+      "Aegis surfaces the fundamental rights it touches, documented incidents, and known FRIA status",
+      "Cross-references regulatory positions and binding case law by sector — every node sourced",
     ],
-    outcome: "The jurisprudence your FRIA needs, matched by sector, every ruling sourced.",
-    link: "/rights-graph/precedents",
+    outcome: "A sourced picture of a system's rights exposure in minutes, not weeks of desk research.",
+    link: "/rights-graph",
   },
   {
     color: "#e8b84b",
@@ -122,6 +109,19 @@ const USE_CASES = [
     ],
     outcome: "A cited classification with article references — not a chatbot over a PDF.",
     link: "/ai-act-scenarios",
+  },
+  {
+    color: "#a06bff",
+    tag: "Precedent System",
+    icon: "⚖️",
+    title: "Pull binding case law for your deployment sector",
+    steps: [
+      "Select a sector — recruitment, healthcare, law enforcement, education, essential services",
+      "Aegis returns every relevant ruling: CJEU, ECHR, DPA decisions and national courts",
+      "Each case shows the holding and binding force — persuasive or mandatory — matched to your context",
+    ],
+    outcome: "The jurisprudence your FRIA needs, matched by sector, every ruling sourced.",
+    link: "/rights-graph/precedents",
   },
   {
     color: "#4f7cff",
