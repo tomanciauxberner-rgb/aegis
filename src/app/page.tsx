@@ -35,6 +35,7 @@ const ROADMAP = [
 ];
 
 const UPDATES = [
+  { date: "3 June 2026", tag: "Compliance Bridge", color: "#a78bfa", title: "ISO 42001 × EU AI Act crosswalk", desc: "A source-verified, control-by-control map between ISO/IEC 42001 and the EU AI Act. Click any clause to light up the articles it supports; Reverse Compliance shows certified organisations exactly what their certification does not cover — conformity assessment, CE marking, EU database registration, post-market monitoring, incident reporting. Includes a status-aware version diff tracking the Digital Omnibus amendments. The point it makes plainly: ISO 42001 certification is not AI Act compliance." },
   { date: "May 2026", tag: "Precedents", color: "#a06bff", title: "Rights Precedent System", desc: "For each mapped high-risk system, the binding and persuasive case law in its regulatory sector — CJEU, ECHR, DPA and national rulings — with the holding and how strongly it binds. Matched by sector, every ruling sourced." },
   { date: "May 2026", tag: "Coverage Gap", color: "#34d399", title: "Fundamental Rights Assessment Gap", desc: "A first measurement of how many high-risk AI systems in the graph have a publicly identifiable Fundamental Rights Impact Assessment — and how many don't. Computed only from sourced systems, sample size always shown. A number that doesn't exist anywhere else yet." },
   { date: "May 2026", tag: "Rights Graph", color: "#4f7cff", title: "Unified Rights Graph", desc: "A living, sourced map of real AI systems deployed across the EU — what they do, who runs them, the fundamental rights they touch, and whether a FRIA is known to exist. Small and rigorous by design; it grows through verified expert contribution." },
@@ -70,6 +71,19 @@ const USE_CASES = [
     ],
     outcome: "The regulatory contradictions that didn't exist in one place before — sourced and comparable.",
     link: "/rights-graph/divergence",
+  },
+  {
+    color: "#a78bfa",
+    tag: "Compliance Bridge",
+    icon: "🌉",
+    title: "See what your ISO 42001 certification doesn't cover",
+    steps: [
+      "Start from ISO/IEC 42001 — the AI management-system standard you may already hold",
+      "Aegis maps each clause to the EU AI Act articles it supports, scored High / Partial / Gap",
+      "Surfaces the obligations with no ISO 42001 equivalent — conformity assessment, CE marking, EU database, post-market monitoring, incident reporting",
+    ],
+    outcome: "The honest answer certified organisations need: ISO 42001 ≠ AI Act compliance, and exactly where the gap is — every mapping sourced.",
+    link: "/compliance-bridge",
   },
   {
     color: "#34d399",
