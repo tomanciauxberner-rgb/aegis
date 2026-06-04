@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Network, GitCompareArrows } from "lucide-react";
+import { Network, GitCompareArrows, History } from "lucide-react";
 import { BridgeGraph } from "@/components/compliance-bridge/bridge-graph";
 import { ReverseCompliance } from "@/components/compliance-bridge/reverse-compliance";
+import { VersionDiff } from "@/components/compliance-bridge/version-diff";
 import { alignmentSummary } from "@/lib/compliance-bridge/bridge-engine";
 
-type Tab = "bridge" | "reverse";
+type Tab = "bridge" | "reverse" | "version";
 
 export function ComplianceBridgeApp() {
   const [tab, setTab] = useState<Tab>("bridge");
@@ -15,6 +16,7 @@ export function ComplianceBridgeApp() {
   const TABS: { id: Tab; label: string; icon: typeof Network }[] = [
     { id: "bridge", label: "Smart Bridge", icon: Network },
     { id: "reverse", label: "Reverse Compliance", icon: GitCompareArrows },
+    { id: "version", label: "Version Diff", icon: History },
   ];
 
   return (
@@ -53,6 +55,7 @@ export function ComplianceBridgeApp() {
 
       {tab === "bridge" && <BridgeGraph />}
       {tab === "reverse" && <ReverseCompliance />}
+      {tab === "version" && <VersionDiff />}
     </div>
   );
 }
