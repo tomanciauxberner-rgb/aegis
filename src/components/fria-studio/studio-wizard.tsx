@@ -7,8 +7,10 @@ import { StepDomain } from "@/components/fria-studio/step-domain";
 import { StepLifecycle } from "@/components/fria-studio/step-lifecycle";
 import { StepRightsHeatmap } from "@/components/fria-studio/step-rights-heatmap";
 import { StepEvidence } from "@/components/fria-studio/step-evidence";
+import { StepSnapshots } from "@/components/fria-studio/step-snapshots";
 import type { Annex3Domain } from "@/lib/fria-studio/annex3-taxonomy";
 import type { EvidenceState } from "@/lib/fria-studio/evidence-schema";
+import type { FriaStudioSnapshot } from "@/lib/fria-studio/diff-engine";
 
 type RiskDisposition = "unaddressed" | "mitigated" | "accepted" | "na";
 
@@ -25,6 +27,7 @@ interface StudioState {
   };
   lifecycleState: Record<string, Record<string, RiskDisposition>>;
   evidenceState: EvidenceState;
+  snapshots: FriaStudioSnapshot[];
 }
 
 const INITIAL_STATE: StudioState = {
@@ -33,6 +36,7 @@ const INITIAL_STATE: StudioState = {
   context: { deploymentDescription: "", operationalFrequency: "", duration: "", humanOversightMeasures: "" },
   lifecycleState: {},
   evidenceState: {},
+  snapshots: [],
 };
 
 const STEPS = [
@@ -40,6 +44,7 @@ const STEPS = [
   { n: 2, label: "Lifecycle" },
   { n: 3, label: "Heatmap" },
   { n: 4, label: "Evidence" },
+  { n: 5, label: "Versions" },
 ];
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
@@ -127,7 +132,7 @@ export function StudioWizard() {
   }, [state, loading]);
 
   function nextStep() {
-    setState((p) => ({ ...p, step: Math.min(p.step + 1, 4) }));
+    setState((p) => ({ ...p, step: Math.min(p.step + 1, 5) }));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
   function prevStep() {
@@ -201,6 +206,17 @@ export function StudioWizard() {
             onUpdate={(es) => setState((p) => ({ ...p, evidenceState: es }))}
           />
         )}
+        {state.step === 5 && (
+          <StepSnapshots
+            current={{
+              domainCode: state.domainCode,
+              lifecycleState: state.lifecycleState,
+              evidenceState: state.evidenceState,
+            }}
+            snapshots={state.snapshots}
+            onUpdate={(snaps) => setState((p) => ({ ...p, snapshots: snaps }))}
+          />
+        )}
       </div>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 24 }}>
@@ -230,7 +246,7 @@ export function StudioWizard() {
           {saveStatus === "saving" ? "Saving…" : saveStatus === "saved" ? "Saved" : saveStatus === "error" ? "Retry save" : "Save draft"}
         </button>
 
-        {state.step < 4 ? (
+        {state.step < 5 ? (
           <button
             onClick={nextStep}
             style={{
