@@ -882,17 +882,18 @@ export default function HomePage() {
         <div className="content">
           <Image src="/logo.png" alt="Aegis" width={180} height={210} priority />
 
-          <p className="tagline">Open Rights Graph · AI Systems × Fundamental Rights · EU27</p>
+          <p className="tagline">Rights Infrastructure for European AI Governance · EU27</p>
 
           <h1 className="headline">
-            The open reference graph of<br /><em>AI systems and fundamental rights in Europe.</em>
+            The open rights infrastructure layer for<br /><em>European AI governance.</em>
           </h1>
 
           <p className="sub">
-            AEGIS is an open, non-profit platform mapping the real AI systems deployed across the EU,
-            the fundamental rights they touch, the case law that shapes them, and where regulators diverge —
-            every entry sourced. On top of that graph it adds reasoning and structured FRIA first drafts for
-            expert review. Small and rigorous by design; deepest today on children&apos;s digital rights.
+            Most tools ask whether a system complies. AEGIS starts from the rights it touches —
+            mapping the real AI systems deployed across the EU, the case law that shapes them, and
+            where regulators diverge, every entry sourced. Not a compliance product but an attempt at
+            governance infrastructure: a living layer connecting systems, rights, authorities and
+            interpretations as they change. Small and rigorous by design; deepest today on children&apos;s digital rights.
           </p>
 
           <div className="stats-row">
