@@ -899,7 +899,7 @@ export default function HomePage() {
           <div className="stats-row">
             {[
               { value: "27", label: "EU Member States" },
-              { value: "Graph", label: "AI systems × rights × case law" },
+              { value: "Layer", label: "systems × rights × authorities × case law" },
               { value: "Sourced", label: "every node, primary sources" },
               { value: "Open", label: "Non-profit · AGPL" },
             ].map((s) => (
@@ -912,7 +912,7 @@ export default function HomePage() {
 
           {/* ── PRIMARY CTA (high) ── */}
           <Link href="/login" className="cta cta-high">
-            ACCESS PLATFORM <ArrowRight style={{ width: 18, height: 18 }} />
+            ENTER AEGIS <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
 
           <RequestAccessForm />
@@ -969,11 +969,7 @@ export default function HomePage() {
           <div className="block-section">
             <p className="block-label">Where Aegis is going</p>
             <p className="block-intro">
-              At the core of Aegis is the Unified Rights Graph — real AI systems, the rights they touch,
-              and where regulators diverge, every node sourced. Around it run the AI Act reasoning engine
-              and a children&apos;s-rights vertical covered in depth. The same infrastructure extends across
-              every high-risk domain the EU AI Act regulates. <strong>The community helps prioritise what
-              comes next.</strong>
+              Aegis is governance infrastructure, not a product — and its foundation is the Unified Rights Graph: real AI systems, the rights they touch, and where regulators diverge, every node sourced. On that foundation run the AI Act reasoning engine and a children&apos;s-rights vertical covered in depth. The same layer extends across every high-risk domain the EU AI Act regulates. <strong>The community helps prioritise what comes next.</strong>
             </p>
             <GraphStatsBand />
             <div className="vert-list">
@@ -1011,7 +1007,7 @@ export default function HomePage() {
           <div className="block-section">
             <p className="block-label">Inside the children&apos;s-rights vertical — our deepest layer</p>
             <p className="block-intro">
-              The graph is the core of Aegis. To prove the method end-to-end, we went deep on one vertical first:
+              The Rights Graph is the foundation of the infrastructure. To prove the method end-to-end, we went deep on one vertical first:
               <strong> children&apos;s digital rights</strong>. Everything below is the children&apos;s-rights vertical in
               detail — an intelligence layer mapping where those rights are at risk across the EU, feeding a FRIA engine
               that produces a structured first draft for expert completion. It is depth on one domain, not the whole of Aegis.
@@ -1060,7 +1056,7 @@ export default function HomePage() {
           {/* ── SIGNAL MONITOR DEMO ── */}
           <p className="block-label" style={{ marginTop: 8 }}>A secondary layer — context, not scoring</p>
           <p className="block-intro" style={{ maxWidth: 760, marginBottom: 24 }}>
-            The core of Aegis is the graph: systems, rights, case law and regulatory positions.
+            The foundation of Aegis is the Rights Graph: systems, rights, case law and regulatory positions.
             Around it sits an optional context layer that points to published fundamental-rights data
             (e.g. FRA surveys) relevant to a deployment&apos;s sector. It is a prompt to look closer —
             <strong> never a risk score for a country, a group or a person</strong>, and never a compliance verdict.
@@ -1166,7 +1162,7 @@ export default function HomePage() {
 
           {/* ── CTA ── */}
           <Link href="/login" className="cta">
-            ACCESS PLATFORM <ArrowRight style={{ width: 18, height: 18 }} />
+            ENTER AEGIS <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
         </div>
 
