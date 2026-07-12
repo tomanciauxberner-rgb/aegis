@@ -48,6 +48,13 @@ export default function FriaGapPage() {
         <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 800, marginBottom: 12 }}>
           The AI Act requires many high-risk deployers to carry out a FRIA. But no one tracks whether they actually exist. This is a first measurement of that gap — built only from the systems currently in the Aegis Rights Graph, each one sourced.
         </p>
+        <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.55)", maxWidth: 800, marginBottom: 12 }}>
+          FRA&apos;s own empirical work points the same way: its December 2025 report{" "}
+          <a href="https://fra.europa.eu/en/publication/2025/assessing-high-risk-ai" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.75)", textDecoration: "underline" }}>
+            Assessing High-Risk Artificial Intelligence
+          </a>{" "}
+          found providers generally aware of privacy and data-protection risks but often not of wider fundamental-rights implications, and called for more guidance and an evidence base for fundamental-rights assessments. This page is a contribution to that evidence base.
+        </p>
 
         {/* Honesty banner — sample size always visible */}
         {sample && (
