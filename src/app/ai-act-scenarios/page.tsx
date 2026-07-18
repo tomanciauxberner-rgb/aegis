@@ -75,6 +75,7 @@ export default function ScenarioPage() {
           <Link href="/" style={{ fontWeight: 700, letterSpacing: 1, color: "#fff", textDecoration: "none" }}>AEGIS</Link>
           <nav style={{ display: "flex", gap: 18, fontSize: 13 }}>
             <Link href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Home</Link>
+            <Link href="/code-radar" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Code Radar</Link>
             <Link href="/roadmap" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Roadmap</Link>
           </nav>
         </div>

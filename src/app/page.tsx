@@ -35,6 +35,8 @@ const ROADMAP = [
 ];
 
 const UPDATES = [
+  { date: "18 July 2026", tag: "Code Radar", color: "#5cc8e8", title: "Public Code Radar — EU27", desc: "Who actually publishes public-sector code in Europe — measured from each national catalogue's own API, snapshotted weekly, every source verified before it lights up. France live with 10,000+ public repositories, Switzerland as the off-map statutory anchor (EMBAG Art. 9), Germany, Italy and the Netherlands declared and pending verification. No scraping, no estimates — if a number is shown, its endpoint answered." },
+  { date: "18 July 2026", tag: "Open Data", color: "#a78bfa", title: "Crosswalk released as an open dataset", desc: "The source-verified ISO 42001 × EU AI Act mapping behind the Compliance Bridge, published as a standalone open dataset — machine-readable JSON, schema-validated, versioned, CC BY 4.0, with GitHub-native citation. Corrections welcome with primary sources; assertions without sources are closed." },
   { date: "3 June 2026", tag: "Compliance Bridge", color: "#a78bfa", title: "ISO 42001 × EU AI Act crosswalk", desc: "A source-verified, control-by-control map between ISO/IEC 42001 and the EU AI Act. Click any clause to light up the articles it supports; Reverse Compliance shows certified organisations exactly what their certification does not cover — conformity assessment, CE marking, EU database registration, post-market monitoring, incident reporting. Includes a status-aware version diff tracking the Digital Omnibus amendments. The point it makes plainly: ISO 42001 certification is not AI Act compliance." },
   { date: "May 2026", tag: "Precedents", color: "#a06bff", title: "Rights Precedent System", desc: "For each mapped high-risk system, the binding and persuasive case law in its regulatory sector — CJEU, ECHR, DPA and national rulings — with the holding and how strongly it binds. Matched by sector, every ruling sourced." },
   { date: "May 2026", tag: "Coverage Gap", color: "#34d399", title: "Fundamental Rights Assessment Gap", desc: "A first measurement of how many high-risk AI systems in the graph have a publicly identifiable Fundamental Rights Impact Assessment — and how many don't. Computed only from sourced systems, sample size always shown. A number that doesn't exist anywhere else yet." },
@@ -149,6 +151,19 @@ const USE_CASES = [
     ],
     outcome: "The only composite EU-27 ranking of children's digital rights — built from primary sources.",
     link: "/children",
+  },
+  {
+    color: "#5cc8e8",
+    tag: "Code Radar",
+    icon: "📡",
+    title: "Track who actually publishes public-sector code",
+    steps: [
+      "Open the EU27 radar — national open-source catalogues polled on a schedule",
+      "Aegis snapshots each catalogue's own aggregates: repositories, organisations, forges",
+      "Sources only light up once their endpoint is verified — declared coverage stays visibly pending",
+    ],
+    outcome: "The follow-through on 'public money, public code' — measured, sourced, over time.",
+    link: "/code-radar",
   },
 ];
 
@@ -998,6 +1013,8 @@ export default function HomePage() {
               <Link href="/rights-graph/precedents" className="vert-link">Precedent System</Link>
               &nbsp;· the&nbsp;
               <Link href="/ai-act-scenarios" className="vert-link">Scenario Engine</Link>
+              &nbsp;· the&nbsp;
+              <Link href="/code-radar" className="vert-link">Code Radar</Link>
               &nbsp;· the&nbsp;
               <Link href="/roadmap" className="vert-link">roadmap</Link>
             </p>

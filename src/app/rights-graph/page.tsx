@@ -54,6 +54,7 @@ export default function RightsGraphPage() {
             <Link href="/rights-graph/exposure" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Exposure</Link>
             <Link href="/rights-graph/precedents" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Precedents</Link>
             <Link href="/ai-act-scenarios" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Scenario Engine</Link>
+            <Link href="/code-radar" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Code Radar</Link>
             <Link href="/roadmap" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Roadmap</Link>
           </nav>
         </div>
