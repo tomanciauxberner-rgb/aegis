@@ -5,3 +5,4 @@ export * from "./children-policy";
 export * from "./access-requests";
 export * from "./scenario-analyses";
 export * from "./rights-graph";
+export * from "./code-radar";

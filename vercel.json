@@ -31,6 +31,10 @@
     {
       "path": "/api/cron/children-policy",
       "schedule": "15 2 * * *"
+    },
+    {
+      "path": "/api/cron/code-radar",
+      "schedule": "0 8 * * 1"
     }
   ]
 }
