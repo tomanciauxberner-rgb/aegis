@@ -900,15 +900,15 @@ export default function HomePage() {
           <p className="tagline">Rights Infrastructure for European AI Governance · EU27</p>
 
           <h1 className="headline">
-            The open rights infrastructure layer for<br /><em>European AI governance.</em>
+            Europe&apos;s AI regulators contradict each other.<br /><em>See exactly where — in minutes.</em>
           </h1>
 
           <p className="sub">
-            Most tools ask whether a system complies. AEGIS starts from the rights it touches —
-            mapping the real AI systems deployed across the EU, the case law that shapes them, and
-            where regulators diverge, every entry sourced. Not a compliance product but an attempt at
-            governance infrastructure: a living layer connecting systems, rights, authorities and
-            interpretations as they change. Small and rigorous by design; deepest today on children&apos;s digital rights.
+            Commission, EDPB, EDPS and national authorities take conflicting positions on the same AI
+            questions — and finding those contradictions takes weeks of legal research. AEGIS puts every
+            on-record position in one place, sourced and comparable, free. Behind it sits the same open,
+            non-profit layer that maps real high-risk AI systems, the case law that shapes them, and
+            whether a FRIA is publicly known.
           </p>
 
           <div className="stats-row">
@@ -926,9 +926,15 @@ export default function HomePage() {
           </div>
 
           {/* ── PRIMARY CTA (high) ── */}
-          <Link href="/login" className="cta cta-high">
-            ENTER AEGIS <ArrowRight style={{ width: 18, height: 18 }} />
+          <Link href="/rights-graph/divergence" className="cta cta-high">
+            SEE WHERE REGULATORS DIVERGE <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginTop: -28, marginBottom: 36 }}>
+            No account needed. Or{" "}
+            <Link href="/ai-act-scenarios" style={{ color: "#4f7cff", textDecoration: "none" }}>
+              classify your system under the AI Act →
+            </Link>
+          </p>
 
           <RequestAccessForm />
 
