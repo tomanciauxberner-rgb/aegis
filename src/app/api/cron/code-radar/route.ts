@@ -6,6 +6,7 @@ import type { CodeRadarPayload } from "@/db/schema/code-radar";
 import { RADAR_SOURCES } from "@/lib/code-radar/sources";
 import { fetchFrSnapshot } from "@/lib/code-radar/fetch-fr";
 import { fetchChSnapshot } from "@/lib/code-radar/fetch-ch";
+import { fetchDeSnapshot } from "@/lib/code-radar/fetch-de";
 
 export async function GET(request: NextRequest) {
   const authError = verifyCronSecret(request);
@@ -25,6 +26,9 @@ export async function GET(request: NextRequest) {
           break;
         case "ch_github_swiss":
           payload = await fetchChSnapshot();
+          break;
+        case "de_opencode":
+          payload = await fetchDeSnapshot();
           break;
         default:
           throw new Error(`No adapter implemented for ${source.id}`);

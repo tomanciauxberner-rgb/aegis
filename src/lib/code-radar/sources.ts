@@ -38,10 +38,10 @@ export const RADAR_SOURCES: RadarSource[] = [
   {
     id: "de_opencode",
     country: "DE",
-    label: "openCoDE — gitlab.opencode.de",
+    label: "openCoDE — gitlab.opencode.de (ZenDiS / BMDS)",
     kind: "gitlab_api",
-    enabled: false,
-    note: "Instance GitLab — endpoint à vérifier avant activation.",
+    enabled: true,
+    note: "Endpoint gitlab.opencode.de/api/v4 vérifié le 2026-07-19 — comptage via header X-Total (projects + top-level groups).",
   },
   {
     id: "it_developers_italia",
@@ -50,6 +50,14 @@ export const RADAR_SOURCES: RadarSource[] = [
     kind: "custom",
     enabled: false,
     note: "Endpoint API à épingler avant activation.",
+  },
+  {
+    id: "eu_code_europa",
+    country: "EU",
+    label: "code.europa.eu — EU institutions GitLab",
+    kind: "gitlab_api",
+    enabled: false,
+    note: "Forge GitLab des institutions européennes — endpoint à vérifier avant activation.",
   },
   {
     id: "nl_oss_register",
