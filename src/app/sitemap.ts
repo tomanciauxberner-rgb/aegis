@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/ai-act-scenarios", 0.8],
   ];
   const monthly: [string, number][] = [
+    ["/iso-42001-vs-eu-ai-act", 0.9],
     ["/rights-graph/divergence", 0.7],
     ["/rights-graph/fria-gap", 0.7],
     ["/rights-graph/precedents", 0.7],
