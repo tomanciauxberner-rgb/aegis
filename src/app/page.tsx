@@ -926,14 +926,17 @@ export default function HomePage() {
           </div>
 
           {/* ── PRIMARY CTA (high) ── */}
-          <Link href="/rights-graph/divergence" className="cta cta-high">
-            SEE WHERE REGULATORS DIVERGE <ArrowRight style={{ width: 18, height: 18 }} />
-          </Link>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginTop: -28, marginBottom: 36 }}>
-            No account needed. Or{" "}
-            <Link href="/ai-act-scenarios" style={{ color: "#4f7cff", textDecoration: "none" }}>
-              classify your system under the AI Act →
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
+            <Link href="/rights-graph/divergence" className="cta cta-high" style={{ marginBottom: 0 }}>
+              SEE WHERE REGULATORS DIVERGE <ArrowRight style={{ width: 18, height: 18 }} />
             </Link>
+            <Link href="/register" className="cta cta-high" style={{ marginBottom: 0, background: "transparent", border: "1px solid rgba(79,124,255,0.45)", color: "#4f7cff" }}>
+              CREATE FREE ACCESS
+            </Link>
+          </div>
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginBottom: 36 }}>
+            The divergence map is public — no account needed. Free access unlocks the full observatory.{" "}
+            <Link href="/login" style={{ color: "#4f7cff", textDecoration: "none" }}>Already in? Sign in →</Link>
           </p>
 
           <RequestAccessForm />
