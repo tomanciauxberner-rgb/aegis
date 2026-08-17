@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { RequestAccessForm } from "@/components/landing/request-access-form";
 import { GraphStatsBand } from "@/components/landing/graph-stats-band";
+import { getRightsGraphStats } from "@/lib/rights-graph-stats";
 
 const DOMAINS = [
   { label: "Employment & HR", icon: "💼" },
@@ -15,42 +16,12 @@ const DOMAINS = [
   { label: "Essential Services", icon: "🏛️" },
 ];
 
-const POPULATIONS = [
-  "Roma & Travellers",
-  "People of African Descent",
-  "LGBTIQ+",
-  "Muslims",
-  "Jewish Communities",
-  "Women",
-  "Persons with Disabilities",
-  "Migrants & Refugees",
-];
-
 const ROADMAP = [
   "FRIA methodology validation",
   "Dataset coverage expansion",
   "Civic space indicators",
   "Children's digital rights",
   "Publication-ready visualisations",
-];
-
-const UPDATES = [
-  { date: "18 July 2026", tag: "Code Radar", color: "#5cc8e8", title: "Public Code Radar — EU27", desc: "Who actually publishes public-sector code in Europe — measured from each national catalogue's own API, snapshotted weekly, every source verified before it lights up. France live with 10,000+ public repositories, Switzerland as the off-map statutory anchor (EMBAG Art. 9), Germany, Italy and the Netherlands declared and pending verification. No scraping, no estimates — if a number is shown, its endpoint answered." },
-  { date: "18 July 2026", tag: "Open Data", color: "#a78bfa", title: "Crosswalk released as an open dataset", desc: "The source-verified ISO 42001 × EU AI Act mapping behind the Compliance Bridge, published as a standalone open dataset — machine-readable JSON, schema-validated, versioned, CC BY 4.0, with GitHub-native citation. Corrections welcome with primary sources; assertions without sources are closed." },
-  { date: "3 June 2026", tag: "Compliance Bridge", color: "#a78bfa", title: "ISO 42001 × EU AI Act crosswalk", desc: "A source-verified, control-by-control map between ISO/IEC 42001 and the EU AI Act. Click any clause to light up the articles it supports; Reverse Compliance shows certified organisations exactly what their certification does not cover — conformity assessment, CE marking, EU database registration, post-market monitoring, incident reporting. Includes a status-aware version diff tracking the Digital Omnibus amendments. The point it makes plainly: ISO 42001 certification is not AI Act compliance." },
-  { date: "May 2026", tag: "Precedents", color: "#a06bff", title: "Rights Precedent System", desc: "For each mapped high-risk system, the binding and persuasive case law in its regulatory sector — CJEU, ECHR, DPA and national rulings — with the holding and how strongly it binds. Matched by sector, every ruling sourced." },
-  { date: "May 2026", tag: "Coverage Gap", color: "#34d399", title: "Fundamental Rights Assessment Gap", desc: "A first measurement of how many high-risk AI systems in the graph have a publicly identifiable Fundamental Rights Impact Assessment — and how many don't. Computed only from sourced systems, sample size always shown. A number that doesn't exist anywhere else yet." },
-  { date: "May 2026", tag: "Rights Graph", color: "#4f7cff", title: "Unified Rights Graph", desc: "A living, sourced map of real AI systems deployed across the EU — what they do, who runs them, the fundamental rights they touch, and whether a FRIA is known to exist. Small and rigorous by design; it grows through verified expert contribution." },
-  { date: "May 2026", tag: "Divergence", color: "#ff5c5c", title: "Regulatory Divergence Engine", desc: "Surfaces where Europe's regulators disagree on the same question — Commission, EDPB, EDPS, national authorities — on the record, each position sourced. The information that didn't exist in one place before." },
-  { date: "May 2026", tag: "Scenario Engine", color: "#4f7cff", title: "AI Act Regulatory Scenario Engine", desc: "Describe your system and Aegis reasons over a structured, sourced AI Act knowledge base — Annex III, the Article 6(3) exception, Omnibus deadlines — to classify it, project regulatory futures, and flag where experts diverge. It cites the articles it relies on and marks what it cannot determine as unverified, rather than guessing. Not a chatbot over a PDF; a constrained, traceable reasoning layer." },
-  { date: "May 2026", tag: "Intelligence", color: "#ff5c5c", title: "DSA Article 28 — Minors Protection tracker", desc: "Commission investigations, guidelines and the age-verification push that drive child-safety enforcement in 2026." },
-  { date: "May 2026", tag: "Platform", color: "#a78bfa", title: "Document ingestion (PDF / DOCX)", desc: "Upload reports and decisions — structured data extracted automatically for review before it enters the platform." },
-  { date: "May 2026", tag: "FRIA", color: "#34d399", title: "Minors-specialised FRIA engine", desc: "Age bands, Charter Art. 24, UN CRC and developmental vulnerabilities — auto-saved, versioned and exportable as a structured first draft for expert completion." },
-  { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Children Digital Rights Index", desc: "Composite EU-27 ranking across enforcement, app compliance, EdTech risk and framework maturity." },
-  { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Deployment Risk Atlas", desc: "Risk-scored national EdTech systems with one-click FRIA first-draft generation." },
-  { date: "May 2026", tag: "Intelligence", color: "#e8b84b", title: "Compliance Gap Engine", desc: "Systemic age-of-consent violations: declared app ages vs GDPR Art. 8 per country." },
-  { date: "May 2026", tag: "Intelligence", color: "#e8b84b", title: "Enforcement Intelligence", desc: "Cross-border DPA enforcement patterns linked to CJEU / ECHR case law." },
-  { date: "May 2026", tag: "Intelligence", color: "#4f7cff", title: "Forward Signal", desc: "Open consultations and policy windows ranked by deadline and relevance." },
 ];
 
 const WHO = [
@@ -185,7 +156,12 @@ const VERTICALS = [
   { code: "public",    label: "Public-sector AI",            status: "scoping",  desc: "AI in justice, law enforcement and migration — the most rights-sensitive uses of all." },
 ];
 
-export default function HomePage() {
+export const revalidate = 300;
+
+export default async function HomePage() {
+  const stats = await getRightsGraphStats();
+  const gap = stats && stats.highRisk > 0 ? stats : null;
+
   return (
     <>
       <style>{`
@@ -889,6 +865,15 @@ export default function HomePage() {
         </div>
       </div>
 
+      <style>{`
+        .fria-headline {
+          font-size: 20px; line-height: 1.5; color: rgba(255,255,255,0.9);
+          max-width: 720px; margin: 0 auto 44px; text-align: center;
+        }
+        .fria-headline strong { color: #ff7676; font-weight: 700; }
+        @media (max-width: 720px) { .fria-headline { font-size: 16px; margin-bottom: 32px; } }
+      `}</style>
+
       <main className="landing">
         <div className="grid-bg" />
         <div className="glow" />
@@ -930,16 +915,19 @@ export default function HomePage() {
             <Link href="/rights-graph/divergence" className="cta cta-high" style={{ marginBottom: 0 }}>
               SEE WHERE REGULATORS DIVERGE <ArrowRight style={{ width: 18, height: 18 }} />
             </Link>
-            <Link href="/register" className="cta cta-high" style={{ marginBottom: 0, background: "transparent", border: "1px solid rgba(79,124,255,0.45)", color: "#4f7cff" }}>
-              CREATE FREE ACCESS
-            </Link>
           </div>
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginBottom: 36 }}>
-            The divergence map is public — no account needed. Free access unlocks the full observatory.{" "}
+            Free to read. No account, no sign-up.{" "}
             <Link href="/login" style={{ color: "#4f7cff", textDecoration: "none" }}>Already in? Sign in →</Link>
           </p>
 
-          <RequestAccessForm />
+          {gap && (
+            <p className="fria-headline">
+              {gap.friaGap === gap.highRisk
+                ? <>Of the {gap.highRisk} high-risk AI systems mapped so far, <strong>none has a publicly identifiable Fundamental Rights Impact Assessment.</strong></>
+                : <><strong>{gap.friaGap} of {gap.highRisk}</strong> high-risk AI systems mapped so far have <strong>no publicly identifiable Fundamental Rights Impact Assessment.</strong></>}
+            </p>
+          )}
 
           {/* ── WHO IT'S FOR ── */}
           <div className="block-section">
@@ -973,14 +961,6 @@ export default function HomePage() {
                       <p className="usecase-title">{uc.title}</p>
                     </div>
                   </div>
-                  <ol className="usecase-steps">
-                    {uc.steps.map((step, i) => (
-                      <li key={i} className="usecase-step">
-                        <span className="usecase-step-num" style={{ color: uc.color }}>{i + 1}.</span>
-                        <span>{step}</span>
-                      </li>
-                    ))}
-                  </ol>
                   <p className="usecase-outcome" style={{ color: uc.color }}>
                     → {uc.outcome}
                   </p>
@@ -995,7 +975,7 @@ export default function HomePage() {
             <p className="block-intro">
               Aegis is governance infrastructure, not a product — and its foundation is the Unified Rights Graph: real AI systems, the rights they touch, and where regulators diverge, every node sourced. On that foundation run the AI Act reasoning engine and a children&apos;s-rights vertical covered in depth. The same layer extends across every high-risk domain the EU AI Act regulates. <strong>The community helps prioritise what comes next.</strong>
             </p>
-            <GraphStatsBand />
+            <GraphStatsBand stats={stats} />
             <div className="vert-list">
               {VERTICALS.map((v) => {
                 const cls = `vert-status vert-status-${v.status}`;
@@ -1059,115 +1039,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* ── LATEST UPDATES ── */}
-          <div className="updates">
-            <div className="updates-head">
-              <span className="updates-badge">● Latest updates</span>
-              <span className="updates-sub">Recently shipped</span>
-            </div>
-            <div className="updates-grid">
-              {UPDATES.map((u) => (
-                <div key={u.title} className="update-card">
-                  <div className="update-card-top">
-                    <span className="update-tag" style={{ color: u.color, border: `1px solid ${u.color}40`, background: `${u.color}14` }}>{u.tag}</span>
-                    <span className="update-date">{u.date}</span>
-                  </div>
-                  <p className="update-title">{u.title}</p>
-                  <p className="update-desc">{u.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* ── SIGNAL MONITOR DEMO ── */}
-          <p className="block-label" style={{ marginTop: 8 }}>A secondary layer — context, not scoring</p>
-          <p className="block-intro" style={{ maxWidth: 760, marginBottom: 24 }}>
-            The foundation of Aegis is the Rights Graph: systems, rights, case law and regulatory positions.
-            Around it sits an optional context layer that points to published fundamental-rights data
-            (e.g. FRA surveys) relevant to a deployment&apos;s sector. It is a prompt to look closer —
-            <strong> never a risk score for a country, a group or a person</strong>, and never a compliance verdict.
-          </p>
-          <div className="demo-block">
-            <div className="demo-header">
-              <div>
-                <p className="demo-title">Signal convergence</p>
-                <p className="demo-sub">Built from real fundamental-rights data (EU-MIDIS II and related FRA surveys). Member-State names are deliberately anonymised so the tool flags context without stigmatising any single country. A contextual indicator for review, not a prediction or a compliance finding.</p>
-              </div>
-              <span className="pillar-tag" style={{ background: "rgba(79,124,255,0.1)", color: "#4f7cff", border: "1px solid rgba(79,124,255,0.25)" }}>
-                Signal Monitor</span>
-            </div>
-
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
-              {[
-                { country: "Country A", level: "ELEVATED", levelColor: "#e8b84b", levelBg: "rgba(232,184,75,0.1)", levelBorder: "rgba(232,184,75,0.25)", signals: ["📊 Discrimination rate 38% (+5pp)", "⚖️ 2 AI systems declared", "🚨 Algorithmic bias documented"], tag: "3/3 signal types · Employment", tagColor: "#e8b84b", tagBg: "rgba(232,184,75,0.06)", tagBorder: "rgba(232,184,75,0.15)" },
-                { country: "Country B", level: "ELEVATED", levelColor: "#e8b84b", levelBg: "rgba(232,184,75,0.1)", levelBorder: "rgba(232,184,75,0.25)", signals: ["📊 Discrimination rate 45% (+9pp)", "⚖️ 7 Annex III systems declared", "🚨 Recruitment bias case"], tag: "3/3 signal types · Employment", tagColor: "#e8b84b", tagBg: "rgba(232,184,75,0.06)", tagBorder: "rgba(232,184,75,0.15)" },
-                { country: "Country C", level: "WATCH", levelColor: "#4f7cff", levelBg: "rgba(79,124,255,0.1)", levelBorder: "rgba(79,124,255,0.25)", signals: ["📊 Poverty rate 82%", "⚖️ AI systems in deployment", "🚨 Proxy discrimination flagged"], tag: "3/3 signal types · Essential services", tagColor: "#4f7cff", tagBg: "rgba(79,124,255,0.06)", tagBorder: "rgba(79,124,255,0.15)" },
-              ].map((c) => (
-                <div key={c.country} className="demo-example">
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-                    <p className="demo-country" style={{ margin: 0 }}>
-                      <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#1e3a5f", display: "inline-block" }} /> {c.country}
-                    </p>
-                    <span className="pillar-tag" style={{ background: c.levelBg, color: c.levelColor, border: `1px solid ${c.levelBorder}`, margin: 0, fontSize: 9 }}>{c.level}</span>
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                    {c.signals.map((s) => (
-                      <div key={s} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 11, color: "#7aaac8" }}>
-                        <span style={{ fontSize: 13 }}>{s.slice(0, 2)}</span> {s.slice(3)}
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ marginTop: 10, padding: "6px 10px", background: c.tagBg, border: `1px solid ${c.tagBorder}`, borderRadius: 6, fontSize: 10, color: c.tagColor, fontFamily: "var(--font-mono), monospace" }}>
-                    {c.tag}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* ── CROSS-REFERENCE DEMO ── */}
-          <div className="demo-block">
-            <div className="demo-header">
-              <div>
-                <p className="demo-title">What registering an AI system surfaces</p>
-                <p className="demo-sub">Aegis cross-references a deployment against real fundamental-rights signals (FRA survey data, documented incidents, sector declarations). Population groups and Member States are anonymised here; the underlying figures are real.</p>
-              </div>
-              <span className="pillar-tag" style={{ background: "rgba(232,184,75,0.1)", color: "#e8b84b", border: "1px solid rgba(232,184,75,0.25)" }}>
-                Cross-Reference
-              </span>
-            </div>
-            <div className="demo-example">
-              <p className="demo-country">
-                <span style={{ fontSize: 18 }}>🤖</span> Your AI Recruitment Tool → deployed in EU Member State
-              </p>
-              <div className="demo-signal">
-                <span className="demo-dot" style={{ background: "#e8b84b" }} />
-                <span>Population A — Employment discrimination rate above EU average</span>
-                <span className="demo-delta" style={{ color: "#ff5c5c" }}>+7pp vs EU</span>
-              </div>
-              <div className="demo-signal">
-                <span className="demo-dot" style={{ background: "#e8b84b" }} />
-                <span>Population B — Employment discrimination rate above EU average</span>
-                <span className="demo-delta" style={{ color: "#ff5c5c" }}>+2pp vs EU</span>
-              </div>
-              <div className="demo-signal">
-                <span className="demo-dot" style={{ background: "#ff5c5c" }} />
-                <span>Documented incident — Algorithmic screening bias against minority applicants</span>
-                <span className="demo-delta" style={{ color: "#4a7fa5" }}>2023</span>
-              </div>
-              <div className="demo-signal">
-                <span className="demo-dot" style={{ background: "#4f7cff" }} />
-                <span>Legislative — High-risk AI systems declared in employment sector</span>
-                <span className="demo-delta" style={{ color: "#4a7fa5" }}>2024</span>
-              </div>
-              <div className="demo-rec">
-                ⚠ Context flag: this system operates where two population groups face elevated discrimination in
-                employment (real FRA data, groups anonymised). EU AI Act Art. 9 requires documented risk
-                mitigation — a context worth enhanced bias testing. A prompt for review, not a compliance finding.
-              </div>
-            </div>
-          </div>
-
           {/* ── DOMAINS COVERED ── */}
           <p className="section-label">Sectors monitored</p>
           <div className="domains-grid">
@@ -1179,12 +1050,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <p className="section-label" style={{ marginTop: 32 }}>Population groups covered</p>
-          <div className="pop-grid">
-            {POPULATIONS.map((p) => (
-              <span key={p} className="pop-tag">{p}</span>
-            ))}
-          </div>
+          <RequestAccessForm />
 
           {/* ── CTA ── */}
           <Link href="/login" className="cta">
