@@ -21,7 +21,7 @@ const navItems = [
   { href: "/settings",    label: "Settings",         icon: Settings },
 ];
 
-export function Sidebar({ user }: { user: User }) {
+export function Sidebar({ user }: { user: User | null }) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
@@ -109,7 +109,7 @@ export function Sidebar({ user }: { user: User }) {
         <div style={{ borderTop: "1px solid #1e3a5f", padding: "12px 16px" }}>
           <div className="flex items-center justify-between">
             <span style={{ fontSize: 12, color: "#4a7fa5", fontFamily: "var(--font-mono)", maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-              {user.email}
+              {user ? user.email : "Not signed in"}
             </span>
             <button onClick={handleSignOut} title="Sign out" style={{ color: "#4a7fa5", background: "none", border: "none", cursor: "pointer" }}>
               <LogOut className="w-4 h-4 hover:text-danger" />

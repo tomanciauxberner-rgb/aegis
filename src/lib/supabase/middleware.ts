@@ -33,11 +33,8 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/login") ||
     request.nextUrl.pathname.startsWith("/register");
   const isDashboard =
-    request.nextUrl.pathname.startsWith("/overview") ||
-    request.nextUrl.pathname.startsWith("/systems") ||
     request.nextUrl.pathname.startsWith("/assessments") ||
     request.nextUrl.pathname.startsWith("/settings");
-  const isApi = request.nextUrl.pathname.startsWith("/api");
 
   if (!user && isDashboard) {
     const url = request.nextUrl.clone();

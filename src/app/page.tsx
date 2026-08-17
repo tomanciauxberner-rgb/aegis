@@ -903,7 +903,7 @@ export default async function HomePage() {
 
           {/* ── PRIMARY CTA (high) ── */}
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
-            <Link href="/rights-graph" className="cta cta-high" style={{ marginBottom: 0 }}>
+            <Link href="/overview" className="cta cta-high" style={{ marginBottom: 0 }}>
               ENTER AEGIS <ArrowRight style={{ width: 18, height: 18 }} />
             </Link>
             <Link href="/rights-graph/divergence" className="cta cta-high cta-ghost" style={{ marginBottom: 0 }}>
@@ -1047,8 +1047,8 @@ export default async function HomePage() {
           <RequestAccessForm />
 
           {/* ── CTA ── */}
-          <Link href="/rights-graph" className="cta">
-            OPEN THE RIGHTS GRAPH <ArrowRight style={{ width: 18, height: 18 }} />
+          <Link href="/overview" className="cta">
+            ENTER AEGIS <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
         </div>
 
