@@ -21,6 +21,8 @@ const navItems = [
   { href: "/settings",    label: "Settings",         icon: Settings },
 ];
 
+const AUTH_ONLY = ["/assessments", "/settings"];
+
 export function Sidebar({ user }: { user: User | null }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -84,7 +86,9 @@ export function Sidebar({ user }: { user: User | null }) {
         </div>
 
         <nav className="flex-1 py-4 px-3 space-y-1">
-          {navItems.map((item) => {
+          {navItems
+            .filter((item) => user || !AUTH_ONLY.includes(item.href))
+            .map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
               <Link
@@ -108,12 +112,18 @@ export function Sidebar({ user }: { user: User | null }) {
 
         <div style={{ borderTop: "1px solid #1e3a5f", padding: "12px 16px" }}>
           <div className="flex items-center justify-between">
-            <span style={{ fontSize: 12, color: "#4a7fa5", fontFamily: "var(--font-mono)", maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <span style={{ fontSize: 12, color: "#aaccdd", fontFamily: "var(--font-mono)", maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {user ? user.email : "Not signed in"}
             </span>
-            <button onClick={handleSignOut} title="Sign out" style={{ color: "#4a7fa5", background: "none", border: "none", cursor: "pointer" }}>
-              <LogOut className="w-4 h-4 hover:text-danger" />
-            </button>
+            {user ? (
+              <button onClick={handleSignOut} title="Sign out" style={{ color: "#4a7fa5", background: "none", border: "none", cursor: "pointer" }}>
+                <LogOut className="w-4 h-4 hover:text-danger" />
+              </button>
+            ) : (
+              <Link href="/login" title="Sign in" style={{ fontSize: 12, color: "#aaccdd", fontFamily: "var(--font-mono)", textDecoration: "none", whiteSpace: "nowrap" }}>
+                Sign in
+              </Link>
+            )}
           </div>
         </div>
       </aside>
