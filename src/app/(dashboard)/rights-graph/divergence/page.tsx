@@ -23,17 +23,6 @@ export default function DivergencePage() {
 
   return (
     <div style={{ minHeight: "100vh", background: "#0d1b35", color: "#e8edf5" }}>
-      <header style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "18px 24px" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Link href="/" style={{ fontWeight: 700, letterSpacing: 1, color: "#fff", textDecoration: "none" }}>AEGIS</Link>
-          <nav style={{ display: "flex", gap: 18, fontSize: 13 }}>
-            <Link href="/rights-graph" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Rights Graph</Link>
-            <Link href="/ai-act-scenarios" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Scenario Engine</Link>
-            <Link href="/roadmap" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Roadmap</Link>
-          </nav>
-        </div>
-      </header>
-
       <main style={{ maxWidth: 1000, margin: "0 auto", padding: "48px 24px 96px" }}>
         <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "#4f7cff", marginBottom: 14 }}>Regulatory Divergence Engine · Beta</p>
         <h1 style={{ fontSize: 34, fontWeight: 800, color: "#fff", lineHeight: 1.15, marginBottom: 16 }}>

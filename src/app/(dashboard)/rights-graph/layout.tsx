@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GraphNav } from "@/components/layout/graph-nav";
 
 export const metadata: Metadata = {
   title: "EU High-Risk AI Systems, Mapped — Unified Rights Graph",
@@ -15,5 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function RightsGraphLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <GraphNav />
+      {children}
+    </>
+  );
 }

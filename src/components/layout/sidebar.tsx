@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Cpu, FileCheck, Settings, LogOut, Radio, Menu, X, Baby, Scale, Network } from "lucide-react";
+import { LayoutDashboard, Cpu, FileCheck, Settings, LogOut, Radio, Menu, X, Baby, Scale, Network, GitCompare, Radar, Milestone } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,9 @@ const navItems = [
   { href: "/children",    label: "Children's Rights", icon: Baby },
   { href: "/assessments", label: "Assessments",      icon: FileCheck },
   { href: "/signals",     label: "Signal Monitor",    icon: Radio },
+  { href: "/compliance-bridge", label: "Compliance Bridge", icon: GitCompare },
+  { href: "/code-radar",  label: "Code Radar",        icon: Radar },
+  { href: "/roadmap",     label: "Roadmap",           icon: Milestone },
   { href: "/settings",    label: "Settings",         icon: Settings },
 ];
 
