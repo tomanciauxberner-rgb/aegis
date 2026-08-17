@@ -769,6 +769,21 @@ export default async function HomePage() {
           margin-bottom: 32px;
         }
         .cta:hover { background: #3a6aee; transform: translateY(-2px); }
+        .cta:focus-visible, .open-link:focus-visible, .usecase-card:focus-visible {
+          outline: 2px solid #7aaac8;
+          outline-offset: 3px;
+        }
+        .cta-ghost {
+          background: transparent;
+          border: 1px solid #2a5080;
+          color: #aaccdd;
+        }
+        .cta-ghost:hover {
+          background: rgba(79,124,255,0.10);
+          border-color: #4f7cff;
+          color: #e8eaf0;
+          transform: translateY(-2px);
+        }
         .footer-text {
           font-family: var(--font-mono), monospace;
           font-size: 10px;
@@ -888,13 +903,16 @@ export default async function HomePage() {
 
           {/* ── PRIMARY CTA (high) ── */}
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center", marginBottom: 12 }}>
-            <Link href="/rights-graph/divergence" className="cta cta-high" style={{ marginBottom: 0 }}>
-              SEE WHERE REGULATORS DIVERGE <ArrowRight style={{ width: 18, height: 18 }} />
+            <Link href="/rights-graph" className="cta cta-high" style={{ marginBottom: 0 }}>
+              ENTER AEGIS <ArrowRight style={{ width: 18, height: 18 }} />
+            </Link>
+            <Link href="/rights-graph/divergence" className="cta cta-high cta-ghost" style={{ marginBottom: 0 }}>
+              SEE WHERE REGULATORS DIVERGE
             </Link>
           </div>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginBottom: 36 }}>
-            Free to read. No account, no sign-up.{" "}
-            <Link href="/login" style={{ color: "#4f7cff", textDecoration: "none" }}>Already in? Sign in →</Link>
+          <p style={{ fontSize: 13, color: "#aaccdd", marginBottom: 36 }}>
+            Every page is open to read — no account, no sign-up.{" "}
+            <Link href="/login" style={{ color: "#7aaac8", textDecoration: "none" }}>Contributor sign-in →</Link>
           </p>
 
           {gap && (
@@ -1029,8 +1047,8 @@ export default async function HomePage() {
           <RequestAccessForm />
 
           {/* ── CTA ── */}
-          <Link href="/login" className="cta">
-            ENTER AEGIS <ArrowRight style={{ width: 18, height: 18 }} />
+          <Link href="/rights-graph" className="cta">
+            OPEN THE RIGHTS GRAPH <ArrowRight style={{ width: 18, height: 18 }} />
           </Link>
         </div>
 
