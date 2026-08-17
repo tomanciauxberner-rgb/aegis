@@ -2,9 +2,16 @@ import { sql } from "drizzle-orm";
 import { db } from "@/db/client";
 
 export interface RightsGraphStats {
-  systems: number; highRisk: number; knownFria: number; friaGap: number;
-  domains: number; countries: number; rightsLinks: number; sources: number;
-  positions: number; divergingTopics: number;
+  systems: number;
+  highRisk: number;
+  knownFria: number;
+  friaGap: number;
+  domains: number;
+  countries: number;
+  rightsLinks: number;
+  sources: number;
+  positions: number;
+  divergingTopics: number;
 }
 
 type Row = Record<string, unknown>;
@@ -26,6 +33,7 @@ export async function getRightsGraphStats(): Promise<RightsGraphStats | null> {
       FROM rg_systems s
       CROSS JOIN LATERAL jsonb_array_elements_text(s.countries) AS c(country)
     `);
+
     const linkRows = await db.execute(sql`SELECT COUNT(*)::int AS links FROM rg_system_rights`);
     const sourceRows = await db.execute(sql`SELECT COUNT(*)::int AS sources FROM rg_sources`);
 

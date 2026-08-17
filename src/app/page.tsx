@@ -465,30 +465,6 @@ export default async function HomePage() {
           line-height: 1.35;
           margin: 0;
         }
-        .usecase-steps {
-          display: flex;
-          flex-direction: column;
-          gap: 7px;
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-        .usecase-step {
-          display: flex;
-          align-items: flex-start;
-          gap: 10px;
-          font-size: 12px;
-          color: rgba(255,255,255,0.55);
-          line-height: 1.55;
-        }
-        .usecase-step-num {
-          font-family: var(--font-mono), monospace;
-          font-size: 10px;
-          font-weight: 700;
-          flex-shrink: 0;
-          margin-top: 1px;
-          opacity: 0.5;
-        }
         .usecase-outcome {
           font-size: 12px;
           font-style: italic;
