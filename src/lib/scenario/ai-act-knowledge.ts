@@ -125,13 +125,14 @@ export const ARTICLE_6_3 = {
   sourceIds: ["aiact_art6", "ec_guidelines_2026"],
 };
 
-// ── OMNIBUS DEADLINES (agreed 7 May 2026, pending adoption) ──────
+// ── OMNIBUS DEADLINES — Reg. (EU) 2026/1744, in force 27 July 2026 ──
 export const OMNIBUS_DEADLINES = {
-  status: "Provisional political agreement reached 7 May 2026, confirmed by Council 13 May 2026. NOT yet formally adopted/published. Until publication in the Official Journal, the original 2 Aug 2026 high-risk deadline remains legally operative.",
+  status: "In force. Regulation (EU) 2026/1744 (Digital Omnibus on AI) was published in the Official Journal on 24 July 2026 and entered into force on 27 July 2026, amending Article 113 of Regulation (EU) 2024/1689. The deferred dates are fixed calendar dates: the conditional standards-readiness trigger in the Commission proposal of November 2025 was removed by Parliament and Council during negotiation.",
   byCategory: {
     standalone_annex3: { agreed: "2 December 2027", original: "2 August 2026", note: "Stand-alone Annex III high-risk systems deferred ~16 months." },
     embedded_annex1: { agreed: "2 August 2028", original: "2 August 2026", note: "High-risk AI embedded as a safety component of a regulated product." },
-    transparency_art50: { agreed: "2 December 2026", original: "2 August 2026", note: "Art. 50 transparency / watermarking — 3-month grace period." },
+    transparency_art50: { agreed: "2 August 2026 (in application)", original: "2 August 2026", note: "Art. 50 transparency obligations applied from 2 Aug 2026 and were NOT deferred. Only Art. 50(2) machine-readable marking has a grace period to 2 Dec 2026, and only for systems already placed on the market before 2 Aug 2026 — new systems comply on placement." },
+    public_authority_legacy: { agreed: "2 August 2030", original: "2 August 2030", note: "High-risk systems already in use by public authorities before the application date — the longest runway in the calendar. Covers much of the public-sector estate mapped in the Rights Graph." },
     gpai: { agreed: "Already applicable (2 Aug 2025)", original: "2 August 2025", note: "GPAI model obligations not deferred." },
     prohibitions_art5: { agreed: "Already applicable (2 Feb 2025)", original: "2 February 2025", note: "Art. 5 prohibitions + Art. 4 AI-literacy already in force; Omnibus adds CSAM/nudifier bans." },
   },

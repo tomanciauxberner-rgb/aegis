@@ -29,7 +29,7 @@ function daysUntil(dateStr: string): number {
 
 export default async function OverviewPage() {
   const alerts = await getAlertStats();
-  const daysLeft = daysUntil("2026-08-02");
+  const daysLeft = daysUntil("2027-12-02");
 
   return (
     <div className="space-y-8">
@@ -109,7 +109,10 @@ export default async function OverviewPage() {
           </div>
 
           <p style={{ fontSize: 13, color: "#4a7fa5", lineHeight: 1.6 }}>
-            August 2, 2026 — All Annex III high-risk AI systems require a completed FRIA.
+            2 December 2027 — Annex III deployer obligations apply, including the Article 27 FRIA
+            for public bodies, private providers of public services, and deployers of credit and
+            insurance systems under Annex III(5)(b)–(c). Deferred by Regulation (EU) 2026/1744.
+            Pre-existing systems used by public authorities: 2 August 2030.
             Non-compliance: up to €15M or 3% global turnover.
           </p>
         </div>
