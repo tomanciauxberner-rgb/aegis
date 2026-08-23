@@ -3,9 +3,15 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-interface Position { authority: string; stance: string; sourceUrl: string; statedAt: string | null; provenance: string; }
-interface Topic { topic: string; positions: Position[]; authorityCount: number; diverges: boolean; }
-interface Resp { topics: Topic[]; summary: { topics: number; diverging: number; positions: number } | null; }
+interface Position {
+  authority: string; authorityCode: string | null; authorityLabel: string | null;
+  authorityKind: string | null; inEea: boolean | null;
+  stance: string; sourceUrl: string; sourceTier: string | null;
+  statedAt: string | null; provenance: string;
+  anchorQuote: string | null; anchorLocator: string | null;
+}
+interface Topic { topic: string; positions: Position[]; authorityCount: number; diverges: boolean; unmappedCount: number; }
+interface Resp { topics: Topic[]; summary: { topics: number; diverging: number; positions: number; primary: number; secondary: number; anchored: number } | null; }
 
 export default function DivergencePage() {
   const [data, setData] = useState<Resp | null>(null);
@@ -36,7 +42,9 @@ export default function DivergencePage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginBottom: 40 }}>
             <Stat value={s.diverging} label="Topics where authorities diverge" color="#ff5c5c" />
             <Stat value={s.topics} label="Topics tracked" color="#fff" />
-            <Stat value={s.positions} label="Sourced positions" color="#34d399" />
+            <Stat value={s.positions} label="Positions mapped" color="#fff" />
+            <Stat value={s.primary} label="Sourced to the regulator's own act" color={s.primary === s.positions ? "#34d399" : "#e8b84b"} />
+            <Stat value={s.anchored} label="Anchored to a quoted passage" color={s.anchored === s.positions ? "#34d399" : "#e8b84b"} />
           </div>
         )}
 
@@ -58,12 +66,28 @@ export default function DivergencePage() {
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {t.positions.map((p, j) => (
-                    <div key={j} style={{ borderLeft: "2px solid rgba(79,124,255,0.4)", paddingLeft: 14 }}>
+                    <div key={j} style={{ borderLeft: `2px solid ${p.authorityKind === "regulated_entity" ? "rgba(255,255,255,0.15)" : "rgba(79,124,255,0.4)"}`, paddingLeft: 14 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", marginBottom: 4 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: "#4f7cff" }}>{p.authority}</span>
+                        <span style={{ display: "flex", alignItems: "center", gap: 7, flexWrap: "wrap" }}>
+                          <span style={{ fontSize: 13, fontWeight: 700, color: p.authorityKind === "regulated_entity" ? "rgba(255,255,255,0.55)" : "#4f7cff" }}>
+                            {p.authorityLabel ?? p.authority}
+                          </span>
+                          {p.authorityKind === "regulated_entity" && <Tag text="Regulated entity, not an authority" bg="rgba(255,255,255,0.08)" fg="rgba(255,255,255,0.55)" />}
+                          {!p.authorityCode && <Tag text="Not an authority position" bg="rgba(255,255,255,0.08)" fg="rgba(255,255,255,0.55)" />}
+                          {p.inEea === false && <Tag text="Outside the EEA" bg="rgba(232,184,75,0.12)" fg="#e8b84b" />}
+                          {p.sourceTier === "primary"
+                            ? <Tag text="Primary source" bg="rgba(52,211,153,0.15)" fg="#34d399" />
+                            : <Tag text="Secondary source, re-sourcing pending" bg="rgba(232,184,75,0.12)" fg="#e8b84b" />}
+                        </span>
                         {p.statedAt && <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)" }}>{p.statedAt}</span>}
                       </div>
                       <p style={{ fontSize: 13, lineHeight: 1.55, color: "rgba(255,255,255,0.7)", marginBottom: 4 }}>{p.stance}</p>
+                      {p.anchorQuote && (
+                        <blockquote style={{ margin: "8px 0", padding: "8px 12px", borderLeft: "2px solid rgba(52,211,153,0.5)", background: "rgba(52,211,153,0.05)", fontSize: 12, lineHeight: 1.5, color: "rgba(255,255,255,0.75)", fontStyle: "italic" }}>
+                          {p.anchorQuote}
+                          {p.anchorLocator && <span style={{ display: "block", marginTop: 4, fontStyle: "normal", fontSize: 11, color: "rgba(255,255,255,0.45)" }}>{p.anchorLocator}</span>}
+                        </blockquote>
+                      )}
                       <a href={p.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", textDecoration: "none" }}>Source ↗</a>
                     </div>
                   ))}
@@ -93,5 +117,13 @@ function Stat({ value, label, color }: { value: number; label: string; color: st
       <div style={{ fontSize: 30, fontWeight: 800, color, lineHeight: 1 }}>{value}</div>
       <div style={{ fontSize: 11, color: "rgba(255,255,255,0.55)", marginTop: 6, lineHeight: 1.3 }}>{label}</div>
     </div>
+  );
+}
+
+function Tag({ text, bg, fg }: { text: string; bg: string; fg: string }) {
+  return (
+    <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: 0.4, textTransform: "uppercase", padding: "2px 7px", borderRadius: 4, background: bg, color: fg, whiteSpace: "nowrap" }}>
+      {text}
+    </span>
   );
 }
