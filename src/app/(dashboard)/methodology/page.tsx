@@ -86,7 +86,7 @@ export default function MethodologyPage() {
           <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.6)" }}>
             Aegis is an open, non-profit project. It provides regulatory and fundamental-rights intelligence; it is not legal advice. Every figure should be read with its stated sample size, and every entry with its provenance. If you find an error, or a system that belongs in the graph, that correction is itself a contribution — and it&apos;s welcome.
           </p>
-          <Link href="/" style={{ display: "inline-block", marginTop: 14, fontSize: 13, fontWeight: 600, color: "#4f7cff", textDecoration: "none" }}>
+          <Link href="/register" style={{ display: "inline-block", marginTop: 14, fontSize: 13, fontWeight: 600, color: "#4f7cff", textDecoration: "none" }}>
             Request contributor access →
           </Link>
         </div>
