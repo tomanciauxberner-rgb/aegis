@@ -14,7 +14,7 @@
 
 Across the EU, high-risk AI systems are increasingly deployed in employment, access to services, law enforcement, and border management — precisely the contexts where FRA survey data consistently documents entrenched discrimination, civic space erosion, and vulnerability among specific groups.
 
-The EU AI Act mandates Fundamental Rights Impact Assessments (FRIA) under Article 27. Under Regulation (EU) 2026/1744 (Digital Omnibus on AI), in force since 27 July 2026, the bulk of the high-risk obligations now apply from 2 December 2027 (standalone Annex III systems) and 2 August 2028 (AI embedded in regulated products), with 2 August 2030 for high-risk systems already in use by public authorities before the application date. The deadline moved; the underlying problem did not. Most FRIA processes remain disconnected from the structural social conditions that determine whether an AI system becomes dangerous in practice — and the additional runway is precisely the window in which a defensible, evidence-grounded governance record can be built, rather than templates completed under last-minute pressure.
+The EU AI Act mandates Fundamental Rights Impact Assessments (FRIA) under Article 27. Following the Digital Omnibus political agreement of 7 May 2026, the bulk of the high-risk obligations now apply from 2 December 2027 (standalone Annex III systems) and 2 August 2028 (AI embedded in regulated products). The deadline moved; the underlying problem did not. Most FRIA processes remain disconnected from the structural social conditions that determine whether an AI system becomes dangerous in practice — and the additional runway is precisely the window in which a defensible, evidence-grounded governance record can be built, rather than templates completed under last-minute pressure.
 
 **AEGIS bridges this gap.**
 
@@ -63,7 +63,7 @@ This is not a scoring model. It is a **sociotechnical early warning system** —
 
 ## Regulatory timeline (post-Digital Omnibus)
 
-Regulation (EU) 2026/1744 (Digital Omnibus on AI) — adopted 8 July 2026, published in the Official Journal on 24 July 2026, in force since 27 July 2026 — revised the application dates for high-risk obligations. These are fixed calendar dates: the conditional standards-readiness trigger in the Commission proposal of November 2025 was removed by Parliament and Council during negotiation. Primary source: <http://data.europa.eu/eli/reg/2026/1744/oj> (CELEX 32026R1744).
+The Digital Omnibus on AI, provisionally agreed by the European Parliament and Council on 7 May 2026, revised the application dates for high-risk obligations:
 
 - **2 December 2027** — standalone high-risk AI systems under Annex III
 - **2 August 2028** — high-risk AI systems embedded in regulated products
