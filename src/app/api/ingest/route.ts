@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { insertSignals, buildExternalId } from "@/lib/signal-inserter";
 import { rateLimit } from "@/lib/rate-limit";
 import { canContribute } from "@/lib/auth/contributor";
+import { verifyAgainstSource, classifySourceTier } from "@/lib/ingest/verify";
 
 const EU27 = new Set([
   "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR",
@@ -31,6 +32,7 @@ interface ExtractedDataPoint {
   source_label: string;
   source_url: string;
   summary: string;
+  evidence_quote: string;
 }
 
 function deriveSeverity(value: number, euAvg: number | null): "critical" | "elevated" | "watch" {
@@ -98,6 +100,7 @@ For EACH concrete statistic mentioned (a percentage, rate, or measurable value a
 - source_label: the publication name (e.g. "Roma Survey 2024", "Being Black in the EU 2023")
 - source_url: URL if mentioned, otherwise ""
 - summary: one sentence describing the data point factually
+- evidence_quote: the EXACT sentence from the text below that contains this statistic, copied verbatim, character for character. Do not paraphrase, do not correct, do not shorten. It must be at least 20 characters and must contain the numeric value. If you cannot copy an exact sentence containing the value, omit this data point entirely.
 
 RULES:
 - Only extract data points with a CONCRETE numeric value
@@ -106,6 +109,7 @@ RULES:
 - If a value is for "EU average" or "EU total", set country to "EU"
 - If the same indicator appears for multiple countries, create separate entries
 - Validate: value must be 0-100 for percentages
+- Every data point MUST include evidence_quote copied verbatim from the text. Data points without a verbatim quote will be rejected.
 
 Respond ONLY with a JSON array. No markdown, no preamble, no explanation.
 
@@ -148,14 +152,24 @@ ${text.slice(0, 25000)}`;
       return NextResponse.json({ error: "AI returned non-array response" }, { status: 502 });
     }
 
+    const rejected: Array<{ indicator: string; reason: string }> = [];
+
     const valid = extracted.filter((dp) => {
       if (!dp.country || !dp.group_id || !dp.sector || dp.value == null) return false;
       if (dp.country !== "EU" && !EU27.has(dp.country)) return false;
       if (!VALID_GROUPS.has(dp.group_id)) return false;
       if (!VALID_SECTORS.has(dp.sector)) return false;
       if (dp.value < 0 || dp.value > 100) return false;
+
+      const check = verifyAgainstSource(text, dp.evidence_quote, dp.value);
+      if (!check.ok) {
+        rejected.push({ indicator: dp.indicator ?? "unknown", reason: check.reason });
+        return false;
+      }
       return true;
     });
+
+    const sourceTier = classifySourceTier(sourceUrl);
 
     const euAvgMap: Record<string, number> = {};
     for (const dp of valid) {
@@ -197,6 +211,9 @@ ${text.slice(0, 25000)}`;
     return NextResponse.json({
       extracted: extracted.length,
       valid: valid.length,
+      rejectedUnverified: rejected.length,
+      rejections: rejected.slice(0, 10),
+      sourceTier,
       euAverages: Object.keys(euAvgMap).length,
       countryPoints: countryPoints.length,
       ...insertResult,
