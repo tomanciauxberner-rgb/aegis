@@ -141,19 +141,59 @@ function DataIngestionPanel() {
               <CheckCircle className="w-4 h-4 text-success" />
               <span className="text-sm font-semibold text-success">Extraction complete</span>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
               {[
-                { label: "Extracted", value: result.extracted },
-                { label: "Valid", value: result.valid },
-                { label: "Inserted", value: result.inserted },
-                { label: "Skipped", value: result.skipped },
+                { label: "Extracted", value: result.extracted, tone: "text-text" },
+                { label: "Verified", value: result.valid, tone: "text-success" },
+                { label: "Unverified", value: result.rejectedUnverified ?? 0, tone: (result.rejectedUnverified ?? 0) > 0 ? "text-danger" : "text-text-dim" },
+                { label: "Inserted", value: result.inserted, tone: "text-text" },
+                { label: "Skipped", value: result.skipped, tone: "text-text-dim" },
               ].map((s) => (
                 <div key={s.label} className="text-center p-2 bg-bg border border-border rounded">
-                  <div className="text-lg font-bold text-text font-[family-name:var(--font-mono)]">{s.value}</div>
+                  <div className={`text-lg font-bold ${s.tone} font-[family-name:var(--font-mono)]`}>{s.value}</div>
                   <div className="text-xs text-text-muted">{s.label}</div>
                 </div>
               ))}
             </div>
+
+            {result.sourceTier && (
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-text-muted">Source tier</span>
+                <span className={`px-2 py-0.5 rounded font-bold uppercase tracking-wider font-[family-name:var(--font-mono)] ${
+                  result.sourceTier === "primary"
+                    ? "bg-success/10 text-success border border-success/30"
+                    : result.sourceTier === "secondary"
+                      ? "bg-gold/10 text-gold border border-gold/30"
+                      : "bg-surface-2 text-text-dim border border-border"
+                }`}>
+                  {result.sourceTier}
+                </span>
+                {result.sourceTier !== "primary" && (
+                  <span className="text-text-dim">
+                    not a recognised authority domain, data points are flagged accordingly
+                  </span>
+                )}
+              </div>
+            )}
+
+            {(result.rejectedUnverified ?? 0) > 0 && (
+              <div className="p-3 bg-danger-soft border border-danger/30 rounded space-y-2">
+                <p className="text-xs font-semibold text-danger">
+                  {result.rejectedUnverified} data point{result.rejectedUnverified === 1 ? "" : "s"} rejected: the quoted evidence could not be found verbatim in the source text.
+                </p>
+                {result.rejections?.length > 0 && (
+                  <div className="space-y-1">
+                    {result.rejections.map((r: any, i: number) => (
+                      <div key={i} className="flex items-center gap-2 text-[11px] font-[family-name:var(--font-mono)]">
+                        <span className="text-text-muted truncate max-w-[240px]">{r.indicator}</span>
+                        <span className="text-text-dim">·</span>
+                        <span className="text-danger">{r.reason.replace(/_/g, " ")}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             {result.preview?.length > 0 && (
               <div>
                 <p className="text-xs text-text-muted uppercase tracking-wider mb-2 font-[family-name:var(--font-mono)]">Preview</p>
