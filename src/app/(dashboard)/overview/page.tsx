@@ -1,4 +1,4 @@
-import { Shield, Cpu, FileCheck, AlertTriangle, Radio, Zap, ArrowRight, Scale, Network } from "lucide-react";
+import { Shield, Cpu, FileCheck, AlertTriangle, Radio, Zap, ArrowRight, Scale, Network, Upload, Settings } from "lucide-react";
 import Link from "next/link";
 import { sql } from "drizzle-orm";
 import { createClient } from "@/lib/supabase/server";
@@ -242,12 +242,13 @@ export default async function OverviewPage() {
 
       <div>
         <p style={LABEL}>Your workspace</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {[
             { label: "AI Systems", value: "0", icon: Cpu, color: "#4f7cff", bg: "rgba(79,124,255,0.1)", border: "rgba(79,124,255,0.2)", href: "/systems" },
             { label: "FRIA Required", value: "0", icon: AlertTriangle, color: "#e8b84b", bg: "rgba(232,184,75,0.1)", border: "rgba(232,184,75,0.2)", href: "/systems" },
             { label: "Assessments", value: "0", icon: FileCheck, color: "#5ce8a0", bg: "rgba(92,232,160,0.1)", border: "rgba(92,232,160,0.2)", href: "/assessments" },
             { label: "Compliance Score", value: "—", icon: Shield, color: "#a07cff", bg: "rgba(160,124,255,0.1)", border: "rgba(160,124,255,0.2)", href: "/assessments" },
+            { label: "Data Ingestion", value: "→", icon: Settings, color: "#8ba8c8", bg: "rgba(139,168,200,0.1)", border: "rgba(139,168,200,0.2)", href: "/settings" },
           ].map((stat) => (
             <Link key={stat.label} href={stat.href} style={{ textDecoration: "none" }}>
               <div style={{ background: "#0f2040", border: "1px solid #1e3a5f", borderRadius: 12, padding: "20px 20px" }} className="hover:border-border-accent transition-colors">
@@ -284,11 +285,23 @@ export default async function OverviewPage() {
             </p>
           </div>
         </div>
-        <Link href="/rights-graph/fria-gap" style={{ textDecoration: "none" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 20px", background: "#4f7cff", borderRadius: 8, color: "#ffffff", fontSize: 14, fontWeight: 500 }}>
-            See the gap <ArrowRight style={{ width: 16, height: 16 }} />
-          </div>
-        </Link>
+        <div className="flex items-center gap-2 flex-wrap">
+          <Link href="/settings" style={{ textDecoration: "none" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 18px", background: "transparent", border: "1px solid #1e3a5f", borderRadius: 8, color: "#8ba8c8", fontSize: 14, fontWeight: 500 }}>
+              <Upload style={{ width: 15, height: 15 }} /> Ingest a document
+            </div>
+          </Link>
+          <Link href="/systems" style={{ textDecoration: "none" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 18px", background: "transparent", border: "1px solid #1e3a5f", borderRadius: 8, color: "#8ba8c8", fontSize: 14, fontWeight: 500 }}>
+              Register a system
+            </div>
+          </Link>
+          <Link href="/rights-graph/fria-gap" style={{ textDecoration: "none" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "12px 20px", background: "#4f7cff", borderRadius: 8, color: "#ffffff", fontSize: 14, fontWeight: 500 }}>
+              See the gap <ArrowRight style={{ width: 16, height: 16 }} />
+            </div>
+          </Link>
+        </div>
       </div>
 
     </div>
