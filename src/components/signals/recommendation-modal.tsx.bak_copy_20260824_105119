@@ -246,7 +246,7 @@ export function RecommendationModal({ alert, onClose }: Props) {
             />
             <Field
               label="Deadline"
-              placeholder="e.g. 90 days / Before 2 December 2027 / Immediate"
+              placeholder="e.g. 90 days / Before August 2, 2026 / Immediate"
               value={draft?.deadline ?? ""}
               onChange={(v) => setDraft((d) => d ? { ...d, deadline: v } : d)}
             />

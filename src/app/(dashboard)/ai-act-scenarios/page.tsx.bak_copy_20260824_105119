@@ -24,7 +24,7 @@ const WEIGHT_COLOR: Record<string, string> = {
   majority: "#34d399", minority: "#e8b84b", contested: "#ff5c5c", emerging: "#4f7cff",
 };
 const LIKELIHOOD_LABEL: Record<string, string> = {
-  baseline: "Baseline", "in-force": "In force", contingent: "Contingent risk", interpretive: "Interpretive",
+  baseline: "Baseline", "agreed-but-pending": "Agreed · pending adoption", contingent: "Contingent risk", interpretive: "Interpretive",
 };
 
 export default function ScenarioPage() {
@@ -87,7 +87,7 @@ export default function ScenarioPage() {
           Don&apos;t just track the AI Act. Model how it could play out for <em>your</em> system.
         </h1>
         <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 760, marginBottom: 36 }}>
-          The Digital Omnibus has been in force since 27 July 2026 and the high-risk dates are now fixed. The open question is no longer when, but whether your system is in scope, who owes a fundamental-rights assessment, and how strictly your national authority will read it. Describe your system and Aegis projects the plausible regulatory futures, your deadline, your exposure, and where the experts diverge. Every output is sourced. None of it is legal advice.
+          The Digital Omnibus left every deployer with the same question: prepare for August 2026 or December 2027 — and what happens if you bet wrong? Describe your system and Aegis projects the plausible regulatory futures, your real deadline, your exposure, and where even the experts disagree. Every output is sourced. None of it is legal advice.
         </p>
 
         {/* INPUT */}
