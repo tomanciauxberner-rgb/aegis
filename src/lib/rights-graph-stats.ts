@@ -12,6 +12,10 @@ export interface RightsGraphStats {
   sources: number;
   positions: number;
   divergingTopics: number;
+  positionsPrimary: number;
+  positionsAnchored: number;
+  incidents: number;
+  incidentsLinked: number;
 }
 
 type Row = Record<string, unknown>;
@@ -37,14 +41,41 @@ export async function getRightsGraphStats(): Promise<RightsGraphStats | null> {
     const linkRows = await db.execute(sql`SELECT COUNT(*)::int AS links FROM rg_system_rights`);
     const sourceRows = await db.execute(sql`SELECT COUNT(*)::int AS sources FROM rg_sources`);
 
+    // Divergence is counted from the controlled authority list, restricted to kinds
+    // that actually are authorities. A regulated entity stating its own position is
+    // displayed but never counted. This must stay identical to the queries in
+    // /api/rights-graph/divergence and /api/rights-graph/exposure so the three
+    // surfaces never report different figures for the same data.
     const divRows = await db.execute(sql`
       SELECT COUNT(*)::int AS positions,
+             COUNT(*) FILTER (WHERE source_tier = 'primary')::int AS positions_primary,
+             COUNT(*) FILTER (WHERE anchor_quote IS NOT NULL)::int AS positions_anchored,
              (SELECT COUNT(*) FROM (
-                SELECT topic FROM rg_positions GROUP BY topic HAVING COUNT(DISTINCT authority) >= 2
+                SELECT p.topic
+                FROM rg_positions p
+                JOIN rg_authorities a ON a.code = p.authority_code
+                WHERE a.kind IN ('eu_body','national_dpa','sector_regulator','court')
+                GROUP BY p.topic
+                HAVING COUNT(DISTINCT p.authority_code) >= 2
              ) d)::int AS diverging_topics
       FROM rg_positions
     `);
     const dv = (divRows as unknown as Row[])[0] ?? {};
+
+    let incidents = 0;
+    let incidentsLinked = 0;
+    try {
+      const incRows = await db.execute(sql`
+        SELECT COUNT(*)::int AS total,
+               COUNT(*) FILTER (WHERE system_id IS NOT NULL)::int AS linked
+        FROM rg_incidents
+      `);
+      const inc = (incRows as unknown as Row[])[0] ?? {};
+      incidents = Number(inc.total ?? 0);
+      incidentsLinked = Number(inc.linked ?? 0);
+    } catch {
+      // rg_incidents may not exist yet in every environment; counters stay at zero.
+    }
 
     const highRisk = Number(s.high_risk ?? 0);
     const knownFria = Number(s.high_risk_with_fria ?? 0);
@@ -60,6 +91,10 @@ export async function getRightsGraphStats(): Promise<RightsGraphStats | null> {
       sources: Number((sourceRows as unknown as Row[])[0]?.sources ?? 0),
       positions: Number(dv.positions ?? 0),
       divergingTopics: Number(dv.diverging_topics ?? 0),
+      positionsPrimary: Number(dv.positions_primary ?? 0),
+      positionsAnchored: Number(dv.positions_anchored ?? 0),
+      incidents,
+      incidentsLinked,
     };
   } catch (e) {
     console.error("[rights-graph-stats]", e);
