@@ -55,53 +55,13 @@ const MAP_INDICATORS = [
   { code: "disability_violence_institutions", label: "Violence in institutions — Disabilities (2025)", population: "disabilities", topic: "discrimination" },
 ];
 
-const INCIDENTS = [
-  {
-    id: "NL-SYRI", country: "NL", flag: "🇳🇱",
-    title: "SyRI welfare fraud system ruled rights violation",
-    sector: "Social benefits", groups: ["Migrants", "Low-income"],
-    severity: "critical" as const, date: "Feb 2020",
-    summary: "District Court of The Hague ruled the Dutch SyRI profiling system violated Article 8 ECHR. Disproportionately targeted low-income and migrant neighborhoods.",
-    source: "AlgorithmWatch / District Court The Hague",
-    url: "https://algorithmwatch.org/en/syri-case-the-hague/",
-  },
-  {
-    id: "FR-CAF", country: "FR", flag: "🇫🇷",
-    title: "CAF algorithm flags 13M households — bias against disabled & single mothers",
-    sector: "Social benefits", groups: ["Disabilities", "Women"],
-    severity: "critical" as const, date: "Jun 2023",
-    summary: "France's family benefits authority used an AI scoring system biased against people with disabilities, single mothers, and low-income individuals.",
-    source: "AlgorithmWatch / Lighthouse Reports",
-    url: "https://algorithmwatch.org/en/press-release-reporting-form-collect-cases/",
-  },
-  {
-    id: "FR-META", country: "FR", flag: "🇫🇷",
-    title: "Facebook job ads algorithm ruled discriminatory by Défenseur des Droits",
-    sector: "Employment", groups: ["Women"],
-    severity: "high" as const, date: "Mar 2024",
-    summary: "Meta's ad distribution algorithm showed job ads to heavily gender-skewed audiences without advertiser intent, reinforcing occupational stereotypes.",
-    source: "Défenseur des Droits (France)",
-    url: "https://www.defenseurdesdroits.fr/",
-  },
-  {
-    id: "PL-UNEMPLOYMENT", country: "PL", flag: "🇵🇱",
-    title: "Poland unemployment scoring system scrapped after discrimination concerns",
-    sector: "Employment", groups: ["Women", "Migrants"],
-    severity: "high" as const, date: "Apr 2019",
-    summary: "AI-based unemployment scoring systematically disadvantaged women and migrants in allocating employment support resources.",
-    source: "AlgorithmWatch",
-    url: "https://algorithmwatch.org/en/poland-government-to-scrap-controversial-unemployment-scoring-system/",
-  },
-  {
-    id: "NL-CHILDCARE", country: "NL", flag: "🇳🇱",
-    title: "Dutch childcare benefits scandal — algorithmic mass fraud accusations",
-    sector: "Social benefits", groups: ["Migrants", "African descent"],
-    severity: "critical" as const, date: "2019–2021",
-    summary: "Dutch tax authority's algorithm falsely accused thousands of families of fraud, disproportionately targeting dual nationality and migrant families.",
-    source: "Amnesty International / Parliamentary Inquiry",
-    url: "https://www.amnesty.org/en/documents/eur35/4286/2021/en/",
-  },
-];
+interface Incident {
+  id: string; country: string; flag: string; title: string; summary: string;
+  sector: string; groups: string[]; severity: string; date: string;
+  source: string; url: string;
+  sourceTier: string | null; provenance: string | null;
+  systemId: string | null; systemName: string | null;
+}
 
 const SEVERITY_BADGE: Record<string, string> = {
   critical: "text-danger bg-danger-soft border border-danger/30",
@@ -355,7 +315,15 @@ export default function SignalsPage() {
     if (!countryCode) setBriefingOpen(false);
   }, [countryCode]);
 
-  const filteredIncidents = INCIDENTS.filter((inc) => {
+  const [incidents, setIncidents] = useState<Incident[]>([]);
+  useEffect(() => {
+    fetch("/api/rights-graph/incidents")
+      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+      .then((d) => setIncidents(d.incidents ?? []))
+      .catch(() => setIncidents([]));
+  }, []);
+
+  const filteredIncidents = incidents.filter((inc) => {
     if (countryCode && inc.country !== countryCode) return false;
     return true;
   });
@@ -571,7 +539,7 @@ export default function SignalsPage() {
               </h2>
             </div>
             <span className="text-base text-text-dim font-[family-name:var(--font-mono)]">
-              {filteredIncidents.length} / {INCIDENTS.length}
+              {filteredIncidents.length} / {incidents.length}
             </span>
           </div>
 
@@ -604,7 +572,24 @@ export default function SignalsPage() {
                     </a>
                   </div>
                 </div>
-                <p className="text-base text-text-dim mt-2 font-[family-name:var(--font-mono)]">Source: {inc.source}</p>
+                <div className="flex items-center gap-2 flex-wrap mt-2">
+                  <p className="text-base text-text-dim font-[family-name:var(--font-mono)]">Source: {inc.source}</p>
+                  {inc.sourceTier && (
+                    <span className={cn(
+                      "px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider",
+                      inc.sourceTier === "primary"
+                        ? "bg-success/10 text-success border border-success/30"
+                        : "bg-gold/10 text-gold border border-gold/30",
+                    )}>
+                      {inc.sourceTier === "primary" ? "Primary source" : "Secondary source"}
+                    </span>
+                  )}
+                  {inc.systemName && (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-accent/10 text-accent border border-accent/30">
+                      In the Rights Graph: {inc.systemName}
+                    </span>
+                  )}
+                </div>
               </div>
             ))}
 
