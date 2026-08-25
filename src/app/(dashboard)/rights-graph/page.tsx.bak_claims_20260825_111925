@@ -26,7 +26,6 @@ const PROV_META: Record<string, { label: string; color: string }> = {
   verified: { label: "Verified", color: "#34d399" },
   expert_validated: { label: "Expert-validated", color: "#4f7cff" },
   community: { label: "Community — unverified", color: "#e8b84b" },
-  secondary_sourced: { label: "Secondary source", color: "#e8b84b" },
 };
 
 export default function RightsGraphPage() {
@@ -107,7 +106,7 @@ export default function RightsGraphPage() {
           <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 760, marginBottom: 16 }}>
             Aegis provides the technology — a rigorous, sourced, living graph of AI systems and the rights they touch. What it can&apos;t do alone is see every system deployed on the ground across 27 Member States. That&apos;s where you come in. If you know of a real AI deployment that belongs here — with a primary source — you can add it. Every contribution is reviewed before it&apos;s marked verified.
           </p>
-          <Link href="/register" style={{ display: "inline-block", padding: "11px 22px", fontSize: 14, fontWeight: 600, background: "#4f7cff", color: "#fff", borderRadius: 9, textDecoration: "none" }}>
+          <Link href="/" style={{ display: "inline-block", padding: "11px 22px", fontSize: 14, fontWeight: 600, background: "#4f7cff", color: "#fff", borderRadius: 9, textDecoration: "none" }}>
             Request contributor access →
           </Link>
         </div>

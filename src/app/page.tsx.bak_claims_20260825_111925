@@ -39,7 +39,7 @@ const USE_CASES = [
     title: "Find where regulators contradict each other",
     steps: [
       "Pick a regulatory question — e.g. lawful basis for AI-assisted credit scoring",
-      "Aegis surfaces the positions on record, from the Commission, the EDPB, the EDPS and national authorities",
+      "Aegis surfaces every on-record position: Commission, EDPB, EDPS, national authorities",
       "Each position linked to its source document, divergences flagged explicitly",
     ],
     outcome: "The regulatory contradictions that didn't exist in one place before — sourced and comparable.",
@@ -79,7 +79,7 @@ const USE_CASES = [
     steps: [
       "Enter a deployed EU system — e.g. a border screening tool or HR scoring platform",
       "Aegis surfaces the fundamental rights it touches, documented incidents, and known FRIA status",
-      "Cross-references regulatory positions and binding case law by sector, each node carrying its source",
+      "Cross-references regulatory positions and binding case law by sector — every node sourced",
     ],
     outcome: "A sourced picture of a system's rights exposure in minutes, not weeks of desk research.",
     link: "/rights-graph",
@@ -104,10 +104,10 @@ const USE_CASES = [
     title: "Pull binding case law for your deployment sector",
     steps: [
       "Select a sector — recruitment, healthcare, law enforcement, education, essential services",
-      "Aegis returns the rulings on record: CJEU, ECHR, DPA decisions and national courts",
+      "Aegis returns every relevant ruling: CJEU, ECHR, DPA decisions and national courts",
       "Each case shows the holding and binding force — persuasive or mandatory — matched to your context",
     ],
-    outcome: "Jurisprudence matched by sector, each ruling carrying its source.",
+    outcome: "The jurisprudence your FRIA needs, matched by sector, every ruling sourced.",
     link: "/rights-graph/precedents",
   },
   {
@@ -120,7 +120,7 @@ const USE_CASES = [
       "Drill into any country: DSA Art. 28 enforcement actions, declared age-of-consent gaps, risk atlas",
       "One-click path to a structured FRIA first draft for any flagged EdTech system",
     ],
-    outcome: "A composite EU-27 ranking of children's digital rights, built from primary sources.",
+    outcome: "The only composite EU-27 ranking of children's digital rights — built from primary sources.",
     link: "/children",
   },
   {
@@ -891,7 +891,7 @@ export default async function HomePage() {
             {[
               { value: "27", label: "EU Member States" },
               { value: "Layer", label: "systems × rights × authorities × case law" },
-              { value: "Tiered", label: "each node carries its source tier" },
+              { value: "Sourced", label: "every node, primary sources" },
               { value: "Open", label: "Non-profit · AGPL" },
             ].map((s) => (
               <div key={s.label} className="stat-item">
@@ -967,7 +967,7 @@ export default async function HomePage() {
           <div className="block-section">
             <p className="block-label">Where Aegis is going</p>
             <p className="block-intro">
-              Aegis is governance infrastructure, not a product — and its foundation is the Unified Rights Graph: real AI systems, the rights they touch, and where regulators diverge, each node carrying its source and its source tier. On that foundation run the AI Act reasoning engine and a children&apos;s-rights vertical covered in depth. The same layer extends across every high-risk domain the EU AI Act regulates. <strong>The community helps prioritise what comes next.</strong>
+              Aegis is governance infrastructure, not a product — and its foundation is the Unified Rights Graph: real AI systems, the rights they touch, and where regulators diverge, every node sourced. On that foundation run the AI Act reasoning engine and a children&apos;s-rights vertical covered in depth. The same layer extends across every high-risk domain the EU AI Act regulates. <strong>The community helps prioritise what comes next.</strong>
             </p>
             <GraphStatsBand stats={stats} />
             <div className="vert-list">

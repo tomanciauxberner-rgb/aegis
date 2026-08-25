@@ -92,7 +92,7 @@ export default function PrecedentsPage() {
           <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(255,255,255,0.7)", maxWidth: 760, marginBottom: 16 }}>
             Precedent is what turns a risk into a known quantity. Each sourced ruling added — CJEU, ECHR, a DPA decision, a national judgment — sharpens the picture for every system in its sector. That is exactly the kind of contribution that compounds.
           </p>
-          <Link href="/register" style={{ display: "inline-block", padding: "11px 22px", fontSize: 14, fontWeight: 600, background: "#a06bff", color: "#fff", borderRadius: 9, textDecoration: "none" }}>
+          <Link href="/" style={{ display: "inline-block", padding: "11px 22px", fontSize: 14, fontWeight: 600, background: "#a06bff", color: "#fff", borderRadius: 9, textDecoration: "none" }}>
             Request contributor access →
           </Link>
         </div>
