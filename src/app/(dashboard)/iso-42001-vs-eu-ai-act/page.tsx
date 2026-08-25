@@ -196,7 +196,25 @@ export default function Iso42001VsAiActPage() {
               Regulation (EU) 2024/1689
             </a>{" "}
             (Arts. 9–14, 11 + Annex IV, 43, 48, 49, 71, 72, 73), and published control-by-control crosswalk analyses
-            (Glacis, Modulos, prEN 18286 Annex D). Sources verified June 2026.
+            (Glacis, Modulos, prEN 18286 Annex D). Crosswalk sources verified June 2026.
+          </p>
+          <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.65)", marginBottom: 12 }}>
+            <strong style={{ color: "#e8b84b" }}>Amendment status.</strong>{" "}
+            <a href="http://data.europa.eu/eli/reg/2026/1744/oj" target="_blank" rel="noopener noreferrer" style={aStyle}>
+              Regulation (EU) 2026/1744
+            </a>{" "}
+            (Digital Omnibus on AI) has been in force since 27 July 2026 and amends Regulation (EU) 2024/1689.
+            Among the articles mapped on this page, it affects Article 11 and Annex IV (documentation relief for
+            smaller companies), Article 43 (streamlined conformity assessment) and Article 49 (simplified
+            registration record). It also defers the application of Chapter III Sections 1 to 3 to 2 December 2027
+            for stand-alone Annex III systems and to 2 August 2028 for Annex I systems.
+          </p>
+          <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.65)", marginBottom: 12 }}>
+            The architecture the crosswalk relies on is unchanged: the same four risk classes and the same
+            high-risk requirement structure. The clause-by-clause mappings below have <strong>not yet been
+            re-verified against the consolidated text</strong> as amended. We state this rather than restate a
+            verification date that would imply work we have not done. Where a mapping turns on documentation
+            volume, conformity route or registration mechanics, check the consolidated text before relying on it.
           </p>
           <p style={{ fontSize: 12, lineHeight: 1.6, color: "rgba(255,255,255,0.5)", fontStyle: "italic" }}>{COVERAGE_DISCLAIMER}</p>
         </div>
