@@ -3,13 +3,17 @@ import type { RightsGraphStats } from "@/lib/rights-graph-stats";
 export function GraphStatsBand({ stats }: { stats: RightsGraphStats | null }) {
   if (!stats) return null;
 
-  const items = [
+  const anchored = stats.positions > 0 && stats.positionsAnchored !== undefined;
+
+  const items: { v: number | string; l: string }[] = [
     { v: stats.systems, l: "AI systems mapped" },
     { v: stats.domains, l: "Annex III domains" },
     { v: stats.countries, l: "countries" },
-    { v: stats.sources, l: "primary sources" },
     { v: stats.friaGap, l: "high-risk, no publicly known FRIA" },
     { v: stats.divergingTopics, l: "topics where regulators diverge" },
+    anchored
+      ? { v: `${stats.positionsAnchored}/${stats.positions}`, l: "positions anchored to the regulator's own text" }
+      : { v: stats.sources, l: "sources on record" },
   ];
 
   return (
@@ -23,7 +27,8 @@ export function GraphStatsBand({ stats }: { stats: RightsGraphStats | null }) {
         ))}
       </div>
       <p className="gsb-note">
-        Counts from the Rights Graph. Fully sourced — the figures grow as verified contributions are added, never by scraping.
+        Counts from the Rights Graph. Each entry carries its source and its source tier, and a position counts as anchored
+        only when it quotes the regulator&apos;s own text verbatim. The figures grow as verified contributions are added, never by scraping.
       </p>
       <style>{`
         .gsb-wrap { margin: 0 0 28px; }
