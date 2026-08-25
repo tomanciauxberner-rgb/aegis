@@ -22,8 +22,7 @@ export async function GET(request: NextRequest) {
       SELECT s.id, s.name, s.annex_area, s.risk_tier, s.countries, s.legal_basis,
              s.affects_children, s.affects_migrants,
              p.name AS provider,
-             (SELECT COUNT(*)::int FROM rg_sources src WHERE src.entity_type = 'system' AND src.entity_id = s.id) AS sources,
-             s.provenance::text AS provenance
+             (SELECT COUNT(*)::int FROM rg_sources src WHERE src.entity_type = 'system' AND src.entity_id = s.id) AS sources
       FROM rg_systems s
       LEFT JOIN rg_providers p ON p.id = s.provider_id
       WHERE s.risk_tier IN ('high_risk','prohibited') AND s.fria_known = FALSE
@@ -33,27 +32,16 @@ export async function GET(request: NextRequest) {
     `);
 
     // Topics where regulators diverge (>= 2 authorities).
-    // Counts only entries mapped to the controlled authority list, and only kinds
-    // that actually are authorities. Regulated entities (e.g. a deployer stating
-    // its own position) are shown on the divergence page but never counted here,
-    // so this figure matches /rights-graph/divergence exactly.
     const divRows = await db.execute(sql`
-      SELECT p.topic,
-             COUNT(DISTINCT p.authority_code)::int AS authorities,
-             COUNT(*) FILTER (WHERE p.anchor_quote IS NOT NULL)::int AS anchored,
-             COUNT(*)::int AS positions
-      FROM rg_positions p
-      JOIN rg_authorities a ON a.code = p.authority_code
-      WHERE a.kind IN ('eu_body','national_dpa','sector_regulator','court')
-      GROUP BY p.topic
-      HAVING COUNT(DISTINCT p.authority_code) >= 2
+      SELECT topic, COUNT(DISTINCT authority)::int AS authorities
+      FROM rg_positions
+      GROUP BY topic
+      HAVING COUNT(DISTINCT authority) >= 2
       ORDER BY authorities DESC
     `);
     const divergences = (divRows as unknown as Array<Record<string, unknown>>).map((r) => ({
       topic: String(r.topic),
       authorities: Number(r.authorities ?? 0),
-      anchored: Number(r.anchored ?? 0),
-      positions: Number(r.positions ?? 0),
     }));
 
     const systems = (sysRows as unknown as Array<Record<string, unknown>>).map((r) => ({
@@ -67,7 +55,6 @@ export async function GET(request: NextRequest) {
       affectsChildren: !!r.affects_children,
       affectsMigrants: !!r.affects_migrants,
       sources: Number(r.sources ?? 0),
-      provenance: r.provenance ? String(r.provenance) : null,
     }));
 
     return NextResponse.json(
