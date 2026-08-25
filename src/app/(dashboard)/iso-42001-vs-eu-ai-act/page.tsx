@@ -204,17 +204,44 @@ export default function Iso42001VsAiActPage() {
               Regulation (EU) 2026/1744
             </a>{" "}
             (Digital Omnibus on AI) has been in force since 27 July 2026 and amends Regulation (EU) 2024/1689.
-            Among the articles mapped on this page, it affects Article 11 and Annex IV (documentation relief for
-            smaller companies), Article 43 (streamlined conformity assessment) and Article 49 (simplified
-            registration record). It also defers the application of Chapter III Sections 1 to 3 to 2 December 2027
-            for stand-alone Annex III systems and to 2 August 2028 for Annex I systems.
+            The statements below were checked article by article against the{" "}
+            <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng" target="_blank" rel="noopener noreferrer" style={aStyle}>
+              consolidated text of 27 July 2026
+            </a>{" "}
+            (CELEX 02024R1689-20260727) on 25 August 2026.
           </p>
+          <ul style={{ fontSize: 13, lineHeight: 1.7, color: "rgba(255,255,255,0.65)", marginBottom: 12, paddingLeft: 18 }}>
+            <li>
+              <strong>Article 11 — amended.</strong> The second subparagraph of Article 11(1) was replaced. SMEs,
+              start-ups and small mid-cap enterprises may now provide the Annex IV elements in a simplified form,
+              which notified bodies must accept. The first subparagraph, Article 11(2) and (3), and the requirement
+              that the documentation contain at a minimum the elements of Annex IV are unchanged.
+            </li>
+            <li>
+              <strong>Article 43 — not amended.</strong> The single-application and unified assessment procedure for
+              conformity assessment bodies was inserted at Article 28(8) and (9), not in Article 43.
+            </li>
+            <li>
+              <strong>Article 49 — obligation retained.</strong> Article 6(4) is unchanged and still refers providers
+              who consider an Annex III system not to be high-risk to the registration obligation in Article 49(2).
+            </li>
+            <li>
+              <strong>Article 10 — paragraph 5 deleted.</strong> Processing of special categories of personal data for
+              bias detection and correction moved to the new Article 4a, which also extends it beyond high-risk systems.
+            </li>
+            <li>
+              <strong>New Article 2(13).</strong> For Annex I high-risk systems, the application of Articles 9 to 15
+              and 17 to 25 may be limited where Union harmonisation legislation provides an equivalent or higher level
+              of protection. The Commission is to specify the scope by delegated act by 2 August 2027.
+            </li>
+          </ul>
           <p style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.65)", marginBottom: 12 }}>
-            The architecture the crosswalk relies on is unchanged: the same four risk classes and the same
-            high-risk requirement structure. The clause-by-clause mappings below have <strong>not yet been
-            re-verified against the consolidated text</strong> as amended. We state this rather than restate a
-            verification date that would imply work we have not done. Where a mapping turns on documentation
-            volume, conformity route or registration mechanics, check the consolidated text before relying on it.
+            The architecture the crosswalk relies on is unchanged: the same four risk classes and the same high-risk
+            requirement structure, so the clause-level alignments below hold. Two caveats: an SME or small mid-cap
+            using the simplified Annex IV form changes the documentary volume an ISO 42001 control has to support,
+            not the requirement itself; and for Annex I systems the delegated act under Article 2(13) may narrow which
+            of Articles 9 to 15 apply at all. Application also runs from 2 December 2027 for stand-alone Annex III
+            systems and 2 August 2028 for Annex I systems.
           </p>
           <p style={{ fontSize: 12, lineHeight: 1.6, color: "rgba(255,255,255,0.5)", fontStyle: "italic" }}>{COVERAGE_DISCLAIMER}</p>
         </div>
