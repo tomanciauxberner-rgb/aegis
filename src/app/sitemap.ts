@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
   const monthly: [string, number][] = [
     ["/iso-42001-vs-eu-ai-act", 0.9],
+    ["/research/police-facial-recognition", 0.9],
     ["/rights-graph/divergence", 0.7],
     ["/rights-graph/fria-gap", 0.7],
     ["/rights-graph/precedents", 0.7],
